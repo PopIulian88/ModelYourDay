@@ -1,8 +1,9 @@
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { Icon, Text } from "../components";
-import { IconAssets } from "../../resources";
+import { IconAssets, Images, Lottie, StringsRepo } from "../../resources";
 import { TextType } from "../../models";
 import { style } from "../../styles";
+import LottieView from "lottie-react-native";
 
 export const Screen1 = () => {
   return (
@@ -11,6 +12,14 @@ export const Screen1 = () => {
         Open up App.tsx to start working on your app!
       </Text>
       <Icon name={IconAssets.check} size={60} color="red" />
+      <Text>{StringsRepo.yes}</Text>
+      {/*<Image source={Images.money} style={{ width: 200, height: 200 }} />*/}
+      <LottieView
+        style={{ height: 200, width: 300 }}
+        source={Lottie.lit}
+        autoPlay
+        loop
+      />
     </View>
   );
 };
