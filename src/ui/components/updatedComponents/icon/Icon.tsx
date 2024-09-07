@@ -1,8 +1,8 @@
 import { View } from "react-native";
-import { style } from "../../../styles";
-import { IconModel } from "../../../models";
+import { style } from "../../../../styles";
+import { IconModel } from "../../../../models";
 import { createIconSetFromIcoMoon } from "@expo/vector-icons";
-import iconSet from "../../../resources/icons/selection.json";
+import iconSet from "../../../../resources/icons/selection.json";
 
 const Icon = (props: IconModel) => {
   const Icon = createIconSetFromIcoMoon(iconSet, "IconsFont", "IconsFont.ttf");

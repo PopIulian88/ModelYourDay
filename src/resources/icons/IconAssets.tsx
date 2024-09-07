@@ -1,3 +1,14 @@
 export const IconAssets = {
-  checkSmall: "check_small",
+  send: "send",
+  lock: "lock",
+  lockSolid: "lock-solid",
+  check: "check",
+  pieChart: "pie-chart",
+  arrowBack: "arrow-back",
+  settings: "settings",
+  starEmpty: "star-empty",
+  arrowUpDown: "arrow-up-down",
+  arrowDown: "arrow-down",
+  circleUser: "circle-user",
+  mail: "mail",
 };

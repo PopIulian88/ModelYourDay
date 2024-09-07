@@ -1,3 +1,3 @@
 export const image = {
-  // exemple: require("./exemple.png"),
+  // exemple: require("./devegion.png"),
 };

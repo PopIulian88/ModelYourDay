@@ -10,7 +10,7 @@ export const WithExpoFonts: FC<{ children: ReactNode }> = ({ children }) => {
     "Montserrat-Regular": require("../resources/fonts/Montserrat-Regular.ttf"),
     "Montserrat-SemiBold": require("../resources/fonts/Montserrat-SemiBold.ttf"),
     "Montserrat-Bold": require("../resources/fonts/Montserrat-Bold.ttf"),
-    IconsFont: require("../resources/fonts/IconsFont.ttf"),
+    IconsFont: require("../resources/icons/IconsFont.ttf"),
   });
 
   return doneLoading ? children : null;
