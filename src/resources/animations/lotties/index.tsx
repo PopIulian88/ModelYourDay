@@ -7,7 +7,7 @@ export const Lottie = {
   dragon: require("./dragon.json"),
   chill: require("./chill.json"),
   sport: require("./sport.json"),
-  change: require("./change.json"),
-  fly: require("./fly.json"),
-  taco: require("./taco.json"),
+  influencer: require("./influencer.json"),
+  astronaut: require("./astronaut.json"),
+  pizza: require("./pizza.json"),
 };
