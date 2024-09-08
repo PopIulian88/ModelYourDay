@@ -15,10 +15,11 @@ export const Screen1 = () => {
       <Text>{StringsRepo.yes}</Text>
       {/*<Image source={Images.money} style={{ width: 200, height: 200 }} />*/}
       <LottieView
-        style={{ height: 200, width: 300 }}
+        style={{ height: 200, width: 200 }}
         source={Lottie.lit}
         autoPlay
         loop
+        renderMode={"SOFTWARE"}
       />
     </View>
   );
