@@ -1,12 +1,15 @@
-import { View } from "react-native";
+import { Button, View } from "react-native";
 import { Icon, Text } from "../../components";
 import { TextType } from "../../../models";
 import { style } from "../../../styles";
 import { IconAssets, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
 import { pageStyle } from "./pageStyle";
+import { rootActions, useAppDispatch } from "../../../redux";
 
 const AuthScreen = () => {
+  const dispatch = useAppDispatch();
+
   return (
     <View style={pageStyle.container}>
       <Text type={TextType.headingL} style={{ color: style.color.brown }}>
@@ -21,6 +24,10 @@ const AuthScreen = () => {
         autoPlay
         loop
         renderMode={"SOFTWARE"}
+      />
+      <Button
+        title={"Login"}
+        onPress={() => dispatch(rootActions.setIsLoggedIn(true))}
       />
     </View>
   );
