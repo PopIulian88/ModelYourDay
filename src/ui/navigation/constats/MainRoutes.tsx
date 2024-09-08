@@ -1,1 +1,3 @@
-export const MainRoutes = {};
+export const MainRoutes = {
+  home: "Home",
+};

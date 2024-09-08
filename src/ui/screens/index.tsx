@@ -1,3 +1,5 @@
-import { Screen1 } from "./Screen1";
+// AUTH
+export * from "./auth";
 
-export { Screen1 };
+// MAIN
+export * from "./home";

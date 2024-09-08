@@ -1,13 +1,14 @@
-import { Image, StyleSheet, View } from "react-native";
-import { Icon, Text } from "../components";
-import { IconAssets, Images, Lottie, StringsRepo } from "../../resources";
-import { TextType } from "../../models";
-import { style } from "../../styles";
+import { View } from "react-native";
+import { Icon, Text } from "../../components";
+import { TextType } from "../../../models";
+import { style } from "../../../styles";
+import { IconAssets, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
+import { pageStyle } from "./pageStyle";
 
-export const Screen1 = () => {
+const AuthScreen = () => {
   return (
-    <View style={styles.container}>
+    <View style={pageStyle.container}>
       <Text type={TextType.headingL} style={{ color: style.color.brown }}>
         Open up App.tsx to start working on your app!
       </Text>
@@ -24,12 +25,4 @@ export const Screen1 = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default AuthScreen;
