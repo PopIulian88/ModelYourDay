@@ -2,8 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { IRootSlice } from "./root/RootSlice";
-import { RootReducer } from "./root";
+import { RootReducer, IRootSlice } from "./root";
 
 //for backup - keep an eye on iOS
 // const transformCircular = createTransform(

@@ -1,7 +1,6 @@
 import { Button, View } from "react-native";
 import { Text } from "../../components";
-import { rootActions } from "../../../redux";
-import { useAppDispatch } from "../../../redux";
+import { rootActions, useAppDispatch } from "../../../redux";
 
 const HomeScreen = () => {
   const dispatch = useAppDispatch();
