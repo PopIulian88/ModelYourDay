@@ -1,34 +1,55 @@
 import { Button, View } from "react-native";
-import { Icon, Text } from "../../components";
+import { Text } from "../../components";
 import { TextType } from "../../../models";
 import { style } from "../../../styles";
-import { IconAssets, Lottie, StringsRepo } from "../../../resources";
+import { Lottie } from "../../../resources";
 import LottieView from "lottie-react-native";
 import { pageStyle } from "./pageStyle";
-import { rootActions, useAppDispatch } from "../../../redux";
+import { FIREBASE_AUTH } from "../../../backend";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const AuthScreen = () => {
-  const dispatch = useAppDispatch();
+  const signUp = async () => {
+    try {
+      const response = await createUserWithEmailAndPassword(
+        FIREBASE_AUTH,
+        "test@test.test",
+        "123456",
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const signIn = async () => {
+    try {
+      const response = await signInWithEmailAndPassword(
+        FIREBASE_AUTH,
+        "test@test.test",
+        "123456",
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <View style={pageStyle.container}>
       <Text type={TextType.headingL} style={{ color: style.color.brown }}>
-        Open up App.tsx to start working on your app!
+        Auth Screen
       </Text>
-      <Icon name={IconAssets.check} size={60} color="red" />
-      <Text>{StringsRepo.yes}</Text>
-      {/*<Image source={Images.money} style={{ width: 200, height: 200 }} />*/}
+      <Button title={"Register"} onPress={signUp} />
       <LottieView
-        style={{ height: 200, width: 200 }}
+        style={{ height: 100, width: 100 }}
         source={Lottie.lit}
         autoPlay
         loop
         renderMode={"SOFTWARE"}
       />
-      <Button
-        title={"Login"}
-        onPress={() => dispatch(rootActions.setIsLoggedIn(true))}
-      />
+      <Button title={"Login"} onPress={signIn} />
     </View>
   );
 };
