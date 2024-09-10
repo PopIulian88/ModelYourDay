@@ -1,25 +1,37 @@
-import OpenAI from "openai";
+import { AI_KEY } from "@env";
 
-export const handleRequest = async (prompt: string) => {
-  console.log(process.env.AI_KEY);
-  const openai = new OpenAI({
-    apiKey: process.env.AI_KEY || "",
-  });
-  console.log("AI STARTED");
-  const response = await openai.completions.create({
-    model: "gpt-3.5-turbo",
-    prompt: "You are a helpful assistant.",
-    //TODO: May need to chenge to this
-    // messages: [
-    //   {
-    //     role: "user",
-    //     content: {
-    //       type: "text",
-    //       text: "You are a helpful assistant.",
-    //     },
-    //   },
-    // ],
-  });
-  console.log("AI FINISHED: ", response.choices[0].text);
-  return response.choices[0].text;
+export const getPersonalityRequest = async (personality: string) => {
+  console.log("AI START PERSONALITY REQUEST");
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${AI_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-4-turbo-preview",
+        temperature: 0,
+        max_tokens: 100,
+        messages: [
+          // {
+          //   role: "system",
+          //   content: `You are a programmer`,
+          // },
+          {
+            role: "user",
+            content: `Descrie ${personality} in 2 cuvinte`,
+          },
+        ],
+      }),
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse.choices[0].message.content;
+  } catch (error) {
+    console.log("PERSONALITY REQUEST ERROR: ", error);
+    return "ERROR: SOMETHING WENT WRONG";
+  }
 };

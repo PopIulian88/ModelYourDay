@@ -1,3 +1,3 @@
-import { handleRequest } from "./openai";
+import { getPersonalityRequest } from "./openai";
 
-export { handleRequest };
+export const AI = { getPersonalityRequest };
