@@ -2,7 +2,8 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { RootReducer, IRootSlice } from "./root";
+import { RootReducer, IRootState } from "./root";
+import { IUserState, UserReducer } from "./user";
 
 //for backup - keep an eye on iOS
 // const transformCircular = createTransform(
@@ -29,12 +30,14 @@ const persistConfig = {
 
 // Complete this interface with any new created slices
 export interface IStore {
-  rootReducer: IRootSlice;
+  rootReducer: IRootState;
+  userReducer: IUserState;
 }
 
 // For each new created slice add it here
 const reducers = combineReducers({
   rootReducer: RootReducer,
+  userReducer: UserReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

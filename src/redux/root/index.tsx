@@ -1,6 +1,6 @@
-import RootReducer, { setIsLoggedIn, RootSlice, IRootSlice } from "./RootSlice";
+import RootReducer, { setIsLoggedIn, RootSlice, IRootState } from "./RootSlice";
 
-export { RootReducer, RootSlice, IRootSlice };
+export { RootReducer, RootSlice, IRootState };
 
 export const rootActions = {
   setIsLoggedIn,
