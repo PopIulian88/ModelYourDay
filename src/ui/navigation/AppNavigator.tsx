@@ -7,9 +7,9 @@ export const AppNavigator = () => {
   const rootState = useSelector((state: IStore) => state.rootReducer);
 
   const isLoggedIn = () => {
-    //TODO: Add logic after implement the redux
     return rootState.isLoggedIn;
   };
+
   return (
     <NavigationContainer>
       {isLoggedIn() ? <MainNavigator /> : <AuthNavigator />}

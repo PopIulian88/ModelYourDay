@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface IRootSlice {
+export interface IRootState {
   isLoggedIn: boolean;
   isLoading?: boolean;
 }
 
-const initialState: IRootSlice = {
+const initialState: IRootState = {
   isLoggedIn: false,
   isLoading: false,
 };
@@ -16,23 +16,13 @@ export const RootSlice = createSlice({
   reducers: {
     resetRoot: (state) => {
       state.isLoggedIn = false;
+      state.isLoading = false;
     },
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
   },
-  extraReducers(builder) {
-    // builder.addCase(getEX.fulfilled, (state, action) => {
-    //   state.exValue = action.payload;
-    //   state.isLoading = false;
-    // });
-    // builder.addCase(getEX.rejected, (state) => {
-    //   state.isLoading = false;
-    // });
-    // builder.addCase(getEX.pending, (state) => {
-    //   state.isLoading = true;
-    // });
-  },
+  extraReducers(builder) {},
 });
 
 export const { resetRoot, setIsLoggedIn } = RootSlice.actions;

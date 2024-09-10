@@ -1,33 +1,63 @@
-import { Button, View } from "react-native";
-import { Icon, Text } from "../../components";
+import { Button, TextInput, View } from "react-native";
+import { Text } from "../../components";
 import { TextType } from "../../../models";
 import { style } from "../../../styles";
-import { IconAssets, Lottie, StringsRepo } from "../../../resources";
+import { Lottie } from "../../../resources";
 import LottieView from "lottie-react-native";
 import { pageStyle } from "./pageStyle";
-import { rootActions, useAppDispatch } from "../../../redux";
+import { userActions, IStore, useAppDispatch } from "../../../redux";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const AuthScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();
+
+  const { isLoading } = useSelector((state: IStore) => state.userReducer);
 
   return (
     <View style={pageStyle.container}>
-      <Text type={TextType.headingL} style={{ color: style.color.brown }}>
-        Open up App.tsx to start working on your app!
-      </Text>
-      <Icon name={IconAssets.check} size={60} color="red" />
-      <Text>{StringsRepo.yes}</Text>
-      {/*<Image source={Images.money} style={{ width: 200, height: 200 }} />*/}
       <LottieView
-        style={{ height: 200, width: 200 }}
+        style={{ height: 100, width: 100 }}
         source={Lottie.lit}
         autoPlay
         loop
         renderMode={"SOFTWARE"}
       />
+      <Text type={TextType.headingL} style={{ color: style.color.brown }}>
+        Auth Screen
+      </Text>
+      <TextInput
+        value={email}
+        onChangeText={(r) => setEmail(r)}
+        autoCapitalize="none"
+        placeholder={"Email"}
+        style={{
+          width: "70%",
+          padding: 10,
+          borderColor: style.color.gray,
+          borderWidth: 1,
+        }}
+      />
+      <TextInput
+        value={password}
+        onChangeText={(r) => setPassword(r)}
+        placeholder={"Password"}
+        style={{
+          width: "70%",
+          padding: 10,
+          borderColor: style.color.gray,
+          borderWidth: 1,
+        }}
+      />
       <Button
         title={"Login"}
-        onPress={() => dispatch(rootActions.setIsLoggedIn(true))}
+        onPress={() => dispatch(userActions.login(email, password))}
+      />
+      <Button
+        title={"Register"}
+        onPress={() => dispatch(userActions.register(email, password))}
       />
     </View>
   );
