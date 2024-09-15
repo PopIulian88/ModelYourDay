@@ -72,16 +72,16 @@ export const getUserThunk = createAsyncThunk("user/getUser", async () => {
             age: response.val().age,
           } as UserType)
         : ({
-            username: "",
-            email: "",
+            username: "NULL",
+            email: "NULL",
             age: 0,
           } as UserType);
     });
   } catch (e) {
     console.error(e);
     return {
-      username: "",
-      email: "",
+      username: "NULL",
+      email: "NULL",
       age: 0,
     } as UserType;
   }
