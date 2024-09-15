@@ -1,11 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, registerThunk } from "./asyncThunks";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  getUserThunk,
+  loginThunk,
+  logoutThunk,
+  registerThunk,
+} from "./asyncThunks";
+import { UserType } from "../../models";
 
 export interface IUserState {
+  username?: string;
+  email?: string;
+  age?: number;
   isLoading?: boolean;
 }
 
 const initialState: IUserState = {
+  username: "username",
+  email: "email",
+  age: 0,
   isLoading: false,
 };
 
@@ -14,6 +26,9 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     resetUser: (state) => {
+      state.username = "";
+      state.email = "";
+      state.age = 0;
       state.isLoading = false;
     },
   },
@@ -37,6 +52,37 @@ const UserSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(loginThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    //Logout
+    builder.addCase(logoutThunk.fulfilled, (state, action) => {
+      state.username = "";
+      state.email = "";
+      state.age = 0;
+      state.isLoading = false;
+    });
+    builder.addCase(logoutThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(logoutThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    //Get User
+    builder.addCase(
+      getUserThunk.fulfilled,
+      (state, action: PayloadAction<UserType>) => {
+        state.username = action.payload.username;
+        state.email = action.payload.email;
+        state.age = action.payload.age;
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(getUserThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(getUserThunk.pending, (state) => {
       state.isLoading = true;
     });
   },
