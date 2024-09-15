@@ -5,16 +5,15 @@ import { style } from "../../../styles";
 import { Lottie } from "../../../resources";
 import LottieView from "lottie-react-native";
 import { pageStyle } from "./pageStyle";
-import { userActions, IStore, useAppDispatch } from "../../../redux";
-import { useSelector } from "react-redux";
+import { userActions, useAppDispatch } from "../../../redux";
 import { useState } from "react";
 
 const AuthScreen = () => {
-  const [email, setEmail] = useState("");
+  const [myEmail, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [age, setAge] = useState(0);
   const dispatch = useAppDispatch();
-
-  const { isLoading } = useSelector((state: IStore) => state.userReducer);
 
   return (
     <View style={pageStyle.container}>
@@ -29,7 +28,18 @@ const AuthScreen = () => {
         Auth Screen
       </Text>
       <TextInput
-        value={email}
+        value={username}
+        onChangeText={(r) => setUsername(r)}
+        placeholder={"Username"}
+        style={{
+          width: "70%",
+          padding: 10,
+          borderColor: style.color.gray,
+          borderWidth: 1,
+        }}
+      />
+      <TextInput
+        value={myEmail}
         onChangeText={(r) => setEmail(r)}
         autoCapitalize="none"
         placeholder={"Email"}
@@ -51,13 +61,25 @@ const AuthScreen = () => {
           borderWidth: 1,
         }}
       />
+
       <Button
         title={"Login"}
-        onPress={() => dispatch(userActions.login(email, password))}
+        onPress={() => dispatch(userActions.login(myEmail, password))}
       />
       <Button
         title={"Register"}
-        onPress={() => dispatch(userActions.register(email, password))}
+        onPress={() =>
+          dispatch(
+            userActions.register(
+              {
+                email: myEmail,
+                username: username,
+                age: age,
+              },
+              password,
+            ),
+          )
+        }
       />
     </View>
   );

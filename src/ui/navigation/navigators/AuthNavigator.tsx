@@ -1,6 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { AuthScreen } from "../../screens";
+import { AuthScreen, Loading } from "../../screens";
 import { Routes } from "../constats";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../redux";
 
 const Stack = createStackNavigator<AuthNavigatorProps>();
 
@@ -9,7 +11,9 @@ export type AuthNavigatorProps = {
 };
 
 export const AuthNavigator = () => {
-  return (
+  const { isLoading } = useSelector((state: IStore) => state.userReducer);
+
+  return !isLoading ? (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         // @ts-ignore
@@ -17,5 +21,7 @@ export const AuthNavigator = () => {
         component={AuthScreen}
       />
     </Stack.Navigator>
+  ) : (
+    <Loading />
   );
 };
