@@ -25,6 +25,8 @@ const UserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    //TODO: Because this is "" and if on get FAIL is "NULL", we can fetch good the user data
+    // In the MainNavigator.tsx it fetching twice, because the email is "" and then is "NULL"
     resetUser: (state) => {
       state.username = "";
       state.email = "";
