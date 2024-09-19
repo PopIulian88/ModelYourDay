@@ -33,6 +33,9 @@ const UserSlice = createSlice({
       state.age = 0;
       state.isLoading = false;
     },
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers(builder) {
     //Register
@@ -90,5 +93,5 @@ const UserSlice = createSlice({
   },
 });
 
-export const { resetUser } = UserSlice.actions;
+export const { resetUser, setIsLoading } = UserSlice.actions;
 export default UserSlice.reducer;
