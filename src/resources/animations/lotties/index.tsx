@@ -10,4 +10,5 @@ export const Lottie = {
   influencer: require("./influencer.json"),
   astronaut: require("./astronaut.json"),
   pizza: require("./pizza.json"),
+  error: require("./error.json"),
 };

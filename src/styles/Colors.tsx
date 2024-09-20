@@ -14,4 +14,7 @@ export const color = {
   black: "#000000",
   gray: "#898989",
   white: "#FFFFFF",
+
+  background: "#FFF5EA",
+  backgroundFade: "#00000069",
 };

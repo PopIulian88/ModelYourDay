@@ -61,6 +61,7 @@ export const loginThunk = createAsyncThunk(
 );
 
 export const getUserThunk = createAsyncThunk("user/getUser", async () => {
+  console.log("Fetching User Data...");
   try {
     return await get(
       ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
