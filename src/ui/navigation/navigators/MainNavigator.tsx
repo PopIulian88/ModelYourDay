@@ -2,8 +2,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen, Loading } from "../../screens";
 import { Routes } from "../constats";
 import { IStore, useAppDispatch, userActions } from "../../../redux";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { style } from "../../../styles";
+import { StatusBar } from "react-native";
 
 const Stack = createStackNavigator<MainNavigatorParams>();
 
@@ -15,6 +17,7 @@ export const MainNavigator = () => {
   const { isLoading, email } = useSelector(
     (state: IStore) => state.userReducer,
   );
+  const { isModalVisible } = useSelector((state: IStore) => state.rootReducer);
   const [mainDataIsLoading, setMainDataIsLoading] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -25,13 +28,20 @@ export const MainNavigator = () => {
   }, [email]);
 
   return !isLoading && !mainDataIsLoading ? (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        // @ts-ignore
-        name={Routes.home}
-        component={HomeScreen}
+    <Fragment>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          // @ts-ignore
+          name={Routes.home}
+          component={HomeScreen}
+        />
+      </Stack.Navigator>
+      <StatusBar
+        backgroundColor={
+          isModalVisible ? style.color.backgroundFade : style.color.background
+        }
       />
-    </Stack.Navigator>
+    </Fragment>
   ) : (
     <Loading />
   );

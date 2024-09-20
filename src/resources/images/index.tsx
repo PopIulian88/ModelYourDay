@@ -7,4 +7,5 @@ export const Images = {
   worldBook: require("./worldBook.png"),
   imageGallery: require("./imageGallery.png"),
   profile: require("./profile.png"),
+  background: require("./background.png"),
 };
