@@ -14,6 +14,17 @@ const TextInput = (props: TextInputModel) => {
     props.onChangeText(text);
   };
 
+  const handleOnFocus = () => {
+    if (props.onFocus) {
+      props.onFocus(true);
+    }
+  };
+  const handleOnBlur = () => {
+    if (props.onFocus) {
+      props.onFocus(false);
+    }
+  };
+
   return (
     <View style={pageStyle.container}>
       <Icon name={props.icon} color={style.color.tundora} />
@@ -26,6 +37,9 @@ const TextInput = (props: TextInputModel) => {
           autoCapitalize={props.autoCapitalize}
           keyboardType={props.keyboardType}
           secureTextEntry={props.secureTextEntry}
+          returnKeyType={"done"}
+          onFocus={handleOnFocus}
+          onBlur={handleOnBlur}
         />
         <View style={pageStyle.line} />
       </View>

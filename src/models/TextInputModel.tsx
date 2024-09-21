@@ -6,4 +6,5 @@ export type TextInputModel = {
   keyboardType?: "numeric" | "default";
   autoCapitalize?: "none";
   icon: string;
+  onFocus: (b: boolean) => void;
 };

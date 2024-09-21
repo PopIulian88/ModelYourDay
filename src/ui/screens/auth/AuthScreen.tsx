@@ -21,6 +21,8 @@ const AuthScreen = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
+
+  const [isFocused, setIsFocused] = useState(false);
   const dispatch = useAppDispatch();
 
   const { bottom } = useSafeAreaInsets();
@@ -72,10 +74,13 @@ const AuthScreen = () => {
           pageStyle.container,
           { paddingBottom: Math.max(bottom + 6, 16) },
         ]}
-        resizeMode={"cover"}
+        resizeMode={"stretch"}
       >
         <LottieView
-          style={[pageStyle.lottie, { height: height * 0.23 }]}
+          style={[
+            pageStyle.lottie,
+            { height: isFocused ? height * 0.1 : height * 0.23 },
+          ]}
           source={Lottie.createAccount}
           autoPlay
           loop
@@ -112,6 +117,7 @@ const AuthScreen = () => {
                 value={username}
                 onChangeText={(response) => setUsername(response)}
                 icon={IconAssets.circleUser}
+                onFocus={(response) => setIsFocused(response)}
               />
             )}
             <TextInput
@@ -120,6 +126,7 @@ const AuthScreen = () => {
               onChangeText={(response) => setEmail(response)}
               icon={IconAssets.mail}
               autoCapitalize={"none"}
+              onFocus={(response) => setIsFocused(response)}
             />
             <TextInput
               placeholder={StringsRepo.passwordPlaceholder}
@@ -128,6 +135,7 @@ const AuthScreen = () => {
               icon={IconAssets.lock}
               autoCapitalize={"none"}
               secureTextEntry={true}
+              onFocus={(response) => setIsFocused(response)}
             />
             {!isLogin && (
               <TextInput
@@ -136,6 +144,7 @@ const AuthScreen = () => {
                 onChangeText={(response) => setAge(response)}
                 icon={IconAssets.starEmpty}
                 keyboardType={"numeric"}
+                onFocus={(response) => setIsFocused(response)}
               />
             )}
           </View>
