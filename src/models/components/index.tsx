@@ -4,6 +4,7 @@ import IconModel from "./IconModel";
 import { TextInputModel } from "./TextInputModel";
 import { TextModel, TextType } from "./TextModel";
 import { StrikeModel } from "./StrikeModel";
+import { ChipModel } from "./ChipModel";
 
 export {
   AddonsCardModel,
@@ -14,4 +15,5 @@ export {
   TextModel,
   TextType,
   StrikeModel,
+  ChipModel,
 };
