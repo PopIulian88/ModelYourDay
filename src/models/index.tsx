@@ -4,6 +4,7 @@ import { UserType } from "./UserModel";
 import { ModalModel } from "./ModalModel";
 import { ButtonModel, ButtonType } from "./ButtonModel";
 import { TextInputModel } from "./TextInputModel";
+import { AddonsCardModel } from "./AddonsCardModel";
 
 export {
   IconModel,
@@ -14,4 +15,5 @@ export {
   ButtonModel,
   ButtonType,
   TextInputModel,
+  AddonsCardModel,
 };
