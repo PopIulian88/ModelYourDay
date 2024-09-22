@@ -4,3 +4,4 @@ export * from "./strike";
 export * from "./chip";
 export * from "./backButton";
 export * from "./line";
+export * from "./chatText";

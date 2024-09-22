@@ -5,6 +5,7 @@ import { TextInputModel } from "./TextInputModel";
 import { TextModel, TextType } from "./TextModel";
 import { StrikeModel } from "./StrikeModel";
 import { ChipModel } from "./ChipModel";
+import { ChatTextModel } from "./ChatTextModel";
 
 export {
   AddonsCardModel,
@@ -16,4 +17,5 @@ export {
   TextType,
   StrikeModel,
   ChipModel,
+  ChatTextModel,
 };
