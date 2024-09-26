@@ -7,9 +7,9 @@ import {
   useAppDispatch,
   userActions,
 } from "../../../redux";
-import { ModalModel } from "../../../models";
+import { ModalModel, MotivationalCardType } from "../../../models";
 import { Lottie } from "../../../resources";
-import { Text } from "../../components";
+import { MotivationalCard, Text } from "../../components";
 
 const HomeScreen = () => {
   const { email } = useSelector((state: IStore) => state.userReducer);
@@ -41,6 +41,19 @@ const HomeScreen = () => {
         }}
       />
       <Text>{`Email: ${email}`}</Text>
+      <MotivationalCard
+        type={MotivationalCardType.DEFAULT}
+        // cardNumber={10}
+        header={"Julius Caesar"}
+        list={[
+          "Facem flotari",
+          "Baga mare ds a dsa dsa  wdq d q dwq wq",
+          "Dame mare text",
+          "dame",
+        ]}
+        text={"What is Dwayne Johnson workout routine?"}
+        lottie={Lottie.sport}
+      />
     </View>
   );
 };

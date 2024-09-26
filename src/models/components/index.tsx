@@ -7,6 +7,10 @@ import { StrikeModel } from "./StrikeModel";
 import { ChipModel } from "./ChipModel";
 import { ChatTextModel } from "./ChatTextModel";
 import { ModelCardModel, ModelCardType } from "./ModelCardModel";
+import {
+  MotivationalCardModel,
+  MotivationalCardType,
+} from "./MotivationalCardModel";
 
 export {
   AddonsCardModel,
@@ -21,4 +25,6 @@ export {
   ChatTextModel,
   ModelCardModel,
   ModelCardType,
+  MotivationalCardModel,
+  MotivationalCardType,
 };
