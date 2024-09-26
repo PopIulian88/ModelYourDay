@@ -73,10 +73,7 @@ const ModelCard = (props: ModelCardModel) => {
           colors={linerGradientColors()}
           style={[
             pageStyle.gradient,
-            props.type === ModelCardType.vertical && {
-              borderBottomLeftRadius: 0,
-              borderBottomRightRadius: 0,
-            },
+            props.type === ModelCardType.vertical && pageStyle.verticalGradient,
           ]}
         />
       </ImageBackground>

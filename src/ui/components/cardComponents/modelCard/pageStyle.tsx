@@ -75,4 +75,8 @@ export const pageStyle = StyleSheet.create({
     height: 150,
     borderRadius: 20,
   },
+  verticalGradient: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
 });
