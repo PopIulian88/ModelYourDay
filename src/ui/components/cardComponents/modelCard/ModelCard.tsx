@@ -41,19 +41,10 @@ const ModelCard = (props: ModelCardModel) => {
       ]}
     >
       <ImageBackground
-        style={[
-          pageStyle.imageContainer,
-          props.type !== ModelCardType.vertical && {
-            justifyContent: "flex-end",
-          },
-        ]}
+        style={pageStyle.imageContainer}
         imageStyle={[
           pageStyle.imageStyle,
-          !props.image && { margin: 50, resizeMode: "contain" },
-          props.type === ModelCardType.vertical && {
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
-          },
+          !props.image && pageStyle.noImageStyle,
         ]}
         source={props.image ? { uri: props.image } : Images.imageGallery}
       >
@@ -69,7 +60,7 @@ const ModelCard = (props: ModelCardModel) => {
             {props.type !== ModelCardType.small && (
               <Text
                 type={TextType.bodySM}
-                style={[pageStyle.description]}
+                style={pageStyle.description}
                 numberOfLines={3}
               >
                 {props.description ??
@@ -101,7 +92,7 @@ const ModelCard = (props: ModelCardModel) => {
 
           <Text
             type={TextType.headingSM}
-            style={[pageStyle.verticalDescription]}
+            style={pageStyle.verticalDescription}
             numberOfLines={4}
           >
             {props.description ??

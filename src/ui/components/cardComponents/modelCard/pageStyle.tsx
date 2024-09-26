@@ -40,10 +40,15 @@ export const pageStyle = StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingVertical: 16,
+    justifyContent: "flex-end",
   },
   imageStyle: {
     borderRadius: 20,
     resizeMode: "cover",
+  },
+  noImageStyle: {
+    margin: 50,
+    resizeMode: "contain",
   },
   imageTextContainer: {
     gap: 5,
