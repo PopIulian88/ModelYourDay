@@ -1,5 +1,4 @@
 import { Button, View } from "react-native";
-import { Text } from "../../components";
 import { pageStyle } from "./pageStyle";
 import { useSelector } from "react-redux";
 import {
@@ -10,6 +9,7 @@ import {
 } from "../../../redux";
 import { ModalModel } from "../../../models";
 import { Lottie } from "../../../resources";
+import { Text } from "../../components";
 
 const HomeScreen = () => {
   const { email } = useSelector((state: IStore) => state.userReducer);
