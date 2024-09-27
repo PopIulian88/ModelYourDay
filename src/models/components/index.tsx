@@ -11,6 +11,7 @@ import {
   MotivationalCardModel,
   MotivationalCardType,
 } from "./MotivationalCardModel";
+import { ChallengeCardModel } from "./ChallengeCardModel";
 
 export {
   AddonsCardModel,
@@ -27,4 +28,5 @@ export {
   ModelCardType,
   MotivationalCardModel,
   MotivationalCardType,
+  ChallengeCardModel,
 };
