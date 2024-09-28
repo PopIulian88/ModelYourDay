@@ -5,6 +5,13 @@ import { Text } from "../text";
 import { pageStyle } from "./pageStyle";
 
 const Button = (props: ButtonModel) => {
+  const buttonColor = () => {
+    return props.type === ButtonType.PRIMARY && !props.isDisabled
+      ? style.color.sunshade
+      : props.type === ButtonType.SPECIAL
+        ? style.color.white
+        : style.color.tundora;
+  };
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -12,14 +19,18 @@ const Button = (props: ButtonModel) => {
       style={[
         pageStyle.container,
         {
-          backgroundColor:
-            props.type === ButtonType.PRIMARY && !props.isDisabled
-              ? style.color.sunshade
-              : style.color.tundora,
+          backgroundColor: buttonColor(),
         },
+        props.type === ButtonType.SPECIAL && pageStyle.specialContainer,
       ]}
     >
-      <Text type={TextType.bodyXL} style={pageStyle.text}>
+      <Text
+        type={TextType.bodyXL}
+        style={[
+          pageStyle.text,
+          props.type === ButtonType.SPECIAL && { color: style.color.sunshade },
+        ]}
+      >
         {props.title}
       </Text>
     </TouchableOpacity>

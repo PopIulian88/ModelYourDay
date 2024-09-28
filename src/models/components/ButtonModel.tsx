@@ -1,6 +1,7 @@
 export enum ButtonType {
   PRIMARY = "primary",
   SECONDARY = "secondary",
+  SPECIAL = "special",
 }
 
 export type ButtonModel = {

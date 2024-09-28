@@ -4,10 +4,12 @@ import { style } from "../../../../styles";
 export const pageStyle = StyleSheet.create({
   container: {
     width: "80%",
-    padding: 16,
+    padding: 12,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: style.color.sunshade,
 
     shadowColor: style.color.black,
     shadowOffset: {
@@ -18,6 +20,11 @@ export const pageStyle = StyleSheet.create({
     shadowRadius: 7.49,
 
     elevation: 12,
+  },
+  specialContainer: {
+    width: "100%",
+    padding: 8,
+    borderRadius: 20,
   },
   text: {
     color: style.color.serenade,

@@ -1,4 +1,4 @@
-import { Button, View } from "react-native";
+import { View } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { useSelector } from "react-redux";
 import {
@@ -7,9 +7,9 @@ import {
   useAppDispatch,
   userActions,
 } from "../../../redux";
-import { ModalModel } from "../../../models";
+import { ButtonType, ModalModel } from "../../../models";
 import { Lottie } from "../../../resources";
-import { Text } from "../../components";
+import { Button, Text } from "../../components";
 
 const HomeScreen = () => {
   const { email } = useSelector((state: IStore) => state.userReducer);
@@ -18,9 +18,14 @@ const HomeScreen = () => {
   return (
     <View style={pageStyle.container}>
       <Text>Home Screen</Text>
-      <Button title={"Logout"} onPress={() => dispatch(userActions.logout())} />
+      <Button
+        type={ButtonType.PRIMARY}
+        title={"Logout"}
+        onPress={() => dispatch(userActions.logout())}
+      />
       {/*TODO: This is mocked data*/}
       <Button
+        type={ButtonType.SPECIAL}
         title={"Open Modal"}
         onPress={() => {
           dispatch(
