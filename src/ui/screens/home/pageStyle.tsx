@@ -7,6 +7,7 @@ export const pageStyle = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
+    gap: 10,
     backgroundColor: style.color.background,
   },
 });
