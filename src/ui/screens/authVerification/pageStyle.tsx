@@ -16,17 +16,27 @@ export const pageStyle = StyleSheet.create({
   lottie: {
     width: "100%",
   },
+  backButton: {
+    position: "absolute",
+    top: 16,
+    left: 16,
+  },
   middleContainer: {
     width: "100%",
+    padding: 16,
     gap: 24,
     alignItems: "center",
   },
-  authStatusContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-around",
+  text: {
+    textAlign: "center",
+    color: style.color.codGray,
   },
-  textInputContainer: {
-    gap: 16,
+  textContainer: {
+    width: "100%",
+    gap: 8,
+    alignItems: "center",
+  },
+  emailText: {
+    color: style.color.goldDrop,
   },
 });

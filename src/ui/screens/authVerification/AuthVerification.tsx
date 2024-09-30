@@ -1,0 +1,113 @@
+import {
+  ImageBackground,
+  SafeAreaView,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
+import { BackButton, Button, Text } from "../../components";
+import { pageStyle } from "./pageStyle";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { AuthVerificationModel, ButtonType, TextType } from "../../../models";
+import { useAppDispatch } from "../../../redux";
+import { style } from "../../../styles";
+import { Images, Lottie, StringsRepo } from "../../../resources";
+import LottieView from "lottie-react-native";
+import { Fragment, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const AuthVerification = () => {
+  const [code, setCode] = useState("");
+
+  const route: RouteProp<{ params: AuthVerificationModel }> = useRoute();
+
+  const dispatch = useAppDispatch();
+
+  const { bottom } = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
+
+  const handleVerification = () => {
+    console.log("Verification in progress...");
+
+    // console.log("Register in progress...");
+    // dispatch(
+    //   userActions.register(
+    //     {
+    //       email: route.params.email,
+    //       username: route.params.username,
+    //       age: route.params.age,
+    //     },
+    //     route.params.password,
+    //   ),
+    // );
+  };
+
+  const isButtonDisabled = () => {
+    return code.length !== 4;
+  };
+
+  const resendCode = () => {
+    console.log("Resending code...");
+  };
+
+  console.log(route.params);
+  return (
+    <Fragment>
+      <SafeAreaView
+        style={{ flex: 0, backgroundColor: style.color.sunshade }}
+      />
+      <ImageBackground
+        source={Images.background}
+        style={[
+          pageStyle.container,
+          { paddingBottom: Math.max(bottom + 6, 16) },
+        ]}
+        resizeMode={"stretch"}
+      >
+        <LottieView
+          style={[pageStyle.lottie, { height: height * 0.23 }]}
+          source={Lottie.createAccount}
+          autoPlay
+          loop
+          renderMode={"SOFTWARE"}
+        />
+        <BackButton styles={pageStyle.backButton} />
+
+        <View style={pageStyle.middleContainer}>
+          <Text type={TextType.headingXL} style={pageStyle.text}>
+            {StringsRepo.verifyCode}
+          </Text>
+          <View style={pageStyle.textContainer}>
+            <Text type={TextType.headingSM} style={pageStyle.text}>
+              {StringsRepo.enterCode}
+            </Text>
+            <Text type={TextType.heading3SM} style={pageStyle.emailText}>
+              {route.params.email}
+            </Text>
+          </View>
+          <View style={pageStyle.textContainer}>
+            <Text type={TextType.bodyMD} style={{ color: style.color.gray }}>
+              {StringsRepo.noReceivedCode}
+            </Text>
+            <TouchableOpacity onPress={resendCode}>
+              <Text
+                type={TextType.body3MD}
+                style={{ color: style.color.codGray }}
+              >
+                {StringsRepo.resendCode}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <Button
+          type={ButtonType.PRIMARY}
+          title={StringsRepo.verify}
+          isDisabled={isButtonDisabled()}
+          onPress={handleVerification}
+        />
+      </ImageBackground>
+    </Fragment>
+  );
+};
+export default AuthVerification;

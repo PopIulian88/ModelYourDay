@@ -9,4 +9,9 @@ export default {
   passwordPlaceholder: "#password",
   agePlaceholder: "age",
   somethingWentWrong: "Something went wrong!",
+  verify: "Verify",
+  verifyCode: "Verify code",
+  enterCode: "Please enter the code we just sent to email",
+  noReceivedCode: "Didn’t receive OTP?",
+  resendCode: "Resend code",
 };

@@ -4,3 +4,4 @@ import { ModalModel } from "./ModalModel";
 export { UserType, ModalModel };
 
 export * from "./components";
+export * from "./screens";
