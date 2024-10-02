@@ -1,5 +1,6 @@
 // AUTH
 export * from "./auth";
+export * from "./authVerification";
 
 // MAIN
 export * from "./home";

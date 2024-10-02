@@ -13,7 +13,11 @@ import { pageStyle } from "./pageStyle";
 import { useAppDispatch, userActions } from "../../../redux";
 import { Fragment, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ButtonType, TextType } from "../../../models";
+import { AuthVerificationModel, ButtonType, TextType } from "../../../models";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+// This import is like this to fix the index loop
+import { Routes } from "../../navigation/constats";
+import { AuthNavigatorProps } from "../../navigation";
 
 const AuthScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,6 +29,7 @@ const AuthScreen = () => {
   const [isFocused, setIsFocused] = useState(false);
   const dispatch = useAppDispatch();
 
+  const { navigate } = useNavigation<NavigationProp<AuthNavigatorProps>>();
   const { bottom } = useSafeAreaInsets();
   const { height } = useWindowDimensions();
 
@@ -33,17 +38,13 @@ const AuthScreen = () => {
     dispatch(userActions.login(email, password));
   };
   const handleRegister = () => {
-    console.log("Register in progress...");
-    dispatch(
-      userActions.register(
-        {
-          email: email,
-          username: username,
-          age: parseInt(age),
-        },
-        password,
-      ),
-    );
+    // @ts-ignore
+    navigate(Routes.authVerification, {
+      email: email ?? "",
+      username: username ?? "",
+      age: parseInt(age) ?? 0,
+      password: password ?? "",
+    } as AuthVerificationModel);
   };
 
   const isButtonDisabled = () => {
@@ -65,9 +66,7 @@ const AuthScreen = () => {
 
   return (
     <Fragment>
-      <SafeAreaView
-        style={{ flex: 0, backgroundColor: style.color.sunshade }}
-      />
+      <SafeAreaView style={pageStyle.safeArea} />
       <ImageBackground
         source={Images.background}
         style={[

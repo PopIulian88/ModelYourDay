@@ -8,8 +8,6 @@ export const pageStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: style.color.sunshade,
 
     shadowColor: style.color.black,
     shadowOffset: {
@@ -25,6 +23,8 @@ export const pageStyle = StyleSheet.create({
     width: "100%",
     padding: 8,
     borderRadius: 20,
+    borderWidth: 1,
+    borderColor: style.color.sunshade,
   },
   text: {
     color: style.color.serenade,
