@@ -1,9 +1,11 @@
 import {
   ImageBackground,
+  Platform,
   SafeAreaView,
   TouchableOpacity,
   useWindowDimensions,
   View,
+  Text as RnText,
 } from "react-native";
 import { BackButton, Button, Text } from "../../components";
 import { pageStyle } from "./pageStyle";
@@ -15,6 +17,12 @@ import { Images, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
 import { Fragment, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  Cursor,
+  CodeField,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
 
 const AuthVerification = () => {
   const [code, setCode] = useState("");
@@ -26,8 +34,15 @@ const AuthVerification = () => {
   const { bottom } = useSafeAreaInsets();
   const { height } = useWindowDimensions();
 
+  //For code input
+  const refBlur = useBlurOnFulfill({ value: code, cellCount: 4 });
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value: code,
+    setValue: setCode,
+  });
+
   const handleVerification = () => {
-    console.log("Verification in progress...");
+    console.log("Verification in progress...", code);
 
     // console.log("Register in progress...");
     // dispatch(
@@ -65,14 +80,16 @@ const AuthVerification = () => {
         resizeMode={"stretch"}
       >
         <LottieView
-          style={[pageStyle.lottie, { height: height * 0.23 }]}
+          style={[
+            pageStyle.lottie,
+            { height: height < 700 ? height * 0.1 : height * 0.23 },
+          ]}
           source={Lottie.createAccount}
           autoPlay
           loop
           renderMode={"SOFTWARE"}
         />
         <BackButton styles={pageStyle.backButton} />
-
         <View style={pageStyle.middleContainer}>
           <Text type={TextType.headingXL} style={pageStyle.text}>
             {StringsRepo.verifyCode}
@@ -85,6 +102,35 @@ const AuthVerification = () => {
               {route.params.email}
             </Text>
           </View>
+
+          {/*TODO: Change ts-ignore*/}
+          {/*@ts-ignore*/}
+          <CodeField
+            ref={refBlur}
+            {...props}
+            // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+            value={code}
+            onChangeText={setCode}
+            cellCount={4}
+            rootStyle={pageStyle.codeFieldRoot}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            autoComplete={Platform.select({
+              android: "email",
+              default: "one-time-code",
+            })}
+            testID="my-code-input"
+            renderCell={({ index, symbol, isFocused }) => (
+              <RnText
+                key={index}
+                style={[pageStyle.cell, isFocused && pageStyle.focusCell]}
+                onLayout={getCellOnLayoutHandler(index)}
+              >
+                {symbol || (isFocused ? <Cursor /> : null)}
+              </RnText>
+            )}
+          />
+
           <View style={pageStyle.textContainer}>
             <Text type={TextType.bodyMD} style={{ color: style.color.gray }}>
               {StringsRepo.noReceivedCode}

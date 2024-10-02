@@ -27,6 +27,27 @@ export const pageStyle = StyleSheet.create({
     gap: 24,
     alignItems: "center",
   },
+
+  codeFieldRoot: {
+    marginTop: 20,
+  },
+  cell: {
+    ...style.text.bodyXL,
+    color: style.color.codGray,
+    marginHorizontal: 12,
+    width: 50,
+    height: 50,
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: style.color.gray,
+    textAlign: "center",
+    justifyContent: "center",
+  },
+  focusCell: {
+    borderColor: style.color.goldDrop,
+    color: style.color.goldDrop,
+  },
+
   text: {
     textAlign: "center",
     color: style.color.codGray,
