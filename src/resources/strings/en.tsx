@@ -16,4 +16,5 @@ export default {
   resendCode: "Resend code",
   userAlreadyExists: "User already exists!",
   userAlreadyExistsDescription: "Try using another email or login",
+  codeIsIncorrect: "Code is incorrect! Try again",
 };

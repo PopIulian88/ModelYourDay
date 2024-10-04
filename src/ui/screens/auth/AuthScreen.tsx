@@ -30,6 +30,7 @@ import { Routes } from "../../navigation/constats";
 import { AuthNavigatorProps } from "../../navigation";
 import { useSelector } from "react-redux";
 import { Loading } from "../loading";
+import { helper } from "../../../helper";
 
 const AuthScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -51,10 +52,13 @@ const AuthScreen = () => {
     dispatch(userActions.login(email, password));
   };
   const handleRegister = async () => {
-    await dispatch(rootActions.getUsers()).then((response) => {
+    await dispatch(rootActions.getUsers()).then(async (response) => {
       //Verify if the user already exists
       if (!response.payload.find((user: UserType) => user.email === email)) {
         //If the user doesn't exist, navigate to the verification screen
+
+        // TODO: Implement the send verification mail
+        helper.sendVerificationMail();
         // @ts-ignore
         navigate(Routes.authVerification, {
           email: email ?? "",
