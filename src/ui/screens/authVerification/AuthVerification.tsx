@@ -11,7 +11,7 @@ import { BackButton, Button, Text } from "../../components";
 import { pageStyle } from "./pageStyle";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { AuthVerificationModel, ButtonType, TextType } from "../../../models";
-import { useAppDispatch } from "../../../redux";
+import { rootActions, useAppDispatch, userActions } from "../../../redux";
 import { style } from "../../../styles";
 import { Images, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
@@ -23,6 +23,7 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
+import { helper } from "../../../helper";
 
 const AuthVerification = () => {
   const [code, setCode] = useState("");
@@ -44,17 +45,27 @@ const AuthVerification = () => {
   const handleVerification = () => {
     console.log("Verification in progress...", code);
 
-    // console.log("Register in progress...");
-    // dispatch(
-    //   userActions.register(
-    //     {
-    //       email: route.params.email,
-    //       username: route.params.username,
-    //       age: route.params.age,
-    //     },
-    //     route.params.password,
-    //   ),
-    // );
+    // TODO: Verify the code
+    if (code === "1234") {
+      console.log("Register in progress...");
+      dispatch(
+        userActions.register(
+          {
+            email: route.params.email,
+            username: route.params.username,
+            age: route.params.age,
+          },
+          route.params.password,
+        ),
+      );
+    } else {
+      dispatch(
+        rootActions.showModal({
+          error: true,
+          title: StringsRepo.codeIsIncorrect,
+        }),
+      );
+    }
   };
 
   const isButtonDisabled = () => {
@@ -63,6 +74,7 @@ const AuthVerification = () => {
 
   const resendCode = () => {
     console.log("Resending code...");
+    helper.sendVerificationMail();
   };
 
   console.log(route.params);

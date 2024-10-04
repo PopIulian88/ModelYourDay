@@ -1,11 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ModalModel } from "../../models";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ModalModel, UserType } from "../../models";
+import { getUsersThunk } from "./asyncThunks";
 
 export interface IRootState {
   isLoggedIn: boolean;
   isLoading?: boolean;
   isModalVisible?: boolean;
   modalProps?: ModalModel | undefined;
+  users?: UserType[] | undefined;
 }
 
 const initialState: IRootState = {
@@ -13,6 +15,7 @@ const initialState: IRootState = {
   isLoading: false,
   isModalVisible: false,
   modalProps: undefined,
+  users: undefined,
 };
 
 export const RootSlice = createSlice({
@@ -22,6 +25,9 @@ export const RootSlice = createSlice({
     resetRoot: (state) => {
       state.isLoggedIn = false;
       state.isLoading = false;
+      state.isModalVisible = false;
+      state.modalProps = undefined;
+      state.users = undefined;
     },
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
@@ -35,7 +41,22 @@ export const RootSlice = createSlice({
       // state.modalProps = action.payload;
     },
   },
-  extraReducers(builder) {},
+  extraReducers(builder) {
+    //Get Users
+    builder.addCase(
+      getUsersThunk.fulfilled,
+      (state, action: PayloadAction<UserType[]>) => {
+        state.users = action.payload;
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(getUsersThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(getUsersThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+  },
 });
 
 export const { resetRoot, setIsLoggedIn, showModal, hideModal } =
