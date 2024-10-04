@@ -7,10 +7,10 @@ export const getUsersThunk = createAsyncThunk("root/getUsers", async () => {
   console.log("Fetching Users Data...");
   try {
     return await get(ref(FIREBASE_REALTIME_DB, "users")).then((response) => {
-      let ceva: UserType[] = [];
+      let users: UserType[] = [];
       response.forEach((user) => {
-        ceva = [
-          ...ceva,
+        users = [
+          ...users,
           {
             username: user.val().username,
             email: user.val().email,
@@ -18,7 +18,7 @@ export const getUsersThunk = createAsyncThunk("root/getUsers", async () => {
           } as UserType,
         ];
       });
-      return ceva;
+      return users;
     });
   } catch (e) {
     console.error(e);
