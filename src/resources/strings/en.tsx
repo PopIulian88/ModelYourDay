@@ -14,4 +14,6 @@ export default {
   enterCode: "Please enter the code we just sent to email",
   noReceivedCode: "Didn’t receive OTP?",
   resendCode: "Resend code",
+  userAlreadyExists: "User already exists!",
+  userAlreadyExistsDescription: "Try using another email or login",
 };

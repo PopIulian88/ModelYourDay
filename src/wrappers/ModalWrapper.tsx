@@ -1,13 +1,13 @@
-import { Button, ModalProps, StyleSheet, View } from "react-native";
+import { ModalProps, StyleSheet, View } from "react-native";
 import { Fragment } from "react";
 import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import { IStore, rootActions, useAppDispatch } from "../redux";
-import { Text } from "../ui";
+import { Button, Text } from "../ui";
 import { style } from "../styles";
 import LottieView from "lottie-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { TextType } from "../models";
+import { ButtonType, TextType } from "../models";
 import { Lottie, StringsRepo } from "../resources";
 
 export const ModalWrapper = (props: ModalProps) => {
@@ -56,9 +56,9 @@ export const ModalWrapper = (props: ModalProps) => {
             renderMode={"SOFTWARE"}
           />
           <Text type={TextType.headingXL} style={pageStyle.title}>
-            {modalProps?.error || !modalProps?.title
+            {modalProps?.error && !modalProps?.title
               ? StringsRepo.somethingWentWrong
-              : modalProps.title}
+              : modalProps?.title}
           </Text>
           {/*TODO: Change button with the component ones*/}
           <View
@@ -69,11 +69,13 @@ export const ModalWrapper = (props: ModalProps) => {
           >
             {!modalProps?.error && modalProps?.secondaryButtonTitle && (
               <Button
+                type={ButtonType.SECONDARY}
                 title={modalProps?.secondaryButtonTitle ?? StringsRepo.error}
-                onPress={modalProps.secondaryButtonAction}
+                onPress={modalProps.secondaryButtonAction ?? closeModal}
               />
             )}
             <Button
+              type={ButtonType.PRIMARY}
               title={
                 modalProps?.error || !modalProps?.buttonTitle
                   ? StringsRepo.close
@@ -116,9 +118,11 @@ const pageStyle = StyleSheet.create({
     textAlign: "center",
   },
   buttonContainer: {
+    width: "100%",
     bottom: 0,
     position: "absolute",
     gap: 16,
+    alignItems: "center",
     justifyContent: "flex-end",
   },
 });

@@ -10,14 +10,26 @@ import { style } from "../../../styles";
 import { IconAssets, Images, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
 import { pageStyle } from "./pageStyle";
-import { useAppDispatch, userActions } from "../../../redux";
+import {
+  IStore,
+  rootActions,
+  useAppDispatch,
+  userActions,
+} from "../../../redux";
 import { Fragment, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { AuthVerificationModel, ButtonType, TextType } from "../../../models";
+import {
+  AuthVerificationModel,
+  ButtonType,
+  TextType,
+  UserType,
+} from "../../../models";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 // This import is like this to fix the index loop
 import { Routes } from "../../navigation/constats";
 import { AuthNavigatorProps } from "../../navigation";
+import { useSelector } from "react-redux";
+import { Loading } from "../loading";
 
 const AuthScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -28,6 +40,7 @@ const AuthScreen = () => {
 
   const [isFocused, setIsFocused] = useState(false);
   const dispatch = useAppDispatch();
+  const { isLoading } = useSelector((state: IStore) => state.rootReducer);
 
   const { navigate } = useNavigation<NavigationProp<AuthNavigatorProps>>();
   const { bottom } = useSafeAreaInsets();
@@ -37,14 +50,28 @@ const AuthScreen = () => {
     console.log("Login in progress...");
     dispatch(userActions.login(email, password));
   };
-  const handleRegister = () => {
-    // @ts-ignore
-    navigate(Routes.authVerification, {
-      email: email ?? "",
-      username: username ?? "",
-      age: parseInt(age) ?? 0,
-      password: password ?? "",
-    } as AuthVerificationModel);
+  const handleRegister = async () => {
+    await dispatch(rootActions.getUsers()).then((response) => {
+      //Verify if the user already exists
+      if (!response.payload.find((user: UserType) => user.email === email)) {
+        //If the user doesn't exist, navigate to the verification screen
+        // @ts-ignore
+        navigate(Routes.authVerification, {
+          email: email ?? "",
+          username: username ?? "",
+          age: parseInt(age) ?? 0,
+          password: password ?? "",
+        } as AuthVerificationModel);
+      } else {
+        //If the user already exists, show an error modal
+        dispatch(
+          rootActions.showModal({
+            error: true,
+            title: StringsRepo.userAlreadyExists,
+          }),
+        );
+      }
+    });
   };
 
   const isButtonDisabled = () => {
@@ -64,7 +91,7 @@ const AuthScreen = () => {
     }
   };
 
-  return (
+  return !isLoading ? (
     <Fragment>
       <SafeAreaView style={pageStyle.safeArea} />
       <ImageBackground
@@ -157,6 +184,8 @@ const AuthScreen = () => {
         />
       </ImageBackground>
     </Fragment>
+  ) : (
+    <Loading />
   );
 };
 export default AuthScreen;
