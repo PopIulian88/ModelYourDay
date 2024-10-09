@@ -17,4 +17,6 @@ export default {
   userAlreadyExists: "User already exists!",
   userAlreadyExistsDescription: "Try using another email or login",
   codeIsIncorrect: "Code is incorrect! Try again",
+  incorrectEmailOrPassword: "Incorrect email or password",
+  logout: "Logout",
 };

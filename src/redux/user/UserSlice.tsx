@@ -77,10 +77,11 @@ const UserSlice = createSlice({
     //Get User
     builder.addCase(
       getUserThunk.fulfilled,
-      (state, action: PayloadAction<UserType>) => {
-        state.username = action.payload.username;
-        state.email = action.payload.email;
-        state.age = action.payload.age;
+      //TODO: PROBLEM CAN BE HERE
+      (state, action: PayloadAction<UserType | undefined>) => {
+        state.username = action.payload?.username;
+        state.email = action.payload?.email;
+        state.age = action.payload?.age;
         state.isLoading = false;
       },
     );

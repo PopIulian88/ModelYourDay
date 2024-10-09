@@ -42,13 +42,20 @@ const AuthVerification = () => {
     setValue: setCode,
   });
 
-  const handleVerification = () => {
-    console.log("Verification in progress...", code);
+  const handleVerification = async () => {
+    console.log(
+      "Verification in progress...",
+      code,
+      route.params.email,
+      route.params.username,
+      route.params.age,
+      route.params.password,
+    );
 
     // TODO: Verify the code
     if (code === "1234") {
       console.log("Register in progress...");
-      dispatch(
+      await dispatch(
         userActions.register(
           {
             email: route.params.email,
