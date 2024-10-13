@@ -6,6 +6,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { style } from "../../../styles";
 import { StatusBar } from "react-native";
+import { FIREBASE_AUTH } from "../../../backend";
 
 const Stack = createStackNavigator<MainNavigatorParams>();
 
@@ -24,8 +25,14 @@ export const MainNavigator = () => {
 
   useEffect(() => {
     setMainDataIsLoading(true);
-    dispatch(userActions.getUser()).then(() => setMainDataIsLoading(false));
-  }, [email]);
+    return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
+      if (user) {
+        await dispatch(userActions.getUser()).then(() =>
+          setMainDataIsLoading(false),
+        );
+      }
+    });
+  }, []);
 
   return !isLoading && !mainDataIsLoading ? (
     <Fragment>

@@ -6,10 +6,12 @@ import {
 import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
 import { UserType } from "../../models";
 import { get, ref, set } from "firebase/database";
+import { rootActions } from "../root";
+import { StringsRepo } from "../../resources";
 
 export const registerThunk = createAsyncThunk(
   "user/register",
-  async (payload: { user: UserType; password: string }) => {
+  async (payload: { user: UserType; password: string }, { dispatch }) => {
     try {
       return await createUserWithEmailAndPassword(
         FIREBASE_AUTH,
@@ -29,61 +31,101 @@ export const registerThunk = createAsyncThunk(
           })
           .catch((e) => {
             console.log("User set FAILED: " + e.message);
+            dispatch(
+              rootActions.showModal({
+                error: true,
+                title: StringsRepo.error,
+                buttonTitle: StringsRepo.close,
+              }),
+            );
           });
       });
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
+      //Show an error modal
+      dispatch(
+        rootActions.showModal({
+          error: true,
+          title: StringsRepo.error,
+          buttonTitle: StringsRepo.close,
+        }),
+      );
     }
   },
 );
 
-export const logoutThunk = createAsyncThunk("user/logout", async () => {
-  try {
-    return await FIREBASE_AUTH.signOut();
-  } catch (e) {
-    console.error(e);
-  }
-});
+export const logoutThunk = createAsyncThunk(
+  "user/logout",
+  async (payload: void, { dispatch }) => {
+    console.log("Logging out...");
+    try {
+      return await FIREBASE_AUTH.signOut();
+    } catch (e: any) {
+      console.error(e);
+      //Show an error modal
+      dispatch(
+        rootActions.showModal({
+          error: true,
+          title: StringsRepo.error,
+          buttonTitle: StringsRepo.close,
+        }),
+      );
+    }
+  },
+);
 
 export const loginThunk = createAsyncThunk(
   "user/login",
-  async (payload: { email: string; password: string }) => {
+  async (payload: { email: string; password: string }, { dispatch }) => {
     try {
       return await signInWithEmailAndPassword(
         FIREBASE_AUTH,
         payload.email,
         payload.password,
       );
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
+      if (e.code === "auth/invalid-credential") {
+        //Show an error modal
+        dispatch(
+          rootActions.showModal({
+            error: true,
+            title: StringsRepo.incorrectEmailOrPassword,
+            buttonTitle: StringsRepo.close,
+          }),
+        );
+      }
     }
   },
 );
 
-export const getUserThunk = createAsyncThunk("user/getUser", async () => {
-  console.log("Fetching User Data...");
-  try {
-    return await get(
-      ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
-    ).then((response) => {
-      return response.exists()
-        ? ({
-            username: response.val().username,
-            email: response.val().email,
-            age: response.val().age,
-          } as UserType)
-        : ({
-            username: "NULL",
-            email: "NULL",
-            age: 0,
-          } as UserType);
-    });
-  } catch (e) {
-    console.error(e);
-    return {
-      username: "NULL",
-      email: "NULL",
-      age: 0,
-    } as UserType;
-  }
-});
+export const getUserThunk = createAsyncThunk(
+  "user/getUser",
+  async (payload: void, { dispatch }) => {
+    console.log("Fetching User Data...");
+    try {
+      return await get(
+        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+      ).then((response) => {
+        return {
+          username: response.val().username,
+          email: response.val().email,
+          age: response.val().age,
+        } as UserType;
+      });
+    } catch (e) {
+      console.error(e);
+      //Show an error modal
+      dispatch(
+        rootActions.showModal({
+          error: true,
+          title: StringsRepo.error,
+          buttonTitle: StringsRepo.logout,
+        }),
+      );
+      //Logout the user
+      await dispatch(logoutThunk());
+      // throw e;
+    }
+  },
+);

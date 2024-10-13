@@ -25,8 +25,6 @@ const UserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    //TODO: Because this is "" and if on get FAIL is "NULL", we can fetch good the user data
-    // In the MainNavigator.tsx it fetching twice, because the email is "" and then is "NULL"
     resetUser: (state) => {
       state.username = "";
       state.email = "";
@@ -77,10 +75,10 @@ const UserSlice = createSlice({
     //Get User
     builder.addCase(
       getUserThunk.fulfilled,
-      (state, action: PayloadAction<UserType>) => {
-        state.username = action.payload.username;
-        state.email = action.payload.email;
-        state.age = action.payload.age;
+      (state, action: PayloadAction<UserType | undefined>) => {
+        state.username = action.payload?.username;
+        state.email = action.payload?.email;
+        state.age = action.payload?.age;
         state.isLoading = false;
       },
     );
