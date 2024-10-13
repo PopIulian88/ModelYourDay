@@ -23,15 +23,17 @@ export const MainNavigator = () => {
 
   const dispatch = useAppDispatch();
 
-  //TODO:(!RESOLVE THIS) Because of this, user data can't be realtime
   useEffect(() => {
-    console.log("UID: ", FIREBASE_AUTH.currentUser?.uid);
-
-    if (FIREBASE_AUTH.currentUser?.uid) {
-      setMainDataIsLoading(true);
-      dispatch(userActions.getUser()).then(() => setMainDataIsLoading(false));
-    }
-  }, [FIREBASE_AUTH.currentUser?.uid]);
+    setMainDataIsLoading(true);
+    return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
+      if (user) {
+        console.log("UID: ", user.uid);
+        await dispatch(userActions.getUser()).then(() =>
+          setMainDataIsLoading(false),
+        );
+      }
+    });
+  }, []);
 
   return !isLoading && !mainDataIsLoading ? (
     <Fragment>
