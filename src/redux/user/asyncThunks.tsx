@@ -104,11 +104,9 @@ export const getUserThunk = createAsyncThunk(
   async (payload: void, { dispatch }) => {
     console.log("Fetching User Data...");
     try {
-      console.log("USER: ", FIREBASE_AUTH.currentUser?.uid);
       return await get(
         ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
       ).then((response) => {
-        console.log("User Data Fetched: ", response.val());
         return {
           username: response.val().username,
           email: response.val().email,

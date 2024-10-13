@@ -27,7 +27,6 @@ export const MainNavigator = () => {
     setMainDataIsLoading(true);
     return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
       if (user) {
-        console.log("UID: ", user.uid);
         await dispatch(userActions.getUser()).then(() =>
           setMainDataIsLoading(false),
         );

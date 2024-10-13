@@ -11,4 +11,6 @@ export const IconAssets = {
   arrowDown: "arrow-down",
   circleUser: "circle-user",
   mail: "mail",
+  eye: "eye",
+  eyeBlocked: "eye-blocked",
 };

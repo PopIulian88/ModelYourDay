@@ -12,6 +12,11 @@ export const pageStyle = StyleSheet.create({
   textInputContainer: {
     flex: 1,
   },
+  inputContainer: {
+    flexDirection: "row",
+    width: "90%",
+    alignItems: "center",
+  },
   textInput: {
     width: "100%",
     ...style.text.bodyL,
