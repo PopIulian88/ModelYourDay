@@ -26,9 +26,9 @@ import {
 import { helper } from "../../../helper";
 
 const AuthVerification = () => {
-  const [code, setCode] = useState("");
-
   const route: RouteProp<{ params: AuthVerificationModel }> = useRoute();
+
+  const [code, setCode] = useState("");
 
   const dispatch = useAppDispatch();
 
@@ -43,18 +43,7 @@ const AuthVerification = () => {
   });
 
   const handleVerification = async () => {
-    console.log(
-      "Verification in progress...",
-      code,
-      route.params.email,
-      route.params.username,
-      route.params.age,
-      route.params.password,
-    );
-
-    // TODO: Verify the code
-    if (code === "1234") {
-      console.log("Register in progress...");
+    if (code === route.params.code) {
       await dispatch(
         userActions.register(
           {
@@ -79,12 +68,14 @@ const AuthVerification = () => {
     return code.length !== 4;
   };
 
-  const resendCode = () => {
+  const resendCode = async () => {
     console.log("Resending code...");
-    helper.sendVerificationMail();
+    await helper.sendVerificationMail({
+      email: route.params.email,
+      code: route.params.code,
+    });
   };
 
-  console.log(route.params);
   return (
     <Fragment>
       <SafeAreaView

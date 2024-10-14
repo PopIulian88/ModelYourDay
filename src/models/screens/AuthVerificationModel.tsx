@@ -3,4 +3,5 @@ export type AuthVerificationModel = {
   email: string;
   password: string;
   age: number;
+  code: string;
 };
