@@ -38,6 +38,7 @@ const AuthScreen = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
+  const [myLoading, setMyLoading] = useState(false);
 
   const [isFocused, setIsFocused] = useState(false);
   const dispatch = useAppDispatch();
@@ -48,7 +49,6 @@ const AuthScreen = () => {
   const { height } = useWindowDimensions();
 
   const handleLogin = () => {
-    console.log("Login in progress...");
     dispatch(userActions.login(email, password));
   };
   const handleRegister = async () => {
@@ -56,15 +56,24 @@ const AuthScreen = () => {
       //Verify if the user already exists
       if (!response.payload.find((user: UserType) => user.email === email)) {
         //If the user doesn't exist, navigate to the verification screen
+        const generatedCode = helper.generateCode();
 
-        // TODO: Implement the send verification mail
-        helper.sendVerificationMail();
+        setMyLoading(true);
+
+        await helper
+          .sendVerificationMail({
+            email: email,
+            code: generatedCode,
+          })
+          .then(() => setMyLoading(false))
+          .catch(() => setMyLoading(false));
         // @ts-ignore
         navigate(Routes.authVerification, {
           email: email ?? "",
           username: username ?? "",
           age: parseInt(age) ?? 0,
           password: password ?? "",
+          code: generatedCode ?? "0000",
         } as AuthVerificationModel);
       } else {
         //If the user already exists, show an error modal
@@ -95,7 +104,7 @@ const AuthScreen = () => {
     }
   };
 
-  return !isLoading ? (
+  return !isLoading && !myLoading ? (
     <Fragment>
       <SafeAreaView style={pageStyle.safeArea} />
       <ImageBackground

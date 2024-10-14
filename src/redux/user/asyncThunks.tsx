@@ -13,6 +13,7 @@ export const registerThunk = createAsyncThunk(
   "user/register",
   async (payload: { user: UserType; password: string }, { dispatch }) => {
     try {
+      console.log("Registering...");
       return await createUserWithEmailAndPassword(
         FIREBASE_AUTH,
         payload.user.email,
@@ -78,6 +79,7 @@ export const loginThunk = createAsyncThunk(
   "user/login",
   async (payload: { email: string; password: string }, { dispatch }) => {
     try {
+      console.log("Logging in...");
       return await signInWithEmailAndPassword(
         FIREBASE_AUTH,
         payload.email,
