@@ -6,6 +6,7 @@ import { store, persistor } from "./src/redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { AuthWrapper, ModalWrapper } from "./src/wrappers";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import InternetWrapper from "./src/wrappers/InternetWrapper";
 
 export default function App() {
   return (
@@ -13,11 +14,13 @@ export default function App() {
       <WithExpoFonts>
         <Provider store={store}>
           <ModalWrapper>
-            <PersistGate loading={<Loading />} persistor={persistor}>
-              <AuthWrapper>
-                <AppNavigator />
-              </AuthWrapper>
-            </PersistGate>
+            <InternetWrapper>
+              <PersistGate loading={<Loading />} persistor={persistor}>
+                <AuthWrapper>
+                  <AppNavigator />
+                </AuthWrapper>
+              </PersistGate>
+            </InternetWrapper>
           </ModalWrapper>
         </Provider>
       </WithExpoFonts>

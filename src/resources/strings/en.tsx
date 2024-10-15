@@ -19,4 +19,6 @@ export default {
   codeIsIncorrect: "Code is incorrect! Try again",
   incorrectEmailOrPassword: "Incorrect email or password",
   logout: "Logout",
+  noInternetConnection: "No internet connection",
+  retry: "Retry",
 };
