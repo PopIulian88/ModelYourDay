@@ -46,7 +46,13 @@ const ModelCard = (props: ModelCardModel) => {
           pageStyle.imageStyle,
           !props.image && pageStyle.noImageStyle,
         ]}
-        source={props.image ? { uri: props.image } : Images.imageGallery}
+        source={
+          props.image
+            ? typeof props.image === "string"
+              ? { uri: props.image }
+              : props.image
+            : Images.imageGallery
+        }
       >
         {props.type !== ModelCardType.vertical && (
           <View style={pageStyle.imageTextContainer}>

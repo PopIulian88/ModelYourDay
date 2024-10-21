@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HomeScreen, Loading } from "../../screens";
+import { ChooseFirstModelScreen, HomeScreen, Loading } from "../../screens";
 import { Routes } from "../constats";
 import { IStore, useAppDispatch, userActions } from "../../../redux";
 import React, { Fragment, useEffect, useState } from "react";
@@ -12,6 +12,7 @@ const Stack = createStackNavigator<MainNavigatorParams>();
 
 export type MainNavigatorParams = {
   Home: undefined;
+  ChooseFirstModel: undefined;
 };
 
 export const MainNavigator = () => {
@@ -41,6 +42,11 @@ export const MainNavigator = () => {
           // @ts-ignore
           name={Routes.home}
           component={HomeScreen}
+        />
+        <Stack.Screen
+          // @ts-ignore
+          name={Routes.chooseFirstModel}
+          component={ChooseFirstModelScreen}
         />
       </Stack.Navigator>
       <StatusBar

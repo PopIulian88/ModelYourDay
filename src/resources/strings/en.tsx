@@ -21,4 +21,7 @@ export default {
   logout: "Logout",
   noInternetConnection: "No internet connection",
   retry: "Retry",
+  chooseYoursFirstModel: "Choose yours first model",
+  thisChoiceCanBeChangedAfter: "This choice can be changed after",
+  getStarted: "Get started",
 };

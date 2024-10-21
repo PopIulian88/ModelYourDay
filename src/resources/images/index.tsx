@@ -8,4 +8,9 @@ export const Images = {
   imageGallery: require("./imageGallery.png"),
   profile: require("./profile.png"),
   background: require("./background.png"),
+
+  // Model images
+  topG: require("./defaultModels/topG.png"),
+  elonMusk: require("./defaultModels/elonMusk.png"),
+  dwayneJohnson: require("./defaultModels/dwayneJohnson.png"),
 };
