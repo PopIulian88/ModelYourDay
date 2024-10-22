@@ -4,11 +4,15 @@ import { style } from "../../../styles";
 export const pageStyle = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: 10,
+    gap: 30,
     backgroundColor: style.color.background,
+  },
+  safeArea: {
+    flex: 0,
+    backgroundColor: style.color.sunshade,
   },
   headerContainer: {
     width: "100%",
@@ -17,10 +21,18 @@ export const pageStyle = StyleSheet.create({
   },
   headerTitle: {
     textAlign: "center",
-    color: style.color.sunshade,
+    color: style.color.black,
   },
   headerSubtitle: {
     textAlign: "center",
-    color: style.color.brown,
+    color: style.color.background,
+  },
+  modelCardContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  animation: {
+    width: "100%",
+    height: 100,
   },
 });

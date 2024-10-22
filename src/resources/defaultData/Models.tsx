@@ -20,4 +20,9 @@ export const models: ModelModel[] = [
       "Businessman and investor known for his key roles in space company SpaceX and automotive company Tesla",
     image: Images.elonMusk,
   },
+  {
+    name: "AI",
+    description: "Find using AI",
+    image: Images.money,
+  },
 ];

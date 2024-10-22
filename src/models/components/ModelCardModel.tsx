@@ -10,4 +10,6 @@ export type ModelCardModel = {
   description?: string;
   image?: string | number;
   isSelected?: boolean;
+  onPress?: () => void;
+  isDisabled?: boolean;
 };

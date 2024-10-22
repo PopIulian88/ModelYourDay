@@ -1,37 +1,98 @@
-import { SafeAreaView, View } from "react-native";
+import {
+  ImageBackground,
+  SafeAreaView,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { pageStyle } from "./pageStyle";
-import { DefaultData, StringsRepo } from "../../../resources";
-import { Button, ModelCard, Text } from "../../components";
-import { ButtonType, ModelCardType, TextType } from "../../../models";
-import { useState } from "react";
+import {
+  DefaultData,
+  IconAssets,
+  Images,
+  Lottie,
+  StringsRepo,
+} from "../../../resources";
+import { ModelCard, Text } from "../../components";
+import { ModelCardType, TextType } from "../../../models";
+import { Fragment, useState } from "react";
+import Carousel from "react-native-reanimated-carousel";
+import LottieView from "lottie-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const ChooseFirstModelScreen = () => {
-  const [isModelSelected, setIsModelSelected] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [carouselAutoPlay, setCarouselAutoPlay] = useState(true);
+
+  const { width, height } = useWindowDimensions();
+  const { bottom } = useSafeAreaInsets();
+
+  // TODO: Implement the selected model logic
+  const onModelSelected = (index: number) => {
+    setCarouselAutoPlay(false);
+    console.log("Model Selected: ", DefaultData.models[index]);
+  };
+
+  const onSnapToItem = (index: number) => {
+    if (index < currentIndex) {
+      //   Going back
+      setCarouselAutoPlay(false);
+    }
+    setCurrentIndex(index);
+  };
+
+  const ModelCards = (index: number) => {
+    return (
+      <View style={pageStyle.modelCardContainer}>
+        <ModelCard
+          type={ModelCardType.vertical}
+          title={DefaultData.models[index].name}
+          description={DefaultData.models[index].description}
+          image={DefaultData.models[index].image}
+          onPress={() => onModelSelected(index)}
+        />
+      </View>
+    );
+  };
 
   return (
-    <SafeAreaView style={pageStyle.container}>
-      <View style={pageStyle.headerContainer}>
-        <Text type={TextType.headingXL} style={pageStyle.headerTitle}>
-          {StringsRepo.chooseYoursFirstModel}
-        </Text>
-        <Text type={TextType.headingSM} style={pageStyle.headerSubtitle}>
-          {StringsRepo.thisChoiceCanBeChangedAfter}
-        </Text>
-      </View>
-      <ModelCard
-        type={ModelCardType.vertical}
-        title={DefaultData.models[2].name}
-        description={DefaultData.models[2].description}
-        image={DefaultData.models[2].image}
-      />
-      <Button
-        title={StringsRepo.getStarted}
-        type={isModelSelected ? ButtonType.PRIMARY : ButtonType.SECONDARY}
-        isDisabled={!isModelSelected}
-        // TODO: Implement on press
-        onPress={() => console.log("Get Started")}
-      />
-    </SafeAreaView>
+    <Fragment>
+      <SafeAreaView style={pageStyle.safeArea} />
+      <ImageBackground
+        source={Images.background}
+        style={[
+          pageStyle.container,
+          { paddingBottom: Math.max(bottom + 6, 16) },
+        ]}
+        resizeMode={"stretch"}
+      >
+        <View style={pageStyle.headerContainer}>
+          <Text type={TextType.headingXL} style={pageStyle.headerTitle}>
+            {StringsRepo.chooseYoursFirstModel}
+          </Text>
+          <Text type={TextType.headingSM} style={pageStyle.headerSubtitle}>
+            {StringsRepo.thisChoiceCanBeChangedAfter}
+          </Text>
+        </View>
+        <Carousel
+          loop
+          width={width}
+          height={height * 0.62}
+          autoPlay={carouselAutoPlay}
+          data={DefaultData.models}
+          scrollAnimationDuration={500}
+          onSnapToItem={(index) => {
+            onSnapToItem(index);
+          }}
+          renderItem={({ index }) => ModelCards(index)}
+        />
+        <LottieView
+          loop={true}
+          autoPlay={true}
+          source={Lottie.tap}
+          style={pageStyle.animation}
+        />
+      </ImageBackground>
+    </Fragment>
   );
 };
 export default ChooseFirstModelScreen;
