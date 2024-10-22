@@ -1,6 +1,8 @@
 import {
   ImageBackground,
   SafeAreaView,
+  StatusBar,
+  TouchableOpacity,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -18,6 +20,7 @@ import { Fragment, useState } from "react";
 import Carousel from "react-native-reanimated-carousel";
 import LottieView from "lottie-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { style } from "../../../styles";
 
 const ChooseFirstModelScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,7 +32,11 @@ const ChooseFirstModelScreen = () => {
   // TODO: Implement the selected model logic
   const onModelSelected = (index: number) => {
     setCarouselAutoPlay(false);
-    console.log("Model Selected: ", DefaultData.models[index]);
+    if (index !== DefaultData.models.length - 1) {
+      console.log("Model Selected: ", DefaultData.models[index]);
+    } else {
+      console.log("AI Model Selected");
+    }
   };
 
   const onSnapToItem = (index: number) => {
@@ -43,13 +50,30 @@ const ChooseFirstModelScreen = () => {
   const ModelCards = (index: number) => {
     return (
       <View style={pageStyle.modelCardContainer}>
-        <ModelCard
-          type={ModelCardType.vertical}
-          title={DefaultData.models[index].name}
-          description={DefaultData.models[index].description}
-          image={DefaultData.models[index].image}
-          onPress={() => onModelSelected(index)}
-        />
+        {index !== DefaultData.models.length - 1 ? (
+          <ModelCard
+            type={ModelCardType.vertical}
+            title={DefaultData.models[index].name}
+            description={DefaultData.models[index].description}
+            image={DefaultData.models[index].image}
+            onPress={() => onModelSelected(index)}
+          />
+        ) : (
+          <TouchableOpacity
+            onPress={() => onModelSelected(index)}
+            style={[pageStyle.findWithAiContainer, { height: height * 0.6 }]}
+          >
+            <LottieView
+              loop={true}
+              autoPlay={true}
+              source={Lottie.aiBot}
+              style={pageStyle.findWithAiAnimation}
+            />
+            <Text type={TextType.headingL} style={pageStyle.aiText}>
+              {DefaultData.models[index].description}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
@@ -92,6 +116,7 @@ const ChooseFirstModelScreen = () => {
           style={pageStyle.animation}
         />
       </ImageBackground>
+      <StatusBar backgroundColor={style.color.sunshade} />
     </Fragment>
   );
 };

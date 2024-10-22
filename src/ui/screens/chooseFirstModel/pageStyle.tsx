@@ -15,6 +15,7 @@ export const pageStyle = StyleSheet.create({
     backgroundColor: style.color.sunshade,
   },
   headerContainer: {
+    paddingHorizontal: 10,
     width: "100%",
     gap: 10,
     alignItems: "center",
@@ -31,8 +32,35 @@ export const pageStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  findWithAiContainer: {
+    width: "75%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: style.color.barberry,
+    backgroundColor: style.color.background,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
+  findWithAiAnimation: {
+    width: "80%",
+    height: "40%",
+  },
+  aiText: {
+    textAlign: "center",
+    color: style.color.barberry,
+  },
   animation: {
-    width: "100%",
+    width: 100,
     height: 100,
   },
 });
