@@ -32,8 +32,9 @@ const ModelCard = (props: ModelCardModel) => {
   };
 
   return (
-    //TODO: Implement the onPress condition
     <TouchableOpacity
+      onPress={props.onPress}
+      disabled={props.isDisabled}
       style={[
         pageStyle.container,
         props.isSelected && { borderWidth: 2 },
@@ -46,7 +47,13 @@ const ModelCard = (props: ModelCardModel) => {
           pageStyle.imageStyle,
           !props.image && pageStyle.noImageStyle,
         ]}
-        source={props.image ? { uri: props.image } : Images.imageGallery}
+        source={
+          props.image
+            ? typeof props.image === "string"
+              ? { uri: props.image }
+              : props.image
+            : Images.imageGallery
+        }
       >
         {props.type !== ModelCardType.vertical && (
           <View style={pageStyle.imageTextContainer}>
