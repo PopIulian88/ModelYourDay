@@ -14,39 +14,20 @@ export const pageStyle = StyleSheet.create({
   scrollContentContainer: {
     alignItems: "center",
   },
+  findModelContainer: {
+    paddingVertical: 20,
+    gap: 10,
+  },
+  modelFoundContainer: {
+    alignItems: "center",
+    gap: 20,
+    width: "100%",
+  },
   backButton: {
     alignSelf: "flex-start",
     margin: 10,
   },
   title: {
     marginVertical: 20,
-  },
-  findModelContainer: {
-    width: "100%",
-    gap: 5,
-    marginTop: 30,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: "100%",
-  },
-  addonsContainer: {
-    width: "100%",
-    padding: 16,
-    gap: 10,
-    justifyContent: "space-evenly",
-    borderRadius: 20,
-    backgroundColor: style.color.alto,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
   },
 });

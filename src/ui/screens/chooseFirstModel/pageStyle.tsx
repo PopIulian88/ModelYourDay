@@ -16,6 +16,7 @@ export const pageStyle = StyleSheet.create({
   },
   headerContainer: {
     paddingHorizontal: 10,
+    paddingVertical: 20,
     width: "100%",
     gap: 10,
     alignItems: "center",

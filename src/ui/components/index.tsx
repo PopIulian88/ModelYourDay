@@ -5,3 +5,4 @@ export * from "./chip";
 export * from "./backButton";
 export * from "./line";
 export * from "./chatText";
+export * from "./addonsBox";

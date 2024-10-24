@@ -110,12 +110,6 @@ const ChooseFirstModelScreen = () => {
           }}
           renderItem={({ index }) => ModelCards(index)}
         />
-        <LottieView
-          loop={true}
-          autoPlay={true}
-          source={Lottie.tap}
-          style={pageStyle.animation}
-        />
       </ImageBackground>
       <StatusBar backgroundColor={style.color.sunshade} />
     </Fragment>

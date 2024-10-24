@@ -1,22 +1,36 @@
 import { Animated, View } from "react-native";
 import {
-  AddonsCard,
+  AddonsBox,
   BackButton,
   Button,
+  ModelCard,
   Text,
   TextInput,
 } from "../../components";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { pageStyle } from "./pageStyle";
-import { Images, StringsRepo } from "../../../resources";
-import { ButtonType, TextInputType, TextType } from "../../../models";
-import ScrollView = Animated.ScrollView;
+import { DefaultData, StringsRepo } from "../../../resources";
+import {
+  ButtonType,
+  ModelCardType,
+  TextInputType,
+  TextType,
+} from "../../../models";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Loading } from "../loading";
+import ScrollView = Animated.ScrollView;
+import { sleep } from "openai/core";
 
 const FindYourModelScreen = () => {
   const route = useRoute<RouteProp<MainNavigatorParams>>();
+  const { goBack } = useNavigation<NavigationProp<MainNavigatorParams>>();
 
   const { top, bottom } = useSafeAreaInsets();
 
@@ -24,101 +38,75 @@ const FindYourModelScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [addonSelected, setAddonSelected] = useState(-1);
 
-  console.log("PARAMS: ", selectedModel);
+  //TODO: replace this after making the model reducer
+  //TODO: Handle go back situation
+  const [isLoading, setIsLoading] = useState(false);
 
-  enum addons {
-    music = 0,
-    sport = 1,
-    games = 2,
-    photo = 3,
-    money = 4,
-    smart = 5,
-  }
+  const onPressPrimary = () => {
+    if (!selectedModel) {
+      //Find with AI flow (FIND YOUR MODEL)
+      // TODO: Implement the AI search and replace the default model
+      setSelectedModel(DefaultData.models[0]);
 
-  const selectAddon = (index: number) => {
-    addonSelected === index ? setAddonSelected(-1) : setAddonSelected(index);
+      // TODO: remove this simulation of loading
+      setIsLoading(true);
+      sleep(300).then(() => setIsLoading(false));
+    } else {
+      // Select default flow
+      console.log("Selected model: ", selectedModel);
+    }
   };
 
-  const FindModel = () => {
-    return (
-      <View style={pageStyle.findModelContainer}>
-        <Text type={TextType.headingMD}>{StringsRepo.addons}</Text>
-        <View style={pageStyle.addonsContainer}>
-          <View style={pageStyle.row}>
-            <AddonsCard
-              image={Images.spotify}
-              title={StringsRepo.music}
-              onPress={() => selectAddon(addons.music)}
-              isCheck={addonSelected === addons.music}
-            />
-            <AddonsCard
-              image={Images.basketball}
-              title={StringsRepo.sport}
-              onPress={() => selectAddon(addons.sport)}
-              isCheck={addonSelected === addons.sport}
-            />
-            <AddonsCard
-              image={Images.dices}
-              title={StringsRepo.games}
-              onPress={() => selectAddon(addons.games)}
-              isCheck={addonSelected === addons.games}
-            />
-          </View>
-          <View style={pageStyle.row}>
-            <AddonsCard
-              image={Images.camera}
-              title={StringsRepo.photo}
-              onPress={() => selectAddon(addons.photo)}
-              isCheck={addonSelected === addons.photo}
-            />
-            <AddonsCard
-              image={Images.money}
-              title={StringsRepo.money}
-              onPress={() => selectAddon(addons.money)}
-              isCheck={addonSelected === addons.money}
-            />
-            <AddonsCard
-              image={Images.worldBook}
-              title={StringsRepo.smart}
-              onPress={() => selectAddon(addons.smart)}
-              isCheck={addonSelected === addons.smart}
-            />
-          </View>
-        </View>
-      </View>
-    );
+  const onPressSecondary = () => {
+    goBack();
   };
 
   const ModelFound = () => {
     return (
-      <Text type={TextType.bodyMD}>{StringsRepo.chooseYoursFirstModel}</Text>
+      <View style={pageStyle.modelFoundContainer}>
+        <ModelCard
+          type={ModelCardType.vertical}
+          title={selectedModel?.name ?? "Something went wrong"}
+          description={selectedModel?.description}
+          image={selectedModel?.image}
+          isDisabled={true}
+        />
+        <Button
+          title={StringsRepo.findAgain}
+          type={ButtonType.SECONDARY}
+          onPress={onPressSecondary}
+        />
+      </View>
     );
   };
 
-  return (
-    <View style={[pageStyle.container]}>
+  return !isLoading ? (
+    <View style={pageStyle.container}>
       <ScrollView
-        style={[pageStyle.scrollContainer]}
+        style={pageStyle.scrollContainer}
         contentContainerStyle={[
           pageStyle.scrollContentContainer,
           { paddingTop: top, paddingBottom: Math.max(bottom + 90, 100) },
         ]}
       >
-        <BackButton styles={pageStyle.backButton} />
+        {!selectedModel && <BackButton styles={pageStyle.backButton} />}
         <Text type={TextType.headingXL} style={pageStyle.title}>
-          {StringsRepo.findYourModel}
+          {selectedModel ? StringsRepo.goodChoice : StringsRepo.findYourModel}
         </Text>
 
         {!selectedModel ? (
-          <Fragment>
+          <View style={pageStyle.findModelContainer}>
             <TextInput
               type={TextInputType.SPECIAL}
               placeholder={StringsRepo.modelName}
               value={searchText}
               onChangeText={(r) => setSearchText(r)}
             />
-            <FindModel />
-          </Fragment>
+            <AddonsBox
+              addonSelected={addonSelected}
+              setAddonSelected={setAddonSelected}
+            />
+          </View>
         ) : (
           <ModelFound />
         )}
@@ -135,12 +123,14 @@ const FindYourModelScreen = () => {
         ]}
       >
         <Button
-          title={StringsRepo.find}
+          title={selectedModel ? StringsRepo.select : StringsRepo.find}
           type={ButtonType.PRIMARY}
-          onPress={() => console.log("Dame")}
+          onPress={onPressPrimary}
         />
       </View>
     </View>
+  ) : (
+    <Loading />
   );
 };
 export default FindYourModelScreen;

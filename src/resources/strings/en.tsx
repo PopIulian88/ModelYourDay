@@ -25,6 +25,7 @@ export default {
   thisChoiceCanBeChangedAfter: "This choice can be changed after",
   getStarted: "Get started",
   findYourModel: "Find your model",
+  goodChoice: "Good choice!!!",
   modelName: "Model name",
   music: "Music",
   addons: "Addons",
@@ -34,4 +35,6 @@ export default {
   money: "Money",
   smart: "Smart",
   find: "Find",
+  select: "SELECT",
+  findAgain: "Find again",
 };
