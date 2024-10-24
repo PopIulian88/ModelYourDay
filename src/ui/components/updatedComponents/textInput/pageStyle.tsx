@@ -9,6 +9,25 @@ export const pageStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  specialContainer: {
+    flexDirection: "row",
+    width: "100%",
+    padding: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    backgroundColor: style.color.white,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
   textInputContainer: {
     flex: 1,
   },

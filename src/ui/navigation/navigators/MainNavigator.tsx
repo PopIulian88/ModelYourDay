@@ -7,12 +7,15 @@ import { useSelector } from "react-redux";
 import { style } from "../../../styles";
 import { StatusBar } from "react-native";
 import { FIREBASE_AUTH } from "../../../backend";
+import { FindYourModelScreen } from "../../screens/findYourModel";
+import { ModelModel } from "../../../models/MedelModel";
 
 const Stack = createStackNavigator<MainNavigatorParams>();
 
 export type MainNavigatorParams = {
   Home: undefined;
   ChooseFirstModel: undefined;
+  FindYourModel: ModelModel | undefined;
 };
 
 export const MainNavigator = () => {
@@ -47,6 +50,11 @@ export const MainNavigator = () => {
           // @ts-ignore
           name={Routes.chooseFirstModel}
           component={ChooseFirstModelScreen}
+        />
+        <Stack.Screen
+          // @ts-ignore
+          name={Routes.findYourModel}
+          component={FindYourModelScreen}
         />
       </Stack.Navigator>
       <StatusBar

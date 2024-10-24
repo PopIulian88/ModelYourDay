@@ -1,14 +1,8 @@
 import { View } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { useSelector } from "react-redux";
-import {
-  IStore,
-  rootActions,
-  useAppDispatch,
-  userActions,
-} from "../../../redux";
-import { ButtonType, ModalModel } from "../../../models";
-import { Lottie } from "../../../resources";
+import { IStore, useAppDispatch, userActions } from "../../../redux";
+import { ButtonType } from "../../../models";
 import { Button, Text } from "../../components";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";

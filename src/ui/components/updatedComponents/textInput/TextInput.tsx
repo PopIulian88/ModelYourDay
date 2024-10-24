@@ -1,7 +1,6 @@
-import { TouchableOpacity, View } from "react-native";
-import { TextInputModel } from "../../../../models";
+import { TextInput as RnTextInput, TouchableOpacity, View } from "react-native";
+import { TextInputModel, TextInputType } from "../../../../models";
 import { useState } from "react";
-import { TextInput as RnTextInput } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { Icon } from "../icon";
 import { style } from "../../../../styles";
@@ -28,8 +27,17 @@ const TextInput = (props: TextInputModel) => {
   };
 
   return (
-    <View style={pageStyle.container}>
-      <Icon name={props.icon} color={style.color.tundora} />
+    <View
+      style={
+        props.type === TextInputType.SPECIAL
+          ? pageStyle.specialContainer
+          : pageStyle.container
+      }
+    >
+      {props.type !== TextInputType.SPECIAL && (
+        <Icon name={props.icon ?? IconAssets.eye} color={style.color.tundora} />
+      )}
+
       <View style={pageStyle.textInputContainer}>
         <View style={pageStyle.inputContainer}>
           <RnTextInput
@@ -57,7 +65,9 @@ const TextInput = (props: TextInputModel) => {
             </TouchableOpacity>
           )}
         </View>
-        <View style={pageStyle.line} />
+        {props.type !== TextInputType.SPECIAL && (
+          <View style={pageStyle.line} />
+        )}
       </View>
     </View>
   );

@@ -7,13 +7,7 @@ import {
   View,
 } from "react-native";
 import { pageStyle } from "./pageStyle";
-import {
-  DefaultData,
-  IconAssets,
-  Images,
-  Lottie,
-  StringsRepo,
-} from "../../../resources";
+import { DefaultData, Images, Lottie, StringsRepo } from "../../../resources";
 import { ModelCard, Text } from "../../components";
 import { ModelCardType, TextType } from "../../../models";
 import { Fragment, useState } from "react";
@@ -21,6 +15,10 @@ import Carousel from "react-native-reanimated-carousel";
 import LottieView from "lottie-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { style } from "../../../styles";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
+// Remove the cycle
+import { Routes } from "../../navigation/constats";
 
 const ChooseFirstModelScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,13 +27,16 @@ const ChooseFirstModelScreen = () => {
   const { width, height } = useWindowDimensions();
   const { bottom } = useSafeAreaInsets();
 
-  // TODO: Implement the selected model logic
+  const { navigate } = useNavigation<NavigationProp<MainNavigatorParams>>();
+
   const onModelSelected = (index: number) => {
     setCarouselAutoPlay(false);
     if (index !== DefaultData.models.length - 1) {
-      console.log("Model Selected: ", DefaultData.models[index]);
+      // @ts-ignore
+      navigate(Routes.findYourModel, DefaultData.models[index]);
     } else {
-      console.log("AI Model Selected");
+      // @ts-ignore
+      navigate(Routes.findYourModel);
     }
   };
 
