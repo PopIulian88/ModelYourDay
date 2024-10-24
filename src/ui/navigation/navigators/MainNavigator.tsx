@@ -38,18 +38,25 @@ export const MainNavigator = () => {
     });
   }, []);
 
+  //TODO: Implement the onboarding check
+  const isOnboardingCompleted = () => {
+    return true;
+  };
+
   return !isLoading && !mainDataIsLoading ? (
     <Fragment>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {!isOnboardingCompleted() && (
+          <Stack.Screen
+            // @ts-ignore
+            name={Routes.chooseFirstModel}
+            component={ChooseFirstModelScreen}
+          />
+        )}
         <Stack.Screen
           // @ts-ignore
           name={Routes.home}
           component={HomeScreen}
-        />
-        <Stack.Screen
-          // @ts-ignore
-          name={Routes.chooseFirstModel}
-          component={ChooseFirstModelScreen}
         />
         <Stack.Screen
           // @ts-ignore

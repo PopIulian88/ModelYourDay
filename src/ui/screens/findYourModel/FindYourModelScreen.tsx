@@ -27,10 +27,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Loading } from "../loading";
 import ScrollView = Animated.ScrollView;
 import { sleep } from "openai/core";
+// Remove the cycle
+import { Routes } from "../../navigation/constats";
 
 const FindYourModelScreen = () => {
   const route = useRoute<RouteProp<MainNavigatorParams>>();
-  const { goBack } = useNavigation<NavigationProp<MainNavigatorParams>>();
+  const { goBack, navigate } =
+    useNavigation<NavigationProp<MainNavigatorParams>>();
 
   const { top, bottom } = useSafeAreaInsets();
 
@@ -53,7 +56,8 @@ const FindYourModelScreen = () => {
       sleep(300).then(() => setIsLoading(false));
     } else {
       // Select default flow
-      console.log("Selected model: ", selectedModel);
+      // @ts-ignore
+      navigate(Routes.home);
     }
   };
 
