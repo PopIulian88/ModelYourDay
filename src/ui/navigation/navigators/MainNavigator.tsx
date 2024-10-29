@@ -1,5 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { ChooseFirstModelScreen, HomeScreen, Loading } from "../../screens";
+import {
+  ChooseFirstModelScreen,
+  FindYourModelScreen,
+  HomeScreen,
+  Loading,
+} from "../../screens";
 import { Routes } from "../constats";
 import { IStore, useAppDispatch, userActions } from "../../../redux";
 import React, { Fragment, useEffect, useState } from "react";
@@ -7,8 +12,7 @@ import { useSelector } from "react-redux";
 import { style } from "../../../styles";
 import { StatusBar } from "react-native";
 import { FIREBASE_AUTH } from "../../../backend";
-import { FindYourModelScreen } from "../../screens/findYourModel";
-import { ModelModel } from "../../../models/MedelModel";
+import { ModelModel } from "../../../models";
 
 const Stack = createStackNavigator<MainNavigatorParams>();
 

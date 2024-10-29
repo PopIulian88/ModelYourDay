@@ -1,4 +1,4 @@
-import { ModelModel } from "../../models/MedelModel";
+import { ModelModel } from "../../models/ModelModel";
 import { Images } from "../images";
 
 export const models: ModelModel[] = [
