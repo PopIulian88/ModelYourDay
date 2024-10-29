@@ -1,5 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { ChooseFirstModelScreen, HomeScreen, Loading } from "../../screens";
+import {
+  ChooseFirstModelScreen,
+  FindYourModelScreen,
+  HomeScreen,
+  Loading,
+} from "../../screens";
 import { Routes } from "../constats";
 import { IStore, useAppDispatch, userActions } from "../../../redux";
 import React, { Fragment, useEffect, useState } from "react";
@@ -7,12 +12,14 @@ import { useSelector } from "react-redux";
 import { style } from "../../../styles";
 import { StatusBar } from "react-native";
 import { FIREBASE_AUTH } from "../../../backend";
+import { ModelModel } from "../../../models";
 
 const Stack = createStackNavigator<MainNavigatorParams>();
 
 export type MainNavigatorParams = {
   Home: undefined;
   ChooseFirstModel: undefined;
+  FindYourModel: ModelModel | undefined;
 };
 
 export const MainNavigator = () => {
@@ -35,9 +42,21 @@ export const MainNavigator = () => {
     });
   }, []);
 
+  //TODO: Implement the onboarding check
+  const isOnboardingCompleted = () => {
+    return true;
+  };
+
   return !isLoading && !mainDataIsLoading ? (
     <Fragment>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {!isOnboardingCompleted() && (
+          <Stack.Screen
+            // @ts-ignore
+            name={Routes.chooseFirstModel}
+            component={ChooseFirstModelScreen}
+          />
+        )}
         <Stack.Screen
           // @ts-ignore
           name={Routes.home}
@@ -45,8 +64,8 @@ export const MainNavigator = () => {
         />
         <Stack.Screen
           // @ts-ignore
-          name={Routes.chooseFirstModel}
-          component={ChooseFirstModelScreen}
+          name={Routes.findYourModel}
+          component={FindYourModelScreen}
         />
       </Stack.Navigator>
       <StatusBar
