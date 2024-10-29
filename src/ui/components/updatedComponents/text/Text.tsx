@@ -11,6 +11,8 @@ const Text = (props: TextModel) => {
         return style.text.headingL;
       case TextType.headingMD:
         return style.text.headingMD;
+      case TextType.heading2MD:
+        return style.text.heading2MD;
       case TextType.headingSM:
         return style.text.headingSM;
       case TextType.heading2SM:

@@ -1,3 +1,5 @@
+import { TouchableOpacityProps } from "react-native";
+
 export enum ButtonType {
   PRIMARY = "primary",
   SECONDARY = "secondary",
@@ -9,4 +11,5 @@ export type ButtonModel = {
   type: ButtonType;
   onPress: () => void;
   isDisabled?: boolean;
+  style?: TouchableOpacityProps["style"];
 };

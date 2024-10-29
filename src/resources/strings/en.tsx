@@ -37,4 +37,7 @@ export default {
   find: "Find",
   select: "SELECT",
   findAgain: "Find again",
+  hello: "Hello",
+  readyToBecomeYourModel: "Ready to become your model?",
+  yourModelIsNow: "Your model is now",
 };

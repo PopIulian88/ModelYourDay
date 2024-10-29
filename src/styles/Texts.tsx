@@ -18,6 +18,11 @@ export const text = StyleSheet.create({
     fontFamily: font.montserratSemiBold,
     color: color.black,
   },
+  heading2MD: {
+    fontSize: 24,
+    fontFamily: font.montserratMedium,
+    color: color.black,
+  },
   headingSM: {
     fontSize: 16,
     fontFamily: font.montserratRegular,
