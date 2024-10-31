@@ -11,9 +11,9 @@ export const pageStyle = StyleSheet.create({
     marginVertical: 20,
   },
   lottie: {
-    height: 40,
-    width: 40,
-    top: -30,
+    height: 30,
+    width: 30,
+    top: -20,
     position: "absolute",
     backgroundColor: style.color.background,
   },

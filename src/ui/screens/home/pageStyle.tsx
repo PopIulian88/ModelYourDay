@@ -7,13 +7,16 @@ export const pageStyle = StyleSheet.create({
     backgroundColor: style.color.background,
   },
   scrollContentContainer: {
-    flex: 1,
     gap: 10,
   },
   modelSectionContainer: {
     width: "100%",
     gap: 10,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  smallContainer: {
+    gap: 10,
   },
   profileContainer: {
     position: "absolute",
@@ -31,8 +34,17 @@ export const pageStyle = StyleSheet.create({
   },
   motivationSectionContainer: {
     width: "100%",
-    gap: 10,
+    gap: 20,
+  },
+  strikeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 20,
+    borderRadius: 20,
+    backgroundColor: style.color.alto,
+  },
+  flatList: {
+    paddingHorizontal: 20,
   },
   bottomButton: {
     position: "absolute",

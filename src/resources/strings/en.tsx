@@ -40,4 +40,7 @@ export default {
   hello: "Hello",
   readyToBecomeYourModel: "Ready to become your model?",
   yourModelIsNow: "Your model is now",
+  strike: "Strike",
+  motivation: "Motivation",
+  food: "Food",
 };

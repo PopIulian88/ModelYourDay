@@ -3,4 +3,6 @@ export type ModelModel = {
   description: string;
   image: string | number;
   currentActivity: string;
+  strike: number;
+  motivation?: string[];
 };
