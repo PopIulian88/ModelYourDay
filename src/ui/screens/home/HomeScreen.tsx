@@ -24,7 +24,7 @@ import {
 } from "../../components";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
-import { DefaultData, Images, StringsRepo } from "../../../resources";
+import { DefaultData, Images, Lottie, StringsRepo } from "../../../resources";
 import { style } from "../../../styles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Fragment } from "react";
@@ -80,6 +80,7 @@ const HomeScreen = () => {
         ]}
         showsVerticalScrollIndicator={false}
       >
+        {/*MODEL*/}
         <View style={pageStyle.modelSectionContainer}>
           <TouchableOpacity
             style={pageStyle.profileContainer}
@@ -128,6 +129,7 @@ const HomeScreen = () => {
           </View>
         </View>
         <Line />
+        {/*MOTIVATION*/}
         <View style={pageStyle.motivationSectionContainer}>
           <View style={[pageStyle.smallContainer, { paddingHorizontal: 20 }]}>
             <Text type={TextType.headingMD}>{StringsRepo.strike}</Text>
@@ -165,11 +167,105 @@ const HomeScreen = () => {
           )}
         </View>
         <Line />
+        {/*FOOD*/}
+        <View style={pageStyle.relaxSectionContainer}>
+          {DefaultData.models[1].meals && (
+            <View style={pageStyle.smallContainer}>
+              <Text type={TextType.headingMD} style={{ paddingHorizontal: 20 }}>
+                {StringsRepo.food}
+              </Text>
+              <FlatList
+                data={DefaultData.models[1].meals}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={pageStyle.flatList}
+                ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+                renderItem={(meal) => {
+                  return (
+                    <Fragment>
+                      <MotivationalCard
+                        type={MotivationalCardType.DEFAULT}
+                        cardNumber={meal.index + 1}
+                        list={meal.item}
+                      />
+                      {/*This force can make problems in the future*/}
+                      {meal.index ===
+                        DefaultData.models[1].meals!.length - 1 && (
+                        <View style={{ width: 40 }} />
+                      )}
+                    </Fragment>
+                  );
+                }}
+              />
+              <Text
+                type={TextType.heading2SM}
+                style={{ paddingHorizontal: 20 }}
+              >
+                {StringsRepo.todayNumberOfMeals}:{" "}
+                <Text style={{ color: style.color.sunshade }}>
+                  {DefaultData.models[1].meals.length.toString()}
+                </Text>
+              </Text>
+            </View>
+          )}
+          {DefaultData.models[1].training && (
+            <View style={pageStyle.smallContainer}>
+              <Text type={TextType.headingMD} style={{ paddingHorizontal: 20 }}>
+                {StringsRepo.gym}
+              </Text>
+              <FlatList
+                data={DefaultData.models[1].training}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={pageStyle.flatList}
+                ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+                renderItem={(exercises) => {
+                  return (
+                    <Fragment>
+                      <MotivationalCard
+                        type={MotivationalCardType.DEFAULT}
+                        header={StringsRepo.todayWeHit}
+                        list={exercises.item}
+                        lottie={Lottie.sport}
+                      />
+                      {/*This force can make problems in the future*/}
+                      {exercises.index ===
+                        DefaultData.models[1].training!.length - 1 && (
+                        <View style={{ width: 40 }} />
+                      )}
+                    </Fragment>
+                  );
+                }}
+              />
+            </View>
+          )}
+          {DefaultData.models[1].freeTime && (
+            <View style={pageStyle.smallContainer}>
+              <Text type={TextType.headingMD} style={{ paddingHorizontal: 20 }}>
+                {StringsRepo.freeTime}
+              </Text>
+              <View
+                style={{
+                  paddingHorizontal: 20,
+                }}
+              >
+                <MotivationalCard
+                  type={MotivationalCardType.DEFAULT}
+                  list={DefaultData.models[1].freeTime}
+                  lottie={Lottie.chill}
+                />
+              </View>
+            </View>
+          )}
+        </View>
       </ScrollView>
       <Button
         type={ButtonType.PRIMARY}
-        title={"Logout"}
-        onPress={() => dispatch(userActions.logout())}
+        title={StringsRepo.contactYourMentor}
+        onPress={() =>
+          // dispatch(userActions.logout())
+          console.log("Contact your mentor")
+        }
         style={[
           pageStyle.bottomButton,
           { marginBottom: Math.max(bottom + 6, 16) },

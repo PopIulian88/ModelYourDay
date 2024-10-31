@@ -19,7 +19,7 @@ export enum TextType {
 }
 
 export type TextModel = {
-  children: string | string[] | number | undefined;
+  children: string | string[] | number | {} | undefined;
   type?: TextType;
   style?: StyleProp<TextStyle>;
   numberOfLines?: number;

@@ -43,4 +43,9 @@ export default {
   strike: "Strike",
   motivation: "Motivation",
   food: "Food",
+  todayNumberOfMeals: "Today number of meals",
+  freeTime: "Free time",
+  gym: "Gym",
+  todayWeHit: "Today we hit",
+  contactYourMentor: "Contact your mentor",
 };

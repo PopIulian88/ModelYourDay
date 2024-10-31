@@ -46,6 +46,10 @@ export const pageStyle = StyleSheet.create({
   flatList: {
     paddingHorizontal: 20,
   },
+  relaxSectionContainer: {
+    width: "100%",
+    gap: 20,
+  },
   bottomButton: {
     position: "absolute",
     bottom: 0,

@@ -5,4 +5,7 @@ export type ModelModel = {
   currentActivity: string;
   strike: number;
   motivation?: string[];
+  meals?: string[][];
+  freeTime?: string[];
+  training?: string[][];
 };
