@@ -22,6 +22,7 @@ const Button = (props: ButtonModel) => {
           backgroundColor: buttonColor(),
         },
         props.type === ButtonType.SPECIAL && pageStyle.specialContainer,
+        props.style,
       ]}
     >
       <Text

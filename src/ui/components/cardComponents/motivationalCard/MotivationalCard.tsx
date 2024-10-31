@@ -38,7 +38,9 @@ const MotivationalCard = (props: MotivationalCardModel) => {
                 style={[
                   pageStyle.motivationalHeaderStyle,
                   !props.cardNumber
-                    ? { color: style.color.black }
+                    ? props.type === MotivationalCardType.MOTIVATIONAL
+                      ? { color: style.color.tundora }
+                      : { color: style.color.black }
                     : { color: style.color.goldDrop },
                 ]}
               >

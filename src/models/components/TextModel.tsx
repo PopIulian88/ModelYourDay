@@ -4,6 +4,7 @@ export enum TextType {
   headingXL = "heading_xl",
   headingL = "heading_l",
   headingMD = "heading_md",
+  heading2MD = "heading_2md",
   headingSM = "heading_sm",
   heading2SM = "heading_2sm",
   heading3SM = "heading_3sm",
@@ -18,7 +19,7 @@ export enum TextType {
 }
 
 export type TextModel = {
-  children: string | string[] | number | undefined;
+  children: string | string[] | number | {} | undefined;
   type?: TextType;
   style?: StyleProp<TextStyle>;
   numberOfLines?: number;
