@@ -6,6 +6,7 @@ export * from "./authVerification";
 export * from "./home";
 export * from "./chooseFirstModel";
 export * from "./findYourModel";
+export * from "./profile";
 
 //OTHER
 export * from "./loading";

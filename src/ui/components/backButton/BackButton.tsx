@@ -10,7 +10,7 @@ import { pageStyle } from "./pageStyle";
 import { useNavigation } from "@react-navigation/native";
 import { style } from "../../../styles";
 
-const BackButton = ({ styles }: { styles: ViewStyle }) => {
+const BackButton = ({ styles }: { styles?: ViewStyle }) => {
   const { goBack } = useNavigation();
   return (
     <TouchableOpacity

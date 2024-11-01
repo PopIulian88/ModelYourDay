@@ -28,6 +28,8 @@ import { DefaultData, Images, Lottie, StringsRepo } from "../../../resources";
 import { style } from "../../../styles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Fragment } from "react";
+// To resolve the circle
+import { Routes } from "../../navigation/constats";
 
 const HomeScreen = () => {
   const { username } = useSelector((state: IStore) => state.userReducer);
@@ -84,7 +86,10 @@ const HomeScreen = () => {
         <View style={pageStyle.modelSectionContainer}>
           <TouchableOpacity
             style={pageStyle.profileContainer}
-            onPress={() => console.log("Handle Profile press")}
+            onPress={() =>
+              // @ts-ignore
+              navigate(Routes.profile)
+            }
             hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
           >
             <Image source={Images.profile} style={pageStyle.profileImage} />
@@ -262,10 +267,7 @@ const HomeScreen = () => {
       <Button
         type={ButtonType.PRIMARY}
         title={StringsRepo.contactYourMentor}
-        onPress={() =>
-          // dispatch(userActions.logout())
-          console.log("Contact your mentor")
-        }
+        onPress={() => console.log("Contact your mentor")}
         style={[
           pageStyle.bottomButton,
           { marginBottom: Math.max(bottom + 6, 16) },

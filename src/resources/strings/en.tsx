@@ -48,4 +48,5 @@ export default {
   gym: "Gym",
   todayWeHit: "Today we hit",
   contactYourMentor: "Contact your mentor",
+  findANewMentor: "Find a new mentor",
 };
