@@ -15,9 +15,6 @@ export const pageStyle = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
   },
-  smallContainer: {
-    gap: 10,
-  },
   profileContainer: {
     position: "absolute",
     right: 20,
@@ -35,16 +32,6 @@ export const pageStyle = StyleSheet.create({
   motivationSectionContainer: {
     width: "100%",
     gap: 20,
-  },
-  strikeContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 20,
-    borderRadius: 20,
-    backgroundColor: style.color.alto,
-  },
-  flatList: {
-    paddingHorizontal: 20,
   },
   relaxSectionContainer: {
     width: "100%",

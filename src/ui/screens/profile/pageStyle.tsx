@@ -16,6 +16,7 @@ export const pageStyle = StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 10,
     position: "absolute",
+    zIndex: 1,
   },
   userContainer: {
     alignItems: "center",
