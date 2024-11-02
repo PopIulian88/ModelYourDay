@@ -5,8 +5,7 @@ import { ModelCard } from "../../cardComponents";
 import { ModelCardType } from "../../../../models";
 import { useState } from "react";
 import { models } from "../../../../resources/defaultData/Models";
-import { useAppDispatch } from "../../../../redux";
-import { hideModal, showModal } from "../../../../redux/root/RootSlice";
+import { rootActions, useAppDispatch } from "../../../../redux";
 
 export const UserModelsComplex = ({
   styles,
@@ -25,18 +24,18 @@ export const UserModelsComplex = ({
 
   const onModelPress = (index: number) => {
     dispatch(
-      showModal({
+      rootActions.showModal({
         title: StringsRepo.changeTheModel,
         lottie: Lottie.influencer,
         buttonTitle: StringsRepo.noLikeThisOne,
         buttonAction: () => {
-          dispatch(hideModal());
+          dispatch(rootActions.hideModal());
         },
         secondaryButtonTitle: StringsRepo.yesPlease,
         secondaryButtonAction: () => {
           //TODO: Sava the changes into DB
           setSelectedModel(index);
-          dispatch(hideModal());
+          dispatch(rootActions.hideModal());
         },
       }),
     );

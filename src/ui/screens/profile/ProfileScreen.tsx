@@ -18,9 +18,13 @@ import { Fragment } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { IStore, useAppDispatch, userActions } from "../../../redux";
+import {
+  IStore,
+  rootActions,
+  useAppDispatch,
+  userActions,
+} from "../../../redux";
 import { useSelector } from "react-redux";
-import { hideModal, showModal } from "../../../redux/root/RootSlice";
 
 const ProfileScreen = () => {
   const { username } = useSelector((state: IStore) => state.userReducer);
@@ -32,16 +36,16 @@ const ProfileScreen = () => {
 
   const onLogout = () => {
     dispatch(
-      showModal({
+      rootActions.showModal({
         title: StringsRepo.leavingSoSoon,
         lottie: Lottie.astronaut,
         buttonTitle: StringsRepo.noItWasMistake,
         buttonAction: () => {
-          dispatch(hideModal());
+          dispatch(rootActions.hideModal());
         },
         secondaryButtonTitle: StringsRepo.yesLogout,
         secondaryButtonAction: () => {
-          dispatch(hideModal());
+          dispatch(rootActions.hideModal());
           dispatch(userActions.logout());
         },
       }),
