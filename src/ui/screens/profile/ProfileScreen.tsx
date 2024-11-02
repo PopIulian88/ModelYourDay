@@ -2,7 +2,7 @@ import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { pageStyle } from "./pageStyle";
 //To resolve the cyrcle
 import { Routes } from "../../navigation/constats";
-import { IconAssets, Images, StringsRepo } from "../../../resources";
+import { IconAssets, Images, Lottie, StringsRepo } from "../../../resources";
 import {
   BackButton,
   Button,
@@ -10,6 +10,7 @@ import {
   Icon,
   Line,
   Text,
+  UserModelsComplex,
 } from "../../components";
 import { ButtonType, TextType } from "../../../models";
 import { style } from "../../../styles";
@@ -19,6 +20,7 @@ import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IStore, useAppDispatch, userActions } from "../../../redux";
 import { useSelector } from "react-redux";
+import { hideModal, showModal } from "../../../redux/root/RootSlice";
 
 const ProfileScreen = () => {
   const { username } = useSelector((state: IStore) => state.userReducer);
@@ -27,6 +29,24 @@ const ProfileScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
 
   const dispatch = useAppDispatch();
+
+  const onLogout = () => {
+    dispatch(
+      showModal({
+        title: StringsRepo.leavingSoSoon,
+        lottie: Lottie.astronaut,
+        buttonTitle: StringsRepo.noItWasMistake,
+        buttonAction: () => {
+          dispatch(hideModal());
+        },
+        secondaryButtonTitle: StringsRepo.yesLogout,
+        secondaryButtonAction: () => {
+          dispatch(hideModal());
+          dispatch(userActions.logout());
+        },
+      }),
+    );
+  };
 
   const Header = () => {
     return (
@@ -71,13 +91,13 @@ const ProfileScreen = () => {
           <CurrentModelComplex styles={{ width: "100%" }} />
         </View>
         <Line />
+        <UserModelsComplex />
         <View style={{ paddingHorizontal: 20 }}>
           <Button
             type={ButtonType.SPECIAL}
             title={StringsRepo.logout}
-            onPress={() => {
-              dispatch(userActions.logout());
-            }}
+            onPress={onLogout}
+            style={{ marginTop: 20 }}
           />
         </View>
       </ScrollView>
