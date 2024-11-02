@@ -48,4 +48,11 @@ export default {
   gym: "Gym",
   todayWeHit: "Today we hit",
   contactYourMentor: "Contact your mentor",
+  findANewMentor: "Find a new mentor",
+  changeTheModel: "Are you sure you want to change your Model?",
+  yesPlease: "Yes, please",
+  noLikeThisOne: "No, I like this one",
+  leavingSoSoon: "Are you leaving so soon?",
+  yesLogout: "Yes, logout",
+  noItWasMistake: "No, it was a mistake",
 };

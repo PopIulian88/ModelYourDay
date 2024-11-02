@@ -9,33 +9,36 @@ export const pageStyle = StyleSheet.create({
   scrollContentContainer: {
     gap: 10,
   },
-  modelSectionContainer: {
+  headerContainer: {
     width: "100%",
-    gap: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingTop: 20,
-  },
-  profileContainer: {
+    marginVertical: 10,
     position: "absolute",
-    right: 20,
     zIndex: 1,
   },
-  profileImage: {
-    width: 50,
-    height: 50,
+  userContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    paddingHorizontal: 20,
   },
-  headerTextContainer: {
+  profileTextContainer: {
+    alignItems: "center",
+  },
+  modelActionTextContainer: {
+    alignSelf: "flex-start",
     flexDirection: "row",
     paddingTop: 10,
     gap: 10,
   },
-  motivationSectionContainer: {
-    width: "100%",
-    gap: 20,
-  },
-  relaxSectionContainer: {
-    width: "100%",
-    gap: 20,
+  profileImage: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    marginTop: 20,
+    alignSelf: "center",
   },
   bottomButton: {
     position: "absolute",

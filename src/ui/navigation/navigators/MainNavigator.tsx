@@ -4,6 +4,7 @@ import {
   FindYourModelScreen,
   HomeScreen,
   Loading,
+  ProfileScreen,
 } from "../../screens";
 import { Routes } from "../constats";
 import { IStore, useAppDispatch, userActions } from "../../../redux";
@@ -20,6 +21,7 @@ export type MainNavigatorParams = {
   Home: undefined;
   ChooseFirstModel: undefined;
   FindYourModel: ModelModel | undefined;
+  Profile: undefined;
 };
 
 export const MainNavigator = () => {
@@ -61,6 +63,11 @@ export const MainNavigator = () => {
           // @ts-ignore
           name={Routes.home}
           component={HomeScreen}
+        />
+        <Stack.Screen
+          // @ts-ignore
+          name={Routes.profile}
+          component={ProfileScreen}
         />
         <Stack.Screen
           // @ts-ignore

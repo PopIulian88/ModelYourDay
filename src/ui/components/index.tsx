@@ -6,3 +6,4 @@ export * from "./backButton";
 export * from "./line";
 export * from "./chatText";
 export * from "./addonsBox";
+export * from "./complexComponents";
