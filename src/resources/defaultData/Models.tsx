@@ -22,6 +22,51 @@ export const models: ModelModel[] = [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],
     ],
+    // 7 for each day of the week
+    challenges: [
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+    ],
+    // This will not be generated
+    challengesCompleted: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+      fail: 0,
+    },
   },
   {
     name: "Dwayne Johnson",
@@ -43,6 +88,51 @@ export const models: ModelModel[] = [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],
     ],
+    // 7 for each day of the week
+    challenges: [
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+      {
+        food: "Eat 5000 Calories",
+        gym: "Workout 2 times a day",
+        freeTime: "No social media",
+      },
+    ],
+    // This will not be generated
+    challengesCompleted: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+      fail: 0,
+    },
   },
   {
     name: "Elon Musk",
@@ -64,6 +154,13 @@ export const models: ModelModel[] = [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],
     ],
+    // This will not be generated
+    challengesCompleted: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+      fail: 0,
+    },
   },
   {
     name: "AI",
@@ -84,5 +181,12 @@ export const models: ModelModel[] = [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],
     ],
+    // This will not be generated
+    challengesCompleted: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+      fail: 0,
+    },
   },
 ];

@@ -12,7 +12,7 @@ const ChallengeCard = (props: ChallengeCardModel) => {
   };
 
   return (
-    <View style={pageStyle.container}>
+    <View style={[pageStyle.container, { borderColor: props.color }]}>
       <View
         style={[pageStyle.leftContainer, { backgroundColor: props.color }]}
       />

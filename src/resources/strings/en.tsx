@@ -55,4 +55,5 @@ export default {
   leavingSoSoon: "Are you leaving so soon?",
   yesLogout: "Yes, logout",
   noItWasMistake: "No, it was a mistake",
+  challenge: "Challenge",
 };

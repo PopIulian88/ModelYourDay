@@ -10,6 +10,7 @@ export const color = {
   serenade: "#FFF5EA",
 
   barberry: "#E5DD0E",
+  chenin: "#DAD17A",
 
   black: "#000000",
   gray: "#898989",

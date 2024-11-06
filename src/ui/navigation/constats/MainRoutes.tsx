@@ -3,4 +3,5 @@ export const MainRoutes = {
   chooseFirstModel: "ChooseFirstModel",
   findYourModel: "FindYourModel",
   profile: "Profile",
+  chart: "Chart",
 };
