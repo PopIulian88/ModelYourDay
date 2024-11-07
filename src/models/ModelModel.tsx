@@ -8,4 +8,15 @@ export type ModelModel = {
   meals?: string[][];
   freeTime?: string[];
   training?: string[][];
+  challenges?: {
+    food: string;
+    gym: string;
+    freeTime: string;
+  }[];
+  challengesCompleted: {
+    food: number;
+    gym: number;
+    freeTime: number;
+    fail: number;
+  };
 };

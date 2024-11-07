@@ -1,16 +1,11 @@
-import {
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 import { Icon } from "../updatedComponents";
 import { IconAssets } from "../../../resources";
 import { pageStyle } from "./pageStyle";
 import { useNavigation } from "@react-navigation/native";
 import { style } from "../../../styles";
 
-const BackButton = ({ styles }: { styles?: ViewStyle }) => {
+const BackButton = ({ styles }: { styles?: StyleProp<ViewStyle> }) => {
   const { goBack } = useNavigation();
   return (
     <TouchableOpacity

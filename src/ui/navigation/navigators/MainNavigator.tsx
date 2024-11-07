@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import {
+  ChartScreen,
   ChooseFirstModelScreen,
   FindYourModelScreen,
   HomeScreen,
@@ -22,6 +23,7 @@ export type MainNavigatorParams = {
   ChooseFirstModel: undefined;
   FindYourModel: ModelModel | undefined;
   Profile: undefined;
+  Chart: undefined;
 };
 
 export const MainNavigator = () => {
@@ -73,6 +75,11 @@ export const MainNavigator = () => {
           // @ts-ignore
           name={Routes.findYourModel}
           component={FindYourModelScreen}
+        />
+        <Stack.Screen
+          // @ts-ignore
+          name={Routes.chart}
+          component={ChartScreen}
         />
       </Stack.Navigator>
       <StatusBar

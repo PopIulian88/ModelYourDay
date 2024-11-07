@@ -57,7 +57,10 @@ const ProfileScreen = () => {
       <View style={[pageStyle.headerContainer, { paddingTop: top }]}>
         <BackButton />
         <TouchableOpacity
-          onPress={() => console.log("Navigate to chart screen")}
+          onPress={() => {
+            // @ts-ignore
+            navigate(Routes.chart);
+          }}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Icon

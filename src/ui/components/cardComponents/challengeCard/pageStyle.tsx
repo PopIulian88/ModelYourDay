@@ -7,7 +7,6 @@ export const pageStyle = StyleSheet.create({
     height: 135,
     width: "100%",
     borderWidth: 1,
-    borderColor: style.color.sunshade,
     borderRadius: 20,
   },
   leftContainer: {

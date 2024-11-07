@@ -1,0 +1,127 @@
+import { ScrollView, View } from "react-native";
+import { pageStyle } from "./pageStyle";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BackButton, ChallengeCard, Line, Text } from "../../components";
+import { Fragment, useState } from "react";
+import { TextType } from "../../../models";
+import { style } from "../../../styles";
+import { DefaultData, Lottie, StringsRepo } from "../../../resources";
+import LottieView from "lottie-react-native";
+import PieChart from "react-native-pie-chart";
+import { LinearGradient } from "expo-linear-gradient";
+
+const ChartScreen = () => {
+  const { bottom, top } = useSafeAreaInsets();
+  const [foodCompleted, setFoodCompleted] = useState(false);
+  const [gymCompleted, setGymCompleted] = useState(false);
+  const [freeTimeCompleted, setFreeTimeCompleted] = useState(false);
+
+  const widthAndHeight = 300;
+  const series = [
+    DefaultData.models[1].challengesCompleted.food + 1,
+    DefaultData.models[1].challengesCompleted.gym + 1,
+    DefaultData.models[1].challengesCompleted.freeTime + 1,
+    DefaultData.models[1].challengesCompleted.fail,
+  ];
+  const sliceColor = [
+    style.color.barberry,
+    style.color.sunshade,
+    style.color.chenin,
+    style.color.alto,
+  ];
+
+  const dayOfWeek = new Date().getDay() - 1;
+
+  const Tag = ({ text, color }: { text: string; color: string }) => (
+    <View style={pageStyle.tagSmallContainer}>
+      <View style={{ height: 20, width: 20, backgroundColor: color }}></View>
+      <Text type={TextType.bodyMD}>{text}</Text>
+    </View>
+  );
+
+  return (
+    <Fragment>
+      <BackButton styles={[pageStyle.backButton, { marginTop: top }]} />
+      <ScrollView
+        style={pageStyle.scrollContainer}
+        contentContainerStyle={[
+          pageStyle.scrollContentContainer,
+          { paddingTop: top, paddingBottom: Math.max(bottom + 90, 100) },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={pageStyle.headerTextContainer}>
+          <Text
+            type={TextType.headingMD}
+            style={{ color: style.color.codGray }}
+          >
+            {StringsRepo.yourStatsFrom}
+          </Text>
+          <Text type={TextType.heading2SM} style={{ color: style.color.gray }}>
+            {DefaultData.models[1].name}
+          </Text>
+        </View>
+        <PieChart
+          widthAndHeight={widthAndHeight}
+          series={series}
+          sliceColor={sliceColor}
+          coverRadius={0.35}
+        />
+        <View style={pageStyle.tagContainer}>
+          <Tag text={StringsRepo.gym} color={style.color.sunshade} />
+          <Tag text={StringsRepo.freeTime} color={style.color.chenin} />
+          <Tag text={StringsRepo.food} color={style.color.barberry} />
+          <Tag text={StringsRepo.fails} color={style.color.alto} />
+        </View>
+        <Line />
+        <View style={pageStyle.challengeContainer}>
+          <Text type={TextType.headingMD} style={{ alignSelf: "flex-start" }}>
+            {StringsRepo.challenge}
+          </Text>
+          {/*TODO: If there is no challenge make a button to generate them */}
+          {/*TODO: FInd a logic to save the completed challenges*/}
+          {/*  A solution  must be, when we change the data in redux,*/}
+          {DefaultData.models[1].challenges ? (
+            <Fragment>
+              <ChallengeCard
+                header={StringsRepo.food}
+                description={DefaultData.models[1].challenges[dayOfWeek].food}
+                color={style.color.barberry}
+                isCompleted={foodCompleted}
+                onCheck={(r) => setFoodCompleted(r)}
+              />
+              <ChallengeCard
+                header={StringsRepo.gym}
+                description={DefaultData.models[1].challenges[dayOfWeek].gym}
+                color={style.color.sunshade}
+                isCompleted={gymCompleted}
+                onCheck={(r) => setGymCompleted(r)}
+              />
+              <ChallengeCard
+                header={StringsRepo.freeTime}
+                description={
+                  DefaultData.models[1].challenges[dayOfWeek].freeTime
+                }
+                color={style.color.chenin}
+                isCompleted={freeTimeCompleted}
+                onCheck={(r) => setFreeTimeCompleted(r)}
+              />
+            </Fragment>
+          ) : (
+            <LottieView
+              source={Lottie.influencer}
+              style={pageStyle.lottie}
+              loop
+              autoPlay
+            />
+          )}
+        </View>
+      </ScrollView>
+      <LinearGradient
+        colors={style.color.gradient4}
+        style={pageStyle.gradient}
+      />
+    </Fragment>
+  );
+};
+export default ChartScreen;

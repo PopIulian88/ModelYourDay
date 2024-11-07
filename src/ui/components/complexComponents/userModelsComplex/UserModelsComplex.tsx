@@ -46,6 +46,7 @@ export const UserModelsComplex = ({
       {DefaultData.models.map((model, index) => {
         return (
           <ModelCard
+            key={index}
             type={ModelCardType.small}
             title={model.name}
             image={model.image}

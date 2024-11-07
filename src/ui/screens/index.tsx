@@ -7,6 +7,7 @@ export * from "./home";
 export * from "./chooseFirstModel";
 export * from "./findYourModel";
 export * from "./profile";
+export * from "./chart";
 
 //OTHER
 export * from "./loading";
