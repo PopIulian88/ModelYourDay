@@ -22,6 +22,6 @@ export const color = {
   gradient1: ["transparent", "#121212"],
   gradient2: ["transparent", "#D4D4D4"],
   gradient3: ["transparent", "#FD9827"],
-  gradient4: ["transparent", "#FFF5EA"],
+  gradient4: ["#FFF5EA00", "#FFF5EA"],
   gradient5: ["transparent", "#D0D0D0"],
 };

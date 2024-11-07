@@ -56,4 +56,6 @@ export default {
   yesLogout: "Yes, logout",
   noItWasMistake: "No, it was a mistake",
   challenge: "Challenge",
+  fails: "Fails",
+  yourStatsFrom: "Your stats from",
 };

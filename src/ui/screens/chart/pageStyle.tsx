@@ -9,7 +9,7 @@ export const pageStyle = StyleSheet.create({
   },
   scrollContentContainer: {
     alignItems: "center",
-    gap: 10,
+    gap: 20,
   },
   backButton: {
     position: "absolute",
@@ -20,6 +20,18 @@ export const pageStyle = StyleSheet.create({
   headerTextContainer: {
     alignItems: "center",
   },
+  tagContainer: {
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    paddingHorizontal: 30,
+    gap: 30,
+  },
+  tagSmallContainer: {
+    flexDirection: "row",
+    gap: 5,
+  },
   challengeContainer: {
     paddingHorizontal: 20,
     width: "100%",
@@ -29,5 +41,12 @@ export const pageStyle = StyleSheet.create({
   lottie: {
     width: 200,
     height: 200,
+  },
+  gradient: {
+    position: "absolute",
+    width: "100%",
+    height: 90,
+    bottom: 0,
+    zIndex: 1,
   },
 });

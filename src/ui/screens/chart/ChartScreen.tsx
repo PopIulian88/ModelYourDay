@@ -7,6 +7,8 @@ import { TextType } from "../../../models";
 import { style } from "../../../styles";
 import { DefaultData, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
+import PieChart from "react-native-pie-chart";
+import { LinearGradient } from "expo-linear-gradient";
 
 const ChartScreen = () => {
   const { bottom, top } = useSafeAreaInsets();
@@ -14,7 +16,29 @@ const ChartScreen = () => {
   const [gymCompleted, setGymCompleted] = useState(false);
   const [freeTimeCompleted, setFreeTimeCompleted] = useState(false);
 
+  const widthAndHeight = 300;
+  const series = [
+    DefaultData.models[1].challengesCompleted.food + 1,
+    DefaultData.models[1].challengesCompleted.gym + 1,
+    DefaultData.models[1].challengesCompleted.freeTime + 1,
+    DefaultData.models[1].challengesCompleted.fail,
+  ];
+  const sliceColor = [
+    style.color.barberry,
+    style.color.sunshade,
+    style.color.chenin,
+    style.color.alto,
+  ];
+
   const dayOfWeek = new Date().getDay() - 1;
+
+  const Tag = ({ text, color }: { text: string; color: string }) => (
+    <View style={pageStyle.tagSmallContainer}>
+      <View style={{ height: 20, width: 20, backgroundColor: color }}></View>
+      <Text type={TextType.bodyMD}>{text}</Text>
+    </View>
+  );
+
   return (
     <Fragment>
       <BackButton styles={[pageStyle.backButton, { marginTop: top }]} />
@@ -31,11 +55,23 @@ const ChartScreen = () => {
             type={TextType.headingMD}
             style={{ color: style.color.codGray }}
           >
-            Your stats from
+            {StringsRepo.yourStatsFrom}
           </Text>
           <Text type={TextType.heading2SM} style={{ color: style.color.gray }}>
             {DefaultData.models[1].name}
           </Text>
+        </View>
+        <PieChart
+          widthAndHeight={widthAndHeight}
+          series={series}
+          sliceColor={sliceColor}
+          coverRadius={0.35}
+        />
+        <View style={pageStyle.tagContainer}>
+          <Tag text={StringsRepo.gym} color={style.color.sunshade} />
+          <Tag text={StringsRepo.freeTime} color={style.color.chenin} />
+          <Tag text={StringsRepo.food} color={style.color.barberry} />
+          <Tag text={StringsRepo.fails} color={style.color.alto} />
         </View>
         <Line />
         <View style={pageStyle.challengeContainer}>
@@ -81,6 +117,10 @@ const ChartScreen = () => {
           )}
         </View>
       </ScrollView>
+      <LinearGradient
+        colors={style.color.gradient4}
+        style={pageStyle.gradient}
+      />
     </Fragment>
   );
 };
