@@ -3,6 +3,7 @@ import {
   BackButton,
   Button,
   CurrentModelComplex,
+  FreetimeListModelComplex,
   Line,
   MotivationalCard,
   Text,
@@ -45,7 +46,7 @@ const ModelScreen = () => {
             type={ButtonType.SPECIAL}
             onPress={() =>
               // @ts-ignore
-              navigate(Routes.chart)
+              navigate(Routes.chart, { scroll: true })
             }
           />
         </View>
@@ -75,6 +76,9 @@ const ModelScreen = () => {
           </View>
         </View>
         <Line />
+        <View style={pageStyle.schedule}>
+          <FreetimeListModelComplex />
+        </View>
       </ScrollView>
       <LinearGradient
         colors={style.color.gradient4}

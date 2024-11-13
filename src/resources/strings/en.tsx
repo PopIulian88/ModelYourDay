@@ -63,4 +63,11 @@ export default {
   eats: "eats?",
   whatIs: "What is",
   workoutRoutine: "workout routine?",
+  monday: "Monday",
+  tuesday: "Tuesday",
+  wednesday: "Wednesday",
+  thursday: "Thursday",
+  friday: "Friday",
+  saturday: "Saturday",
+  sunday: "Sunday",
 };

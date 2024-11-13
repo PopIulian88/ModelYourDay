@@ -10,6 +10,8 @@ export const FreetimeModelComplex = ({
 }: {
   styles?: StyleProp<ViewStyle>;
 }) => {
+  const dayOfWeek = new Date().getDay() - 1;
+
   return DefaultData.models[1].freeTime ? (
     <View style={[pageStyle.container, styles]}>
       <Text type={TextType.headingMD} style={{ paddingHorizontal: 20 }}>
@@ -22,7 +24,7 @@ export const FreetimeModelComplex = ({
       >
         <MotivationalCard
           type={MotivationalCardType.DEFAULT}
-          list={DefaultData.models[1].freeTime}
+          list={DefaultData.models[1].freeTime[dayOfWeek]}
           lottie={Lottie.chill}
         />
       </View>

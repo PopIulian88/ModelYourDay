@@ -33,6 +33,10 @@ export const pageStyle = StyleSheet.create({
   sectionText: {
     alignSelf: "flex-start",
   },
+  schedule: {
+    width: "100%",
+    gap: 5,
+  },
   gradient: {
     position: "absolute",
     width: "100%",

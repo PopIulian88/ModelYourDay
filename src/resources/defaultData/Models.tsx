@@ -17,7 +17,16 @@ export const models: ModelModel[] = [
       ["Rice again alongside chicken or buffalo", "Protein shake"],
       ["Chicken soup", "A hole cow with rice", "Small snack"],
     ],
-    freeTime: ["Reading", "Working out", "Traveling"],
+    // 7 for each day of the week
+    freeTime: [
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+    ],
     training: [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],
@@ -83,7 +92,16 @@ export const models: ModelModel[] = [
       ["Chicken breast", "Rice", "Broccoli"],
       ["Salmon", "Rice", "Broccoli"],
     ],
-    freeTime: ["Working out", "Traveling", "Spending time with family"],
+    // 7 for each day of the week
+    freeTime: [
+      ["Working out", "Traveling", "Spending time with family"],
+      ["Working out", "Traveling", "Spending time with family"],
+      ["Working out", "Traveling", "Spending time with family"],
+      ["Working out", "Traveling", "Spending time with family"],
+      ["Working out", "Traveling", "Spending time with family"],
+      ["Working out", "Traveling", "Spending time with family"],
+      ["Working out", "Traveling", "Spending time with family"],
+    ],
     training: [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],
@@ -149,7 +167,16 @@ export const models: ModelModel[] = [
       ["Mars soup", "Space salad"],
       ["Space burger", "Mars fries"],
     ],
-    freeTime: ["Reading", "Working out", "Traveling"],
+    // 7 for each day of the week
+    freeTime: [
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+    ],
     training: [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],
@@ -176,7 +203,16 @@ export const models: ModelModel[] = [
       ["Rice again alongside chicken or buffalo", "Protein shake"],
       ["Chicken soup", "A hole cow with rice", "Small snack"],
     ],
-    freeTime: ["Reading", "Working out", "Traveling"],
+    // 7 for each day of the week
+    freeTime: [
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+      ["Reading", "Working out", "Traveling"],
+    ],
     training: [
       ["Chest", "Back", "Legs"],
       ["Shoulders", "Arms"],

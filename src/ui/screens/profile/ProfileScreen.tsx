@@ -59,7 +59,7 @@ const ProfileScreen = () => {
         <TouchableOpacity
           onPress={() => {
             // @ts-ignore
-            navigate(Routes.chart);
+            navigate(Routes.chart, { scroll: false });
           }}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
@@ -95,7 +95,13 @@ const ProfileScreen = () => {
               {StringsRepo.readyToBecomeYourModel}
             </Text>
           </View>
-          <CurrentModelComplex styles={{ width: "100%" }} />
+          <CurrentModelComplex
+            styles={{ width: "100%" }}
+            onPress={() =>
+              // @ts-ignore
+              navigate(Routes.model)
+            }
+          />
         </View>
         <Line />
         <UserModelsComplex />
