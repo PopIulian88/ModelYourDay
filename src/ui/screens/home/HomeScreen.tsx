@@ -69,7 +69,12 @@ const HomeScreen = () => {
               {StringsRepo.readyToBecomeYourModel}
             </Text>
           </View>
-          <CurrentModelComplex />
+          <CurrentModelComplex
+            onPress={() =>
+              // @ts-ignore
+              navigate(Routes.model)
+            }
+          />
         </View>
         <Line />
         <View style={pageStyle.motivationSectionContainer}>

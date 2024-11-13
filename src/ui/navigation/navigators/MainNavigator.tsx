@@ -5,6 +5,7 @@ import {
   FindYourModelScreen,
   HomeScreen,
   Loading,
+  ModelScreen,
   ProfileScreen,
 } from "../../screens";
 import { Routes } from "../constats";
@@ -24,6 +25,7 @@ export type MainNavigatorParams = {
   FindYourModel: ModelModel | undefined;
   Profile: undefined;
   Chart: undefined;
+  Model: undefined;
 };
 
 export const MainNavigator = () => {
@@ -80,6 +82,11 @@ export const MainNavigator = () => {
           // @ts-ignore
           name={Routes.chart}
           component={ChartScreen}
+        />
+        <Stack.Screen
+          // @ts-ignore
+          name={Routes.model}
+          component={ModelScreen}
         />
       </Stack.Navigator>
       <StatusBar

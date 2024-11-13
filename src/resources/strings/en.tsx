@@ -58,4 +58,9 @@ export default {
   challenge: "Challenge",
   fails: "Fails",
   yourStatsFrom: "Your stats from",
+  currentModel: "Current model",
+  what: "What",
+  eats: "eats?",
+  whatIs: "What is",
+  workoutRoutine: "workout routine?",
 };
