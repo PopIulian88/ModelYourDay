@@ -1,17 +1,22 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView, useWindowDimensions, View } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BackButton, ChallengeCard, Line, Text } from "../../components";
-import { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { TextType } from "../../../models";
 import { style } from "../../../styles";
 import { DefaultData, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
 import PieChart from "react-native-pie-chart";
 import { LinearGradient } from "expo-linear-gradient";
+import { RouteProp, useFocusEffect, useRoute } from "@react-navigation/native";
+import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 
 const ChartScreen = () => {
+  const { params } = useRoute<RouteProp<MainNavigatorParams, "Chart">>();
+
   const { bottom, top } = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
   const [foodCompleted, setFoodCompleted] = useState(false);
   const [gymCompleted, setGymCompleted] = useState(false);
   const [freeTimeCompleted, setFreeTimeCompleted] = useState(false);
@@ -32,6 +37,18 @@ const ChartScreen = () => {
 
   const dayOfWeek = new Date().getDay() - 1;
 
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setTimeout(() => {
+        if (scrollViewRef.current && params?.scroll) {
+          scrollViewRef.current.scrollTo({ y: height * 0.4, animated: true });
+        }
+      }, 300);
+    }, []),
+  );
+
   const Tag = ({ text, color }: { text: string; color: string }) => (
     <View style={pageStyle.tagSmallContainer}>
       <View style={{ height: 20, width: 20, backgroundColor: color }}></View>
@@ -43,6 +60,7 @@ const ChartScreen = () => {
     <Fragment>
       <BackButton styles={[pageStyle.backButton, { marginTop: top }]} />
       <ScrollView
+        ref={scrollViewRef}
         style={pageStyle.scrollContainer}
         contentContainerStyle={[
           pageStyle.scrollContentContainer,

@@ -5,6 +5,7 @@ import {
   FindYourModelScreen,
   HomeScreen,
   Loading,
+  ModelScreen,
   ProfileScreen,
 } from "../../screens";
 import { Routes } from "../constats";
@@ -14,7 +15,7 @@ import { useSelector } from "react-redux";
 import { style } from "../../../styles";
 import { StatusBar } from "react-native";
 import { FIREBASE_AUTH } from "../../../backend";
-import { ModelModel } from "../../../models";
+import { ChartModel, ModelModel } from "../../../models";
 
 const Stack = createStackNavigator<MainNavigatorParams>();
 
@@ -23,7 +24,8 @@ export type MainNavigatorParams = {
   ChooseFirstModel: undefined;
   FindYourModel: ModelModel | undefined;
   Profile: undefined;
-  Chart: undefined;
+  Chart: ChartModel | undefined;
+  Model: undefined;
 };
 
 export const MainNavigator = () => {
@@ -80,6 +82,11 @@ export const MainNavigator = () => {
           // @ts-ignore
           name={Routes.chart}
           component={ChartScreen}
+        />
+        <Stack.Screen
+          // @ts-ignore
+          name={Routes.model}
+          component={ModelScreen}
         />
       </Stack.Navigator>
       <StatusBar

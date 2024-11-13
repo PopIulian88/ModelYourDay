@@ -5,3 +5,4 @@ export * from "./foodModelComplex";
 export * from "./gymModelComplex";
 export * from "./freetimeModelComplex";
 export * from "./userModelsComplex";
+export * from "./freetimeListModelComplex";

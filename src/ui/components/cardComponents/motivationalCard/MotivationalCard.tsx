@@ -1,4 +1,4 @@
-import { useWindowDimensions, View } from "react-native";
+import { TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { Text } from "../../updatedComponents";
 import {
   MotivationalCardModel,
@@ -14,7 +14,7 @@ import { Lottie } from "../../../../resources";
 const MotivationalCard = (props: MotivationalCardModel) => {
   const { width } = useWindowDimensions();
   return (
-    <View
+    <TouchableOpacity
       style={[
         pageStyle.container,
         { width: width * 0.8 },
@@ -24,6 +24,8 @@ const MotivationalCard = (props: MotivationalCardModel) => {
           borderWidth: 2,
         },
       ]}
+      onPress={props.onPress}
+      disabled={!props.onPress}
     >
       {props.type !== MotivationalCardType.SIMPLE ? (
         <Fragment>
@@ -86,7 +88,7 @@ const MotivationalCard = (props: MotivationalCardModel) => {
           </View>
         </Fragment>
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

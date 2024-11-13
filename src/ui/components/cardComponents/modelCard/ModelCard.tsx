@@ -34,7 +34,7 @@ const ModelCard = (props: ModelCardModel) => {
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      disabled={props.isDisabled}
+      disabled={props.isDisabled || !props.onPress}
       style={[
         pageStyle.container,
         props.isSelected && { borderWidth: 2 },

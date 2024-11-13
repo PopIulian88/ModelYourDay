@@ -4,4 +4,5 @@ export const MainRoutes = {
   findYourModel: "FindYourModel",
   profile: "Profile",
   chart: "Chart",
+  model: "Model",
 };

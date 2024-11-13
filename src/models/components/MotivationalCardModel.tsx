@@ -11,4 +11,5 @@ export type MotivationalCardModel = {
   list?: string[];
   cardNumber?: number;
   lottie?: string;
+  onPress?: () => void;
 };

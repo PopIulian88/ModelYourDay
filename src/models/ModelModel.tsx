@@ -6,7 +6,7 @@ export type ModelModel = {
   strike: number;
   motivation?: string[];
   meals?: string[][];
-  freeTime?: string[];
+  freeTime?: string[][];
   training?: string[][];
   challenges?: {
     food: string;

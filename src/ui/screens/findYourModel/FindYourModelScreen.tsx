@@ -31,13 +31,14 @@ import { sleep } from "openai/core";
 import { Routes } from "../../navigation/constats";
 
 const FindYourModelScreen = () => {
-  const route = useRoute<RouteProp<MainNavigatorParams>>();
+  const { params } =
+    useRoute<RouteProp<MainNavigatorParams, "FindYourModel">>();
   const { goBack, navigate } =
     useNavigation<NavigationProp<MainNavigatorParams>>();
 
   const { top, bottom } = useSafeAreaInsets();
 
-  const [selectedModel, setSelectedModel] = useState(route.params);
+  const [selectedModel, setSelectedModel] = useState(params);
   const [searchText, setSearchText] = useState("");
   const [addonSelected, setAddonSelected] = useState(-1);
 
