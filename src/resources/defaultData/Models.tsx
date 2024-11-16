@@ -13,9 +13,36 @@ export const models: ModelModel[] = [
       "The only way to get what you want is to deserve what you want.",
       "What you think of yourself is much more important than what others think of you.",
     ],
+    // 7 for each day of the week
     meals: [
-      ["Rice again alongside chicken or buffalo", "Protein shake"],
-      ["Chicken soup", "A hole cow with rice", "Small snack"],
+      [
+        ["Rice again alongside chicken or buffalo", "Protein shake"],
+        ["Chicken soup", "A hole cow with rice", "Small snack"],
+      ],
+      [
+        ["Rice again alongside chicken or buffalo", "Protein shake"],
+        ["Chicken soup", "A hole cow with rice", "Small snack"],
+      ],
+      [
+        ["Rice again alongside chicken or buffalo", "Protein shake"],
+        ["Chicken soup", "A hole cow with rice", "Small snack"],
+      ],
+      [
+        ["Rice again alongside chicken or buffalo", "Protein shake"],
+        ["Chicken soup", "A hole cow with rice", "Small snack"],
+      ],
+      [
+        ["Rice again alongside chicken or buffalo", "Protein shake"],
+        ["Chicken soup", "A hole cow with rice", "Small snack"],
+      ],
+      [
+        ["Rice again alongside chicken or buffalo", "Protein shake"],
+        ["Chicken soup", "A hole cow with rice", "Small snack"],
+      ],
+      [
+        ["Rice again alongside chicken or buffalo", "Protein shake"],
+        ["Chicken soup", "A hole cow with rice", "Small snack"],
+      ],
     ],
     // 7 for each day of the week
     freeTime: [
@@ -27,10 +54,39 @@ export const models: ModelModel[] = [
       ["Reading", "Working out", "Traveling"],
       ["Reading", "Working out", "Traveling"],
     ],
-    training: [
-      ["Chest", "Back", "Legs"],
-      ["Shoulders", "Arms"],
-    ],
+    training: {
+      monday: {
+        hasTraining: true,
+        trainings: [
+          ["Chest", "Back", "Legs"],
+          ["Shoulders", "Arms"],
+        ],
+      },
+      tuesday: {
+        hasTraining: false,
+      },
+      wednesday: {
+        hasTraining: true,
+        trainings: [["Shoulders", "Arms"]],
+      },
+      thursday: {
+        hasTraining: false,
+      },
+      friday: {
+        hasTraining: true,
+        trainings: [
+          ["Chest", "Back", "Legs"],
+          ["Shoulders", "Arms"],
+        ],
+      },
+      saturday: {
+        hasTraining: false,
+      },
+      sunday: {
+        hasTraining: true,
+        trainings: [["Chest", "Back", "Legs"]],
+      },
+    },
     // 7 for each day of the week
     challenges: [
       {
@@ -88,9 +144,39 @@ export const models: ModelModel[] = [
       "Success isn't always about greatness. It's about consistency. Consistent hard work leads to success. Greatness will come.",
       "If everyone is moving forward together, then success takes care of itself.",
     ],
+    // 7 for each day of the week
     meals: [
-      ["Chicken breast", "Rice", "Broccoli"],
-      ["Salmon", "Rice", "Broccoli"],
+      [
+        ["Chicken breast", "Rice", "Broccoli"],
+        ["Salmon", "Rice", "Broccoli"],
+      ],
+      [
+        ["DAME", "DAME"],
+        ["Chicken breast", "Rice", "Broccoli"],
+        ["Salmon", "Rice", "Broccoli"],
+      ],
+      [
+        ["Chicken breast", "Rice", "Broccoli"],
+        ["Salmon", "Rice", "Broccoli"],
+      ],
+      [
+        ["DAME", "DAME"],
+        ["Chicken breast", "Rice", "Broccoli"],
+        ["Salmon", "Rice", "Broccoli"],
+      ],
+      [
+        ["DAME", "DAME"],
+        ["Chicken breast", "Rice", "Broccoli"],
+        ["Salmon", "Rice", "Broccoli"],
+      ],
+      [
+        ["Chicken breast", "Rice", "Broccoli"],
+        ["Salmon", "Rice", "Broccoli"],
+      ],
+      [
+        ["Chicken breast", "Rice", "Broccoli"],
+        ["Salmon", "Rice", "Broccoli"],
+      ],
     ],
     // 7 for each day of the week
     freeTime: [
@@ -102,10 +188,39 @@ export const models: ModelModel[] = [
       ["Working out", "Traveling", "Spending time with family"],
       ["Working out", "Traveling", "Spending time with family"],
     ],
-    training: [
-      ["Chest", "Back", "Legs"],
-      ["Shoulders", "Arms"],
-    ],
+    training: {
+      monday: {
+        hasTraining: true,
+        trainings: [
+          ["Chest", "Back", "Legs"],
+          ["Shoulders", "Arms"],
+        ],
+      },
+      tuesday: {
+        hasTraining: false,
+      },
+      wednesday: {
+        hasTraining: true,
+        trainings: [["Shoulders", "Arms"]],
+      },
+      thursday: {
+        hasTraining: false,
+      },
+      friday: {
+        hasTraining: true,
+        trainings: [
+          ["Chest", "Back", "Legs"],
+          ["Shoulders", "Arms"],
+        ],
+      },
+      saturday: {
+        hasTraining: false,
+      },
+      sunday: {
+        hasTraining: true,
+        trainings: [["Chest", "Back", "Legs"]],
+      },
+    },
     // 7 for each day of the week
     challenges: [
       {
@@ -164,8 +279,34 @@ export const models: ModelModel[] = [
       "Failure is an option here. If things are not failing, you are not innovating enough.",
     ],
     meals: [
-      ["Mars soup", "Space salad"],
-      ["Space burger", "Mars fries"],
+      [
+        ["Mars soup", "Space salad"],
+        ["Space burger", "Mars fries"],
+      ],
+      [
+        ["Mars soup", "Space salad"],
+        ["Space burger", "Mars fries"],
+      ],
+      [
+        ["Mars soup", "Space salad"],
+        ["Space burger", "Mars fries"],
+      ],
+      [
+        ["Mars soup", "Space salad"],
+        ["Space burger", "Mars fries"],
+      ],
+      [
+        ["Mars soup", "Space salad"],
+        ["Space burger", "Mars fries"],
+      ],
+      [
+        ["Mars soup", "Space salad"],
+        ["Space burger", "Mars fries"],
+      ],
+      [
+        ["Mars soup", "Space salad"],
+        ["Space burger", "Mars fries"],
+      ],
     ],
     // 7 for each day of the week
     freeTime: [
@@ -177,10 +318,39 @@ export const models: ModelModel[] = [
       ["Reading", "Working out", "Traveling"],
       ["Reading", "Working out", "Traveling"],
     ],
-    training: [
-      ["Chest", "Back", "Legs"],
-      ["Shoulders", "Arms"],
-    ],
+    training: {
+      monday: {
+        hasTraining: true,
+        trainings: [
+          ["Chest", "Back", "Legs"],
+          ["Shoulders", "Arms"],
+        ],
+      },
+      tuesday: {
+        hasTraining: false,
+      },
+      wednesday: {
+        hasTraining: true,
+        trainings: [["Shoulders", "Arms"]],
+      },
+      thursday: {
+        hasTraining: false,
+      },
+      friday: {
+        hasTraining: true,
+        trainings: [
+          ["Chest", "Back", "Legs"],
+          ["Shoulders", "Arms"],
+        ],
+      },
+      saturday: {
+        hasTraining: false,
+      },
+      sunday: {
+        hasTraining: true,
+        trainings: [["Chest", "Back", "Legs"]],
+      },
+    },
     // This will not be generated
     challengesCompleted: {
       food: 0,
@@ -195,28 +365,6 @@ export const models: ModelModel[] = [
     image: Images.money,
     currentActivity: "Calculating",
     strike: 0,
-    motivation: [
-      "The only way to get what you want is to deserve what you want.",
-      "What you think of yourself is much more important than what others think of you.",
-    ],
-    meals: [
-      ["Rice again alongside chicken or buffalo", "Protein shake"],
-      ["Chicken soup", "A hole cow with rice", "Small snack"],
-    ],
-    // 7 for each day of the week
-    freeTime: [
-      ["Reading", "Working out", "Traveling"],
-      ["Reading", "Working out", "Traveling"],
-      ["Reading", "Working out", "Traveling"],
-      ["Reading", "Working out", "Traveling"],
-      ["Reading", "Working out", "Traveling"],
-      ["Reading", "Working out", "Traveling"],
-      ["Reading", "Working out", "Traveling"],
-    ],
-    training: [
-      ["Chest", "Back", "Legs"],
-      ["Shoulders", "Arms"],
-    ],
     // This will not be generated
     challengesCompleted: {
       food: 0,

@@ -1,3 +1,5 @@
+import { ModelTraining } from "./ModelTraining";
+
 export type ModelModel = {
   name: string;
   description: string;
@@ -5,9 +7,9 @@ export type ModelModel = {
   currentActivity: string;
   strike: number;
   motivation?: string[];
-  meals?: string[][];
+  meals?: string[][][];
   freeTime?: string[][];
-  training?: string[][];
+  training?: ModelTraining;
   challenges?: {
     food: string;
     gym: string;

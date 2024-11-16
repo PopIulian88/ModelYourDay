@@ -60,7 +60,11 @@ const ModelScreen = () => {
               type={MotivationalCardType.SIMPLE}
               text={`${StringsRepo.what} ${DefaultData.models[1].name} ${StringsRepo.eats}`}
               lottie={Lottie.pizza}
-              onPress={() => console.log("Show model Food")}
+              onPress={() => {
+                DefaultData.models[1].meals &&
+                  // @ts-ignore
+                  navigate(Routes.modelFood);
+              }}
             />
           </View>
           <Text type={TextType.headingMD} style={pageStyle.sectionText}>
@@ -71,7 +75,11 @@ const ModelScreen = () => {
               type={MotivationalCardType.SIMPLE}
               text={`${StringsRepo.whatIs} ${DefaultData.models[1].name} ${StringsRepo.workoutRoutine}`}
               lottie={Lottie.sport}
-              onPress={() => console.log("Show model Gym")}
+              onPress={() => {
+                DefaultData.models[1].training &&
+                  // @ts-ignore
+                  navigate(Routes.modelGym);
+              }}
             />
           </View>
         </View>

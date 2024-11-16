@@ -5,4 +5,6 @@ export const MainRoutes = {
   profile: "Profile",
   chart: "Chart",
   model: "Model",
+  modelFood: "ModelFood",
+  modelGym: "ModelGym",
 };

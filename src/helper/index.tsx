@@ -1,4 +1,8 @@
 import { sendVerificationMail } from "./VerificationMail";
 import { generateCode } from "./GenerateCode";
+import { getCurrentDay } from "./GetCurrentDay";
 
-export const helper = { sendVerificationMail, generateCode };
+import { getTrainingsByDay } from "./model/GetTrainings";
+
+export const helper = { sendVerificationMail, generateCode, getCurrentDay };
+export const modelHelper = { getTrainingsByDay };
