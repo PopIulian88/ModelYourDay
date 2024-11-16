@@ -32,19 +32,35 @@ const ModelFoodScreen = () => {
           </Text>{" "}
           {StringsRepo.eats}
         </Text>
-        <ScrollView>
-          {DefaultData.models[1].meals &&
-            DefaultData.models[1].meals.map(
-              (mealDays, index) =>
-                mealDays && (
-                  <FoodModelComplex
-                    key={index}
-                    meals={mealDays}
-                    text={DefaultData.daysOfTheWeek[index]}
-                    styles={{ marginBottom: 20 }}
-                  />
-                ),
-            )}
+        <ScrollView contentContainerStyle={pageStyle.mealsScroll}>
+          <FoodModelComplex
+            meals={DefaultData.models?.[1].meals?.monday.meals}
+            day={StringsRepo.monday}
+          />
+          <FoodModelComplex
+            meals={DefaultData.models?.[1].meals?.tuesday.meals}
+            day={StringsRepo.tuesday}
+          />
+          <FoodModelComplex
+            meals={DefaultData.models?.[1].meals?.wednesday.meals}
+            day={StringsRepo.wednesday}
+          />
+          <FoodModelComplex
+            meals={DefaultData.models?.[1].meals?.thursday.meals}
+            day={StringsRepo.thursday}
+          />
+          <FoodModelComplex
+            meals={DefaultData.models?.[1].meals?.friday.meals}
+            day={StringsRepo.friday}
+          />
+          <FoodModelComplex
+            meals={DefaultData.models?.[1].meals?.saturday.meals}
+            day={StringsRepo.saturday}
+          />
+          <FoodModelComplex
+            meals={DefaultData.models?.[1].meals?.sunday.meals}
+            day={StringsRepo.sunday}
+          />
         </ScrollView>
       </ScrollView>
       <LinearGradient

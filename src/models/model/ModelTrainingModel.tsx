@@ -1,4 +1,4 @@
-export type ModelTraining = {
+export type ModelTrainingModel = {
   monday: ModelTrainingDay;
   tuesday: ModelTrainingDay;
   wednesday: ModelTrainingDay;

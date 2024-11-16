@@ -7,7 +7,7 @@ import {
   Button,
   CurrentModelComplex,
   FoodModelComplex,
-  FreetimeModelComplex,
+  FreetimeListModelComplex,
   GymModelComplex,
   Line,
   MotivationModelComplex,
@@ -86,13 +86,15 @@ const HomeScreen = () => {
         </View>
         <Line />
         <View style={pageStyle.relaxSectionContainer}>
-          <FoodModelComplex meals={DefaultData.models[1].meals?.[currentDay]} />
+          <FoodModelComplex
+            meals={modelHelper.getMealsByDay(helper.getCurrentDay()).meals}
+          />
           <GymModelComplex
             trainings={
               modelHelper.getTrainingsByDay(helper.getCurrentDay()).trainings
             }
           />
-          <FreetimeModelComplex />
+          <FreetimeListModelComplex />
         </View>
       </ScrollView>
       <Button

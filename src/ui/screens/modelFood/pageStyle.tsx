@@ -21,6 +21,9 @@ export const pageStyle = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
+  mealsScroll: {
+    gap: 20,
+  },
   gradient: {
     position: "absolute",
     width: "100%",

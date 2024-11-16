@@ -10,16 +10,16 @@ import { pageStyle } from "./pageStyle";
 export const FoodModelComplex = ({
   styles,
   meals,
-  text,
+  day,
 }: {
   styles?: StyleProp<ViewStyle>;
-  meals?: string[][];
-  text?: string;
+  meals?: string[][] | undefined;
+  day?: string;
 }) => {
   return meals ? (
     <View style={[pageStyle.container, styles]}>
       <Text type={TextType.headingMD} style={{ paddingHorizontal: 20 }}>
-        {text ?? StringsRepo.food}
+        {day ?? StringsRepo.food}
       </Text>
       <FlatList
         data={meals}

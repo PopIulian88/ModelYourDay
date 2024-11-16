@@ -27,7 +27,7 @@ export const FreetimeListModelComplex = ({
             <Fragment>
               <MotivationalCard
                 type={MotivationalCardType.DEFAULT}
-                header={DefaultData.daysOfTheWeek[activities.index]}
+                header={StringsRepo.activities}
                 list={activities.item}
               />
               {/*This force can make problems in the future*/}

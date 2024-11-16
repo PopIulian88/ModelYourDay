@@ -1,4 +1,11 @@
 import { ModelModel } from "./ModelModel";
-import { ModelTraining, ModelTrainingDay } from "./ModelTraining";
+import { ModelTrainingModel, ModelTrainingDay } from "./ModelTrainingModel";
+import { ModelMealModel, ModelMealDay } from "./ModelMealModel";
 
-export { ModelModel, ModelTraining, ModelTrainingDay };
+export {
+  ModelModel,
+  ModelTrainingModel,
+  ModelTrainingDay,
+  ModelMealDay,
+  ModelMealModel,
+};

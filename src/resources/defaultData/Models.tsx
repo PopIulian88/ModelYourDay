@@ -13,38 +13,39 @@ export const models: ModelModel[] = [
       "The only way to get what you want is to deserve what you want.",
       "What you think of yourself is much more important than what others think of you.",
     ],
-    // 7 for each day of the week
-    meals: [
-      [
-        ["Rice again alongside chicken or buffalo", "Protein shake"],
-        ["Chicken soup", "A hole cow with rice", "Small snack"],
-      ],
-      [
-        ["Rice again alongside chicken or buffalo", "Protein shake"],
-        ["Chicken soup", "A hole cow with rice", "Small snack"],
-      ],
-      [
-        ["Rice again alongside chicken or buffalo", "Protein shake"],
-        ["Chicken soup", "A hole cow with rice", "Small snack"],
-      ],
-      [
-        ["Rice again alongside chicken or buffalo", "Protein shake"],
-        ["Chicken soup", "A hole cow with rice", "Small snack"],
-      ],
-      [
-        ["Rice again alongside chicken or buffalo", "Protein shake"],
-        ["Chicken soup", "A hole cow with rice", "Small snack"],
-      ],
-      [
-        ["Rice again alongside chicken or buffalo", "Protein shake"],
-        ["Chicken soup", "A hole cow with rice", "Small snack"],
-      ],
-      [
-        ["Rice again alongside chicken or buffalo", "Protein shake"],
-        ["Chicken soup", "A hole cow with rice", "Small snack"],
-      ],
-    ],
-    // 7 for each day of the week
+    meals: {
+      monday: {
+        hasMeals: true,
+        meals: [
+          ["Rice again alongside chicken or buffalo", "Protein shake"],
+          ["Chicken soup", "A hole cow with rice", "Small snack"],
+        ],
+      },
+      tuesday: {
+        hasMeals: false,
+      },
+      wednesday: {
+        hasMeals: true,
+        meals: [["Rice again alongside chicken or buffalo", "Protein shake"]],
+      },
+      thursday: {
+        hasMeals: false,
+      },
+      friday: {
+        hasMeals: true,
+        meals: [
+          ["Rice again alongside chicken or buffalo", "Protein shake"],
+          ["Chicken soup", "A hole cow with rice", "Small snack"],
+        ],
+      },
+      saturday: {
+        hasMeals: false,
+      },
+      sunday: {
+        hasMeals: true,
+        meals: [["Rice again alongside chicken or buffalo", "Protein shake"]],
+      },
+    },
     freeTime: [
       ["Reading", "Working out", "Traveling"],
       ["Reading", "Working out", "Traveling"],
@@ -144,46 +145,40 @@ export const models: ModelModel[] = [
       "Success isn't always about greatness. It's about consistency. Consistent hard work leads to success. Greatness will come.",
       "If everyone is moving forward together, then success takes care of itself.",
     ],
-    // 7 for each day of the week
-    meals: [
-      [
-        ["Chicken breast", "Rice", "Broccoli"],
-        ["Salmon", "Rice", "Broccoli"],
-      ],
-      [
-        ["DAME", "DAME"],
-        ["Chicken breast", "Rice", "Broccoli"],
-        ["Salmon", "Rice", "Broccoli"],
-      ],
-      [
-        ["Chicken breast", "Rice", "Broccoli"],
-        ["Salmon", "Rice", "Broccoli"],
-      ],
-      [
-        ["DAME", "DAME"],
-        ["Chicken breast", "Rice", "Broccoli"],
-        ["Salmon", "Rice", "Broccoli"],
-      ],
-      [
-        ["DAME", "DAME"],
-        ["Chicken breast", "Rice", "Broccoli"],
-        ["Salmon", "Rice", "Broccoli"],
-      ],
-      [
-        ["Chicken breast", "Rice", "Broccoli"],
-        ["Salmon", "Rice", "Broccoli"],
-      ],
-      [
-        ["Chicken breast", "Rice", "Broccoli"],
-        ["Salmon", "Rice", "Broccoli"],
-      ],
-    ],
-    // 7 for each day of the week
+    meals: {
+      monday: {
+        hasMeals: true,
+        meals: [
+          ["Protein shake", "Chicken salad"],
+          ["Steak", "Broccoli"],
+        ],
+      },
+      tuesday: {
+        hasMeals: false,
+      },
+      wednesday: {
+        hasMeals: true,
+        meals: [["Protein shake", "Chicken salad"]],
+      },
+      thursday: {
+        hasMeals: false,
+      },
+      friday: {
+        hasMeals: true,
+        meals: [
+          ["Protein shake", "Chicken salad"],
+          ["Steak", "Broccoli"],
+        ],
+      },
+      saturday: {
+        hasMeals: false,
+      },
+      sunday: {
+        hasMeals: true,
+        meals: [["Protein shake", "Chicken salad"]],
+      },
+    },
     freeTime: [
-      ["Working out", "Traveling", "Spending time with family"],
-      ["Working out", "Traveling", "Spending time with family"],
-      ["Working out", "Traveling", "Spending time with family"],
-      ["Working out", "Traveling", "Spending time with family"],
       ["Working out", "Traveling", "Spending time with family"],
       ["Working out", "Traveling", "Spending time with family"],
       ["Working out", "Traveling", "Spending time with family"],
@@ -278,40 +273,40 @@ export const models: ModelModel[] = [
       "When something is important enough, you do it even if the odds are not in your favor.",
       "Failure is an option here. If things are not failing, you are not innovating enough.",
     ],
-    meals: [
-      [
-        ["Mars soup", "Space salad"],
-        ["Space burger", "Mars fries"],
-      ],
-      [
-        ["Mars soup", "Space salad"],
-        ["Space burger", "Mars fries"],
-      ],
-      [
-        ["Mars soup", "Space salad"],
-        ["Space burger", "Mars fries"],
-      ],
-      [
-        ["Mars soup", "Space salad"],
-        ["Space burger", "Mars fries"],
-      ],
-      [
-        ["Mars soup", "Space salad"],
-        ["Space burger", "Mars fries"],
-      ],
-      [
-        ["Mars soup", "Space salad"],
-        ["Space burger", "Mars fries"],
-      ],
-      [
-        ["Mars soup", "Space salad"],
-        ["Space burger", "Mars fries"],
-      ],
-    ],
-    // 7 for each day of the week
+    meals: {
+      monday: {
+        hasMeals: true,
+        meals: [
+          ["Protein shake", "Chicken salad"],
+          ["Steak", "Broccoli"],
+        ],
+      },
+      tuesday: {
+        hasMeals: false,
+      },
+      wednesday: {
+        hasMeals: true,
+        meals: [["Protein shake", "Chicken salad"]],
+      },
+      thursday: {
+        hasMeals: false,
+      },
+      friday: {
+        hasMeals: true,
+        meals: [
+          ["Protein shake", "Chicken salad"],
+          ["Steak", "Broccoli"],
+        ],
+      },
+      saturday: {
+        hasMeals: false,
+      },
+      sunday: {
+        hasMeals: true,
+        meals: [["Protein shake", "Chicken salad"]],
+      },
+    },
     freeTime: [
-      ["Reading", "Working out", "Traveling"],
-      ["Reading", "Working out", "Traveling"],
       ["Reading", "Working out", "Traveling"],
       ["Reading", "Working out", "Traveling"],
       ["Reading", "Working out", "Traveling"],
