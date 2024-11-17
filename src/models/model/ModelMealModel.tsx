@@ -9,6 +9,5 @@ export type ModelMealModel = {
 };
 
 export type ModelMealDay = {
-  hasMeals: boolean;
   meals?: string[][];
 };

@@ -1,5 +1,6 @@
 import { ModelTrainingModel } from "./ModelTrainingModel";
 import { ModelMealModel } from "./ModelMealModel";
+import {ModelChallengeModel} from "./ModelChallengeModel";
 
 export type ModelModel = {
   name: string;
@@ -11,11 +12,7 @@ export type ModelModel = {
   meals?: ModelMealModel;
   freeTime?: string[][];
   training?: ModelTrainingModel;
-  challenges?: {
-    food: string;
-    gym: string;
-    freeTime: string;
-  }[];
+  challenges?: ModelChallengeModel;
   challengesCompleted: {
     food: number;
     gym: number;

@@ -4,7 +4,7 @@ import { ModelTrainingDay } from "../../models";
 export const getTrainingsByDay: (day: number) => ModelTrainingDay = (
   day: number,
 ) => {
-  if (!DefaultData.models[1].training) return { hasTraining: false };
+  if (!DefaultData.models[1].training) return {};
 
   switch (day) {
     case 0:

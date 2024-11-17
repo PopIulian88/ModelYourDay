@@ -2,7 +2,7 @@ import { ModelMealDay } from "../../models";
 import { DefaultData } from "../../resources";
 
 export const getMealsByDay = (day: number): ModelMealDay => {
-  if (!DefaultData.models[1].meals) return { hasMeals: false };
+  if (!DefaultData.models[1].meals) return {};
 
   switch (day) {
     case 0:

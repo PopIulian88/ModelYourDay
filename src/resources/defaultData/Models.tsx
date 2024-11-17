@@ -15,34 +15,24 @@ export const models: ModelModel[] = [
     ],
     meals: {
       monday: {
-        hasMeals: true,
         meals: [
           ["Rice again alongside chicken or buffalo", "Protein shake"],
           ["Chicken soup", "A hole cow with rice", "Small snack"],
         ],
       },
-      tuesday: {
-        hasMeals: false,
-      },
+      tuesday: {},
       wednesday: {
-        hasMeals: true,
         meals: [["Rice again alongside chicken or buffalo", "Protein shake"]],
       },
-      thursday: {
-        hasMeals: false,
-      },
+      thursday: {},
       friday: {
-        hasMeals: true,
         meals: [
           ["Rice again alongside chicken or buffalo", "Protein shake"],
           ["Chicken soup", "A hole cow with rice", "Small snack"],
         ],
       },
-      saturday: {
-        hasMeals: false,
-      },
+      saturday: {},
       sunday: {
-        hasMeals: true,
         meals: [["Rice again alongside chicken or buffalo", "Protein shake"]],
       },
     },
@@ -57,75 +47,72 @@ export const models: ModelModel[] = [
     ],
     training: {
       monday: {
-        hasTraining: true,
         trainings: [
           ["Chest", "Back", "Legs"],
           ["Shoulders", "Arms"],
         ],
       },
-      tuesday: {
-        hasTraining: false,
-      },
+      tuesday: {},
       wednesday: {
-        hasTraining: true,
         trainings: [["Shoulders", "Arms"]],
       },
-      thursday: {
-        hasTraining: false,
-      },
+      thursday: {},
       friday: {
-        hasTraining: true,
         trainings: [
           ["Chest", "Back", "Legs"],
           ["Shoulders", "Arms"],
         ],
       },
-      saturday: {
-        hasTraining: false,
-      },
+      saturday: {},
       sunday: {
-        hasTraining: true,
         trainings: [["Chest", "Back", "Legs"]],
       },
     },
-    // 7 for each day of the week
-    challenges: [
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+    challenges: {
+      monday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      tuesday: {},
+      wednesday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      thursday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      friday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      saturday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      sunday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
-      },
-    ],
+    },
     // This will not be generated
     challengesCompleted: {
       food: 0,
@@ -147,34 +134,24 @@ export const models: ModelModel[] = [
     ],
     meals: {
       monday: {
-        hasMeals: true,
         meals: [
           ["Protein shake", "Chicken salad"],
           ["Steak", "Broccoli"],
         ],
       },
-      tuesday: {
-        hasMeals: false,
-      },
+      tuesday: {},
       wednesday: {
-        hasMeals: true,
         meals: [["Protein shake", "Chicken salad"]],
       },
-      thursday: {
-        hasMeals: false,
-      },
+      thursday: {},
       friday: {
-        hasMeals: true,
         meals: [
           ["Protein shake", "Chicken salad"],
           ["Steak", "Broccoli"],
         ],
       },
-      saturday: {
-        hasMeals: false,
-      },
+      saturday: {},
       sunday: {
-        hasMeals: true,
         meals: [["Protein shake", "Chicken salad"]],
       },
     },
@@ -185,75 +162,72 @@ export const models: ModelModel[] = [
     ],
     training: {
       monday: {
-        hasTraining: true,
         trainings: [
           ["Chest", "Back", "Legs"],
           ["Shoulders", "Arms"],
         ],
       },
-      tuesday: {
-        hasTraining: false,
-      },
+      tuesday: {},
       wednesday: {
-        hasTraining: true,
         trainings: [["Shoulders", "Arms"]],
       },
-      thursday: {
-        hasTraining: false,
-      },
+      thursday: {},
       friday: {
-        hasTraining: true,
         trainings: [
           ["Chest", "Back", "Legs"],
           ["Shoulders", "Arms"],
         ],
       },
-      saturday: {
-        hasTraining: false,
-      },
+      saturday: {},
       sunday: {
-        hasTraining: true,
         trainings: [["Chest", "Back", "Legs"]],
       },
     },
-    // 7 for each day of the week
-    challenges: [
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+    challenges: {
+      monday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      tuesday: {},
+      wednesday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      thursday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      friday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      saturday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
+      sunday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
       },
-      {
-        food: "Eat 5000 Calories",
-        gym: "Workout 2 times a day",
-        freeTime: "No social media",
-      },
-    ],
+    },
     // This will not be generated
     challengesCompleted: {
       food: 0,
@@ -275,34 +249,24 @@ export const models: ModelModel[] = [
     ],
     meals: {
       monday: {
-        hasMeals: true,
         meals: [
           ["Protein shake", "Chicken salad"],
           ["Steak", "Broccoli"],
         ],
       },
-      tuesday: {
-        hasMeals: false,
-      },
+      tuesday: {},
       wednesday: {
-        hasMeals: true,
         meals: [["Protein shake", "Chicken salad"]],
       },
-      thursday: {
-        hasMeals: false,
-      },
+      thursday: {},
       friday: {
-        hasMeals: true,
         meals: [
           ["Protein shake", "Chicken salad"],
           ["Steak", "Broccoli"],
         ],
       },
-      saturday: {
-        hasMeals: false,
-      },
+      saturday: {},
       sunday: {
-        hasMeals: true,
         meals: [["Protein shake", "Chicken salad"]],
       },
     },
@@ -315,36 +279,65 @@ export const models: ModelModel[] = [
     ],
     training: {
       monday: {
-        hasTraining: true,
         trainings: [
           ["Chest", "Back", "Legs"],
           ["Shoulders", "Arms"],
         ],
       },
-      tuesday: {
-        hasTraining: false,
-      },
+      tuesday: {},
       wednesday: {
-        hasTraining: true,
         trainings: [["Shoulders", "Arms"]],
       },
-      thursday: {
-        hasTraining: false,
-      },
+      thursday: {},
       friday: {
-        hasTraining: true,
         trainings: [
           ["Chest", "Back", "Legs"],
           ["Shoulders", "Arms"],
         ],
       },
-      saturday: {
-        hasTraining: false,
-      },
+      saturday: {},
       sunday: {
-        hasTraining: true,
         trainings: [["Chest", "Back", "Legs"]],
       },
+    },
+    challenges: {
+      monday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
+      },
+      tuesday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
+      },
+      wednesday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
+      },
+      thursday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
+      },
+      friday: {
+        challenges: {
+          food: "Eat 5000 Calories",
+          gym: "Workout 2 times a day",
+          freeTime: "No social media",
+        },
+      },
+      saturday: {},
+      sunday: {},
     },
     // This will not be generated
     challengesCompleted: {

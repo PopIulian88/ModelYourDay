@@ -9,6 +9,5 @@ export type ModelTrainingModel = {
 };
 
 export type ModelTrainingDay = {
-  hasTraining: boolean;
   trainings?: string[][];
 };

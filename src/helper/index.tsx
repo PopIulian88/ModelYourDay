@@ -4,6 +4,11 @@ import { getCurrentDay } from "./GetCurrentDay";
 
 import { getTrainingsByDay } from "./model/GetTrainings";
 import { getMealsByDay } from "./model/GetMeals";
+import { getChallengesByDay } from "./model/GhetChallenges";
 
 export const helper = { sendVerificationMail, generateCode, getCurrentDay };
-export const modelHelper = { getTrainingsByDay, getMealsByDay };
+export const modelHelper = {
+  getTrainingsByDay,
+  getMealsByDay,
+  getChallengesByDay,
+};
