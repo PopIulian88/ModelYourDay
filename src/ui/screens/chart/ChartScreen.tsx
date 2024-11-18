@@ -11,6 +11,7 @@ import PieChart from "react-native-pie-chart";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp, useFocusEffect, useRoute } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
+import { helper, modelHelper } from "../../../helper";
 
 const ChartScreen = () => {
   const { params } = useRoute<RouteProp<MainNavigatorParams, "Chart">>();
@@ -20,6 +21,8 @@ const ChartScreen = () => {
   const [foodCompleted, setFoodCompleted] = useState(false);
   const [gymCompleted, setGymCompleted] = useState(false);
   const [freeTimeCompleted, setFreeTimeCompleted] = useState(false);
+
+  const challenges = modelHelper.getChallengesByDay(helper.getCurrentDay());
 
   const widthAndHeight = 300;
   const series = [
@@ -34,8 +37,6 @@ const ChartScreen = () => {
     style.color.chenin,
     style.color.alto,
   ];
-
-  const dayOfWeek = new Date().getDay() - 1;
 
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -96,30 +97,27 @@ const ChartScreen = () => {
           <Text type={TextType.headingMD} style={{ alignSelf: "flex-start" }}>
             {StringsRepo.challenge}
           </Text>
-          {/*TODO: If there is no challenge make a button to generate them */}
           {/*TODO: FInd a logic to save the completed challenges*/}
           {/*  A solution  must be, when we change the data in redux,*/}
-          {DefaultData.models[1].challenges ? (
+          {challenges.challenges ? (
             <Fragment>
               <ChallengeCard
                 header={StringsRepo.food}
-                description={DefaultData.models[1].challenges[dayOfWeek].food}
+                description={challenges.challenges.food}
                 color={style.color.barberry}
                 isCompleted={foodCompleted}
                 onCheck={(r) => setFoodCompleted(r)}
               />
               <ChallengeCard
                 header={StringsRepo.gym}
-                description={DefaultData.models[1].challenges[dayOfWeek].gym}
+                description={challenges.challenges.gym}
                 color={style.color.sunshade}
                 isCompleted={gymCompleted}
                 onCheck={(r) => setGymCompleted(r)}
               />
               <ChallengeCard
                 header={StringsRepo.freeTime}
-                description={
-                  DefaultData.models[1].challenges[dayOfWeek].freeTime
-                }
+                description={challenges.challenges.freeTime}
                 color={style.color.chenin}
                 isCompleted={freeTimeCompleted}
                 onCheck={(r) => setFreeTimeCompleted(r)}

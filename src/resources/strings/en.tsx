@@ -70,4 +70,5 @@ export default {
   friday: "Friday",
   saturday: "Saturday",
   sunday: "Sunday",
+  activities: "Activities",
 };

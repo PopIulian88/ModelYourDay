@@ -7,7 +7,7 @@ import {
   Button,
   CurrentModelComplex,
   FoodModelComplex,
-  FreetimeModelComplex,
+  FreetimeListModelComplex,
   GymModelComplex,
   Line,
   MotivationModelComplex,
@@ -16,12 +16,13 @@ import {
 } from "../../components";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
-import { Images, StringsRepo } from "../../../resources";
+import { DefaultData, Images, StringsRepo } from "../../../resources";
 import { style } from "../../../styles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Fragment } from "react";
 // To resolve the circle
 import { Routes } from "../../navigation/constats";
+import { helper, modelHelper } from "../../../helper";
 
 const HomeScreen = () => {
   const { username } = useSelector((state: IStore) => state.userReducer);
@@ -30,6 +31,8 @@ const HomeScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
 
   const dispatch = useAppDispatch();
+
+  const currentDay = new Date().getDay() - 1;
 
   return (
     <Fragment>
@@ -83,9 +86,15 @@ const HomeScreen = () => {
         </View>
         <Line />
         <View style={pageStyle.relaxSectionContainer}>
-          <FoodModelComplex />
-          <GymModelComplex />
-          <FreetimeModelComplex />
+          <FoodModelComplex
+            meals={modelHelper.getMealsByDay(helper.getCurrentDay()).meals}
+          />
+          <GymModelComplex
+            trainings={
+              modelHelper.getTrainingsByDay(helper.getCurrentDay()).trainings
+            }
+          />
+          <FreetimeListModelComplex />
         </View>
       </ScrollView>
       <Button

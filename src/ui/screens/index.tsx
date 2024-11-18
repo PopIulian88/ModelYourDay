@@ -9,6 +9,8 @@ export * from "./findYourModel";
 export * from "./profile";
 export * from "./chart";
 export * from "./model";
+export * from "./modelFood";
+export * from "./modelGym";
 
 //OTHER
 export * from "./loading";
