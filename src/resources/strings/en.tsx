@@ -71,4 +71,8 @@ export default {
   saturday: "Saturday",
   sunday: "Sunday",
   activities: "Activities",
+  hiIm: "Hi, I'm",
+  AI: "AI",
+  plural: "'s",
+  typeYourQuestion: "Type your question",
 };

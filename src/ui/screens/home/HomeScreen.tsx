@@ -1,7 +1,7 @@
 import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { useSelector } from "react-redux";
-import { IStore, useAppDispatch } from "../../../redux";
+import { IStore, rootActions, useAppDispatch } from "../../../redux";
 import { ButtonType, TextType } from "../../../models";
 import {
   Button,
@@ -16,7 +16,7 @@ import {
 } from "../../components";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
-import { DefaultData, Images, StringsRepo } from "../../../resources";
+import { Images, StringsRepo } from "../../../resources";
 import { style } from "../../../styles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Fragment } from "react";
@@ -100,7 +100,17 @@ const HomeScreen = () => {
       <Button
         type={ButtonType.PRIMARY}
         title={StringsRepo.contactYourMentor}
-        onPress={() => console.log("Contact your mentor")}
+        onPress={() =>
+          dispatch(
+            rootActions.showModal({
+              isChatBot: true,
+              title: "",
+              lottie: "",
+              buttonTitle: "",
+              buttonAction: () => {},
+            }),
+          )
+        }
         style={[
           pageStyle.bottomButton,
           { marginBottom: Math.max(bottom + 6, 16) },

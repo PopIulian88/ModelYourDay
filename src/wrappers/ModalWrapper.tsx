@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import { IStore, rootActions, useAppDispatch } from "../redux";
-import { Button, Text } from "../ui";
+import { Button, ChatBotModal, Text } from "../ui";
 import { style } from "../styles";
 import LottieView from "lottie-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -26,6 +26,7 @@ export const ModalWrapper = (props: ModalProps) => {
     <Fragment>
       {props.children}
       <Modal
+        propagateSwipe={true}
         isVisible={isModalVisible}
         swipeDirection={
           modalProps?.isDismissible === false ? undefined : "down"
@@ -42,52 +43,65 @@ export const ModalWrapper = (props: ModalProps) => {
         animationOut={"slideOutDown"}
         animationOutTiming={1000}
       >
-        <View style={[pageStyle.container, modalProps?.containerStyle]}>
+        <View
+          style={[
+            pageStyle.container,
+            modalProps?.containerStyle,
+            modalProps?.isChatBot && { padding: 0, paddingTop: 16 },
+          ]}
+        >
           <View style={pageStyle.modalLine} />
-          <LottieView
-            style={{ height: 200, width: 200 }}
-            source={
-              modalProps?.error || !modalProps?.lottie
-                ? Lottie.error
-                : modalProps.lottie
-            }
-            autoPlay
-            loop
-            renderMode={"SOFTWARE"}
-          />
-          <Text type={TextType.headingXL} style={pageStyle.title}>
-            {modalProps?.error && !modalProps?.title
-              ? StringsRepo.somethingWentWrong
-              : modalProps?.title}
-          </Text>
-          {/*TODO: Change button with the component ones*/}
-          <View
-            style={[
-              pageStyle.buttonContainer,
-              { marginBottom: Math.max(bottom + 6, 16) },
-            ]}
-          >
-            {!modalProps?.error && modalProps?.secondaryButtonTitle && (
-              <Button
-                type={ButtonType.SECONDARY}
-                title={modalProps?.secondaryButtonTitle ?? StringsRepo.error}
-                onPress={modalProps.secondaryButtonAction ?? closeModal}
+          {!modalProps?.isChatBot ? (
+            <Fragment>
+              <LottieView
+                style={{ height: 200, width: 200 }}
+                source={
+                  modalProps?.error || !modalProps?.lottie
+                    ? Lottie.error
+                    : modalProps.lottie
+                }
+                autoPlay
+                loop
+                renderMode={"SOFTWARE"}
               />
-            )}
-            <Button
-              type={ButtonType.PRIMARY}
-              title={
-                modalProps?.error || !modalProps?.buttonTitle
-                  ? StringsRepo.close
-                  : modalProps.buttonTitle
-              }
-              onPress={
-                modalProps?.error || !modalProps?.buttonAction
-                  ? closeModal
-                  : modalProps.buttonAction
-              }
-            />
-          </View>
+              <Text type={TextType.headingXL} style={pageStyle.title}>
+                {modalProps?.error && !modalProps?.title
+                  ? StringsRepo.somethingWentWrong
+                  : modalProps?.title}
+              </Text>
+              <View
+                style={[
+                  pageStyle.buttonContainer,
+                  { marginBottom: Math.max(bottom + 6, 16) },
+                ]}
+              >
+                {!modalProps?.error && modalProps?.secondaryButtonTitle && (
+                  <Button
+                    type={ButtonType.SECONDARY}
+                    title={
+                      modalProps?.secondaryButtonTitle ?? StringsRepo.error
+                    }
+                    onPress={modalProps.secondaryButtonAction ?? closeModal}
+                  />
+                )}
+                <Button
+                  type={ButtonType.PRIMARY}
+                  title={
+                    modalProps?.error || !modalProps?.buttonTitle
+                      ? StringsRepo.close
+                      : modalProps.buttonTitle
+                  }
+                  onPress={
+                    modalProps?.error || !modalProps?.buttonAction
+                      ? closeModal
+                      : modalProps.buttonAction
+                  }
+                />
+              </View>
+            </Fragment>
+          ) : (
+            <ChatBotModal />
+          )}
         </View>
       </Modal>
     </Fragment>
