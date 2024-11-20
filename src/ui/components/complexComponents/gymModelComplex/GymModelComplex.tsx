@@ -1,10 +1,11 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
 import { Lottie, StringsRepo } from "../../../../resources";
-import { Text } from "../../updatedComponents";
-import { MotivationalCardType, TextType } from "../../../../models";
+import { MotivationalCardType } from "../../../../models";
 import { Fragment } from "react";
 import { MotivationalCard } from "../../cardComponents";
 import { pageStyle } from "./pageStyle";
+import { HeaderComponents } from "../../headerComponents";
+import LottieView from "lottie-react-native";
 
 export const GymModelComplex = ({
   styles,
@@ -15,12 +16,16 @@ export const GymModelComplex = ({
   trainings: string[][] | undefined;
   day?: string;
 }) => {
+  const handleReload = () => {
+    console.log("Refreshed");
+  };
   return (
-    trainings && (
-      <View style={[pageStyle.container, styles]}>
-        <Text type={TextType.headingMD} style={{ paddingHorizontal: 20 }}>
-          {day ?? StringsRepo.gym}
-        </Text>
+    <View style={[pageStyle.container, styles]}>
+      <HeaderComponents
+        text={day ?? StringsRepo.gym}
+        onPressReload={handleReload}
+      />
+      {trainings ? (
         <FlatList
           data={trainings}
           horizontal
@@ -43,7 +48,16 @@ export const GymModelComplex = ({
             );
           }}
         />
-      </View>
-    )
+      ) : (
+        <View style={pageStyle.nonContainer}>
+          <LottieView
+            source={Lottie.influencer}
+            loop
+            autoPlay
+            style={pageStyle.lottie}
+          />
+        </View>
+      )}
+    </View>
   );
 };

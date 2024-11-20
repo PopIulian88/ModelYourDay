@@ -1,7 +1,13 @@
 import { ScrollView, useWindowDimensions, View } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { BackButton, ChallengeCard, Line, Text } from "../../components";
+import {
+  BackButton,
+  ChallengeCard,
+  HeaderComponents,
+  Line,
+  Text,
+} from "../../components";
 import React, { Fragment, useRef, useState } from "react";
 import { TextType } from "../../../models";
 import { style } from "../../../styles";
@@ -57,6 +63,10 @@ const ChartScreen = () => {
     </View>
   );
 
+  const handleReload = () => {
+    console.log("Reloaded");
+  };
+
   return (
     <Fragment>
       <BackButton styles={[pageStyle.backButton, { marginTop: top }]} />
@@ -94,9 +104,11 @@ const ChartScreen = () => {
         </View>
         <Line />
         <View style={pageStyle.challengeContainer}>
-          <Text type={TextType.headingMD} style={{ alignSelf: "flex-start" }}>
-            {StringsRepo.challenge}
-          </Text>
+          <HeaderComponents
+            text={StringsRepo.challenge}
+            style={pageStyle.challengeHeaderContainer}
+            onPressReload={handleReload}
+          />
           {/*TODO: FInd a logic to save the completed challenges*/}
           {/*  A solution  must be, when we change the data in redux,*/}
           {challenges.challenges ? (

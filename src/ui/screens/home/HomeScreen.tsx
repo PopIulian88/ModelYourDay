@@ -32,8 +32,6 @@ const HomeScreen = () => {
 
   const dispatch = useAppDispatch();
 
-  const currentDay = new Date().getDay() - 1;
-
   return (
     <Fragment>
       <ScrollView

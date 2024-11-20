@@ -19,11 +19,56 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 // Resolve the circle
 import { Routes } from "../../navigation/constats";
+import { rootActions, useAppDispatch } from "../../../redux";
 
 const ModelScreen = () => {
   const { bottom, top } = useSafeAreaInsets();
   const { navigate } = useNavigation<NavigationProp<MainNavigatorParams>>();
   const { width } = useWindowDimensions();
+
+  const dispatch = useAppDispatch();
+
+  const handleOnPressFood = () => {
+    DefaultData.models[1].meals
+      ? // @ts-ignore
+        navigate(Routes.modelFood)
+      : dispatch(
+          rootActions.showModal({
+            title: StringsRepo.modelNoFood,
+            lottie: Lottie.pizza,
+            buttonTitle: StringsRepo.itsOk,
+            buttonAction: () => {
+              dispatch(rootActions.hideModal());
+            },
+            secondaryButtonTitle: StringsRepo.findOne,
+            secondaryButtonAction: () => {
+              console.log("Find meal plan...");
+              dispatch(rootActions.hideModal());
+            },
+          }),
+        );
+  };
+
+  const handleOnPressGym = () => {
+    DefaultData.models[1].training
+      ? // @ts-ignore
+        navigate(Routes.modelGym)
+      : dispatch(
+          rootActions.showModal({
+            title: StringsRepo.modelNoGym,
+            lottie: Lottie.sport,
+            buttonTitle: StringsRepo.itsOk,
+            buttonAction: () => {
+              dispatch(rootActions.hideModal());
+            },
+            secondaryButtonTitle: StringsRepo.findOne,
+            secondaryButtonAction: () => {
+              console.log("Find workout routine...");
+              dispatch(rootActions.hideModal());
+            },
+          }),
+        );
+  };
 
   return (
     <Fragment>
@@ -60,11 +105,7 @@ const ModelScreen = () => {
               type={MotivationalCardType.SIMPLE}
               text={`${StringsRepo.what} ${DefaultData.models[1].name} ${StringsRepo.eats}`}
               lottie={Lottie.pizza}
-              onPress={() => {
-                DefaultData.models[1].meals &&
-                  // @ts-ignore
-                  navigate(Routes.modelFood);
-              }}
+              onPress={handleOnPressFood}
             />
           </View>
           <Text type={TextType.headingMD} style={pageStyle.sectionText}>
@@ -75,11 +116,7 @@ const ModelScreen = () => {
               type={MotivationalCardType.SIMPLE}
               text={`${StringsRepo.whatIs} ${DefaultData.models[1].name} ${StringsRepo.workoutRoutine}`}
               lottie={Lottie.sport}
-              onPress={() => {
-                DefaultData.models[1].training &&
-                  // @ts-ignore
-                  navigate(Routes.modelGym);
-              }}
+              onPress={handleOnPressGym}
             />
           </View>
         </View>
