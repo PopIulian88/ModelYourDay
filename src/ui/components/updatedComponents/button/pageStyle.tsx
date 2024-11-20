@@ -27,6 +27,7 @@ export const pageStyle = StyleSheet.create({
     borderColor: style.color.sunshade,
   },
   text: {
+    textAlign: "center",
     color: style.color.serenade,
   },
 });

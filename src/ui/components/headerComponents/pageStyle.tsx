@@ -2,18 +2,17 @@ import { StyleSheet } from "react-native";
 
 export const pageStyle = StyleSheet.create({
   container: {
-    gap: 10,
-  },
-  flatList: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
-  lottie: {
-    width: 200,
-    height: 200,
-  },
-  nonContainer: {
-    flex: 1,
+  reload: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  reloadLottie: {
+    width: 30,
+    height: 30,
   },
 });

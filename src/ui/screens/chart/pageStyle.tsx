@@ -20,6 +20,11 @@ export const pageStyle = StyleSheet.create({
   headerTextContainer: {
     alignItems: "center",
   },
+  challengeHeaderContainer: {
+    alignSelf: "flex-start",
+    width: "100%",
+    paddingHorizontal: 0,
+  },
   tagContainer: {
     width: "100%",
     flexDirection: "row",

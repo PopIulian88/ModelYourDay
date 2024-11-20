@@ -7,4 +7,13 @@ export const pageStyle = StyleSheet.create({
   flatList: {
     paddingHorizontal: 20,
   },
+  lottie: {
+    width: 200,
+    height: 200,
+  },
+  nonContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

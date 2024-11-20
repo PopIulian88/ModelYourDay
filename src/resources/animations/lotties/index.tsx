@@ -11,4 +11,5 @@ export const Lottie = {
   astronaut: require("./astronaut.json"),
   pizza: require("./pizza.json"),
   error: require("./error.json"),
+  reload: require("./reload.json"),
 };

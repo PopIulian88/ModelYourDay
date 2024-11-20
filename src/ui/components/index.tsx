@@ -8,3 +8,4 @@ export * from "./chatText";
 export * from "./addonsBox";
 export * from "./complexComponents";
 export * from "./chatBotModal";
+export * from "./headerComponents";

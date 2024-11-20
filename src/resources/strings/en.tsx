@@ -75,4 +75,8 @@ export default {
   AI: "AI",
   plural: "'s",
   typeYourQuestion: "Type your question",
+  itsOk: "It's ok",
+  modelNoFood: "For the moment, your model has no meal plan found",
+  findOne: "Find one",
+  modelNoGym: "For the moment, your model has no training plan found",
 };
