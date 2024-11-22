@@ -45,7 +45,7 @@ export const RootSlice = createSlice({
     //Get Users
     builder.addCase(
       getUsersThunk.fulfilled,
-      (state, action: PayloadAction<UserType[]>) => {
+      (state, action: PayloadAction<UserType[] | undefined>) => {
         state.users = action.payload;
         state.isLoading = false;
       },

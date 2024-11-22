@@ -15,19 +15,16 @@ export const getUsersThunk = createAsyncThunk("root/getUsers", async () => {
             username: user.val().username,
             email: user.val().email,
             age: user.val().age,
-          } as UserType,
+            isOnboardingComplete: user.val().isOnboardingComplete,
+            modelsList: user.val().modelsList,
+            selectedModel: user.val().selectedModel,
+          },
         ];
       });
       return users;
     });
   } catch (e) {
-    console.error(e);
-    return [
-      {
-        username: "NULL",
-        email: "NULL",
-        age: 0,
-      },
-    ] as UserType[];
+    console.error("Users fetching FAILS: ", e);
+    return undefined;
   }
 });

@@ -53,6 +53,17 @@ const AuthScreen = () => {
   };
   const handleRegister = async () => {
     await dispatch(rootActions.getUsers()).then(async (response) => {
+      // Verify if users exists
+      if (response.payload === undefined) {
+        console.log("ERROR: Users not fetched");
+        dispatch(
+          rootActions.showModal({
+            error: true,
+            title: StringsRepo.somethingWentWrong,
+          }),
+        );
+        return;
+      }
       //Verify if the user already exists
       if (!response.payload.find((user: UserType) => user.email === email)) {
         //If the user doesn't exist, navigate to the verification screen

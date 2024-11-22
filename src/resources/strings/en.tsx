@@ -1,6 +1,7 @@
 export default {
   yes: "Yes",
   error: "Error",
+  errorSettingInitialData: "Error setting initial data",
   close: "Close",
   register: "Register",
   login: "Login",
@@ -79,4 +80,5 @@ export default {
   modelNoFood: "For the moment, your model has no meal plan found",
   findOne: "Find one",
   modelNoGym: "For the moment, your model has no training plan found",
+  loseEverything: "Lose everything",
 };

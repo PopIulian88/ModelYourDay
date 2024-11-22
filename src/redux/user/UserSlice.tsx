@@ -12,6 +12,9 @@ export interface IUserState {
   email?: string;
   age?: number;
   isLoading?: boolean;
+  isOnboardingComplete?: boolean;
+  modelsList?: string[]; // Ids of models
+  selectedModel?: string; // Id of selected model
 }
 
 const initialState: IUserState = {
@@ -19,6 +22,9 @@ const initialState: IUserState = {
   email: "email",
   age: 0,
   isLoading: false,
+  isOnboardingComplete: false,
+  modelsList: [],
+  selectedModel: "",
 };
 
 const UserSlice = createSlice({
@@ -30,6 +36,9 @@ const UserSlice = createSlice({
       state.email = "";
       state.age = 0;
       state.isLoading = false;
+      state.isOnboardingComplete = false;
+      state.modelsList = [];
+      state.selectedModel = "";
     },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
@@ -64,6 +73,9 @@ const UserSlice = createSlice({
       state.email = "";
       state.age = 0;
       state.isLoading = false;
+      state.isOnboardingComplete = false;
+      state.modelsList = [];
+      state.selectedModel = "";
     });
     builder.addCase(logoutThunk.rejected, (state) => {
       state.isLoading = false;
@@ -80,6 +92,9 @@ const UserSlice = createSlice({
         state.email = action.payload?.email;
         state.age = action.payload?.age;
         state.isLoading = false;
+        state.isOnboardingComplete = action.payload?.isOnboardingComplete;
+        state.modelsList = action.payload?.modelsList;
+        state.selectedModel = action.payload?.selectedModel;
       },
     );
     builder.addCase(getUserThunk.rejected, (state) => {
