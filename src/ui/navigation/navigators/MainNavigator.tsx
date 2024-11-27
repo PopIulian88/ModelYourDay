@@ -11,7 +11,12 @@ import {
   ProfileScreen,
 } from "../../screens";
 import { Routes } from "../constats";
-import { IStore, useAppDispatch, userActions } from "../../../redux";
+import {
+  IStore,
+  modelActions,
+  useAppDispatch,
+  userActions,
+} from "../../../redux";
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { style } from "../../../styles";
@@ -44,17 +49,19 @@ export const MainNavigator = () => {
 
   useEffect(() => {
     setMainDataIsLoading(true);
-    //TODO: Get the model data too
     return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
       if (user) {
-        await dispatch(userActions.getUser()).then(() =>
-          setMainDataIsLoading(false),
-        );
+        await dispatch(userActions.getUser()).then(async (response) => {
+          await dispatch(
+            modelActions.getModel(response?.payload?.selectedModel ?? ""),
+          ).then(() => {
+            setMainDataIsLoading(false);
+          });
+        });
       }
     });
   }, []);
 
-  //TODO: Implement the onboarding check
   const isOnboardingCompleted = () => {
     return isOnboardingComplete;
   };

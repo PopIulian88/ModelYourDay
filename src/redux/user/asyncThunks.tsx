@@ -96,6 +96,7 @@ export const loginThunk = createAsyncThunk(
   },
 );
 
+//TODO: Refactor this to help file
 const getUserFails = async (e: Error, dispatch: any) => {
   console.error(e);
   await helper.basicError({ dispatch });

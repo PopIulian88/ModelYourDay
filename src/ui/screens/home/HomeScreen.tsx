@@ -28,6 +28,7 @@ const HomeScreen = () => {
   const { username, isOnboardingComplete, modelsList } = useSelector(
     (state: IStore) => state.userReducer,
   );
+  const { model } = useSelector((state: IStore) => state.modelReducer);
   const { navigate } = useNavigation<NavigationProp<MainNavigatorParams>>();
 
   const { top, bottom } = useSafeAreaInsets();

@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ModelModel } from "../../models";
-import { ref, set } from "firebase/database";
+import { ref, set, get } from "firebase/database";
 import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
 import { helper } from "../../helper";
 import { userActions } from "../user";
+import { StringsRepo } from "../../resources";
 
 export const createModelThunk = createAsyncThunk(
   "model/createModel",
@@ -93,13 +94,57 @@ export const createModelThunk = createAsyncThunk(
   },
 );
 
-//TODO: Implement here
-//
-// export const getModelThunk = createAsyncThunk(
-//   "model/getModel",
-//   async (id: string, { dispatch }) => {
-//     const response = await fetch(`https://api.example.com/model/${id}`);
-//     const data = await response.json();
-//     return data;
-//   },
-// );
+export const getModelThunk = createAsyncThunk(
+  "model/getModel",
+  async (id: string, { dispatch }) => {
+    console.log("Get model with id: ", id);
+    try {
+      let model: ModelModel | undefined = undefined;
+
+      await get(ref(FIREBASE_REALTIME_DB, "models/" + id))
+        .then(async (snapshot) => {
+          if (snapshot.exists()) {
+            model = {
+              id: snapshot.val().id,
+              name: snapshot.val().name,
+              description: snapshot.val().description,
+              image: snapshot.val().image,
+              currentActivity: snapshot.val().currentActivity,
+              strike: snapshot.val().strike,
+              motivation: snapshot.val().motivation,
+              meals: snapshot.val().meals,
+              freeTime: snapshot.val().freeTime,
+              training: snapshot.val().training,
+              challenges: snapshot.val().challenges,
+              challengesCompleted: snapshot.val().challengesCompleted,
+            };
+            return model;
+          } else {
+            console.error("Model not found");
+            await helper.basicError({
+              message: StringsRepo.getModelFailed,
+              dispatch,
+            });
+            return undefined;
+          }
+        })
+        .catch(async (e) => {
+          console.error(e);
+          await helper.basicError({
+            message: StringsRepo.getModelFailed,
+            dispatch,
+          });
+          return undefined;
+        });
+      return model;
+    } catch (e) {
+      console.error(e);
+      //TODO: Not a basic error (maybe logout)
+      await helper.basicError({
+        message: StringsRepo.getModelFailed,
+        dispatch,
+      });
+      return undefined;
+    }
+  },
+);
