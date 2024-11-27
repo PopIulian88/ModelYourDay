@@ -5,22 +5,18 @@ import {
 } from "firebase/auth";
 import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
 import { UserType } from "../../models";
-import { get, ref, set } from "firebase/database";
-import { rootActions } from "../root";
+import { get, ref, set, update } from "firebase/database";
 import { StringsRepo } from "../../resources";
+import { helper } from "../../helper";
 
 const registerSettingDataFails = async (e: Error, dispatch: any) => {
   console.log("User set FAILED: " + e.message);
   const currentUser = FIREBASE_AUTH.currentUser;
 
-  //Show an error modal
-  dispatch(
-    rootActions.showModal({
-      error: true,
-      title: StringsRepo.errorSettingInitialData,
-      buttonTitle: StringsRepo.close,
-    }),
-  );
+  await helper.basicError({
+    message: StringsRepo.errorSettingInitialData,
+    dispatch,
+  });
 
   // DELETE USER
   await currentUser
@@ -60,14 +56,7 @@ export const registerThunk = createAsyncThunk(
       });
     } catch (e: any) {
       console.error(e);
-      //Show an error modal
-      dispatch(
-        rootActions.showModal({
-          error: true,
-          title: StringsRepo.error,
-          buttonTitle: StringsRepo.close,
-        }),
-      );
+      await helper.basicError({ dispatch });
     }
   },
 );
@@ -80,14 +69,7 @@ export const logoutThunk = createAsyncThunk(
       return await FIREBASE_AUTH.signOut();
     } catch (e: any) {
       console.error(e);
-      //Show an error modal
-      dispatch(
-        rootActions.showModal({
-          error: true,
-          title: StringsRepo.error,
-          buttonTitle: StringsRepo.close,
-        }),
-      );
+      await helper.basicError({ dispatch });
     }
   },
 );
@@ -105,14 +87,10 @@ export const loginThunk = createAsyncThunk(
     } catch (e: any) {
       console.error(e);
       if (e.code === "auth/invalid-credential") {
-        //Show an error modal
-        dispatch(
-          rootActions.showModal({
-            error: true,
-            title: StringsRepo.incorrectEmailOrPassword,
-            buttonTitle: StringsRepo.close,
-          }),
-        );
+        await helper.basicError({
+          message: StringsRepo.incorrectEmailOrPassword,
+          dispatch,
+        });
       }
     }
   },
@@ -120,17 +98,8 @@ export const loginThunk = createAsyncThunk(
 
 const getUserFails = async (e: Error, dispatch: any) => {
   console.error(e);
-  //Show an error modal
-  dispatch(
-    rootActions.showModal({
-      error: true,
-      title: StringsRepo.error,
-      buttonTitle: StringsRepo.logout,
-    }),
-  );
-  //Logout the user
+  await helper.basicError({ dispatch });
   await dispatch(logoutThunk());
-  // throw e;
 };
 
 export const getUserThunk = createAsyncThunk(
@@ -162,6 +131,86 @@ export const getUserThunk = createAsyncThunk(
       });
     } catch (e: any) {
       await getUserFails(e, dispatch);
+    }
+  },
+);
+
+// TODO: TEST if isnt working
+export const addModelToListThunk = createAsyncThunk(
+  "user/addModelToList",
+  // payload is the model ID
+  async (payload: string, { dispatch }) => {
+    console.log("Adding model to list...");
+    try {
+      return await get(
+        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+      ).then(async (response) => {
+        if (response.exists()) {
+          const modelsList: string[] = response.val().modelsList;
+          //Just in case
+          if (modelsList[0] === "IGNORE" || modelsList.length < 1) {
+            modelsList.splice(0, 1);
+          }
+
+          modelsList.push(payload);
+          return await update(
+            ref(
+              FIREBASE_REALTIME_DB,
+              "users/" + FIREBASE_AUTH.currentUser?.uid,
+            ),
+            {
+              modelsList: modelsList,
+            },
+          )
+            .then(() => {
+              return modelsList;
+            })
+            .catch(async (e) => {
+              console.error("Create model FAIL: ", e);
+              await helper.basicError({ dispatch });
+              return undefined;
+            });
+        } else {
+          console.error("Create model FAIL: No data");
+          //Show an error modal
+          await helper.basicError({ dispatch });
+          return undefined;
+        }
+      });
+    } catch (e: any) {
+      console.error("FAIL to create the user: ", e);
+      await helper.basicError({ dispatch });
+      return undefined;
+    }
+  },
+);
+
+export const setSelectedModelThunk = createAsyncThunk(
+  "user/setSelectedModel",
+  // payload is the model ID
+  async (payload: string, { dispatch }) => {
+    console.log("Setting selected model...");
+    try {
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+        {
+          //HERE WE COMPLETE THE ONBOARDING TOO
+          isOnboardingComplete: true,
+          selectedModel: payload,
+        },
+      )
+        .then(() => {
+          return payload;
+        })
+        .catch(async (e) => {
+          console.error("Set selected model FAIL: ", e);
+          await helper.basicError({ dispatch });
+          return undefined;
+        });
+    } catch (e: any) {
+      console.error("FAIL to set the selected model: ", e);
+      await helper.basicError({ dispatch });
+      return undefined;
     }
   },
 );

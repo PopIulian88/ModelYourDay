@@ -29,6 +29,7 @@ import ScrollView = Animated.ScrollView;
 import { sleep } from "openai/core";
 // Remove the cycle
 import { Routes } from "../../navigation/constats";
+import { modelActions, useAppDispatch } from "../../../redux";
 
 const FindYourModelScreen = () => {
   const { params } =
@@ -38,6 +39,8 @@ const FindYourModelScreen = () => {
 
   const { top, bottom } = useSafeAreaInsets();
 
+  const dispatch = useAppDispatch();
+
   const [selectedModel, setSelectedModel] = useState(params);
   const [searchText, setSearchText] = useState("");
   const [addonSelected, setAddonSelected] = useState(-1);
@@ -46,7 +49,7 @@ const FindYourModelScreen = () => {
   //TODO: Handle go back situation
   const [isLoading, setIsLoading] = useState(false);
 
-  const onPressPrimary = () => {
+  const onPressPrimary = async () => {
     if (!selectedModel) {
       //Find with AI flow (FIND YOUR MODEL)
       // TODO: Implement the AI search and replace the default model
@@ -57,8 +60,14 @@ const FindYourModelScreen = () => {
       sleep(300).then(() => setIsLoading(false));
     } else {
       // Select default flow
-      // @ts-ignore
-      navigate(Routes.home);
+      console.log("MODEL SELECTED", selectedModel.name);
+      await dispatch(modelActions.createModel(selectedModel)).then(() => {
+        // @ts-ignore
+        navigate(Routes.home);
+      });
+      //TODO: Salvam modelul in baza de date si redux
+      //       -Modificam in user: isOnboardingCompleted: true, selectedModel: ID-ul acestui model,
+      //       modelsList: [ID-ul acestui model] (2 cazuri: daca e primul model sau nu)
     }
   };
 

@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  addModelToListThunk,
   getUserThunk,
   loginThunk,
   logoutThunk,
   registerThunk,
+  setSelectedModelThunk,
 } from "./asyncThunks";
 import { UserType } from "../../models";
 
@@ -101,6 +103,41 @@ const UserSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(getUserThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    //Add new model to list
+    builder.addCase(
+      addModelToListThunk.fulfilled,
+      (state, action: PayloadAction<string[] | undefined>) => {
+        console.log("Action payload: ", action?.payload);
+        if (action?.payload !== undefined) {
+          state.modelsList = action.payload;
+        }
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(addModelToListThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(addModelToListThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(
+      setSelectedModelThunk.fulfilled,
+      (state, action: PayloadAction<string | undefined>) => {
+        if (action.payload !== undefined) {
+          state.isOnboardingComplete = true;
+          state.selectedModel = action.payload;
+        }
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(setSelectedModelThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(setSelectedModelThunk.pending, (state) => {
       state.isLoading = true;
     });
   },

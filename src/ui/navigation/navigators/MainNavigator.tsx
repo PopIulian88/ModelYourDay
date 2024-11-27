@@ -33,9 +33,10 @@ export type MainNavigatorParams = {
 };
 
 export const MainNavigator = () => {
-  const { isLoading, email } = useSelector(
+  const { isLoading, isOnboardingComplete } = useSelector(
     (state: IStore) => state.userReducer,
   );
+  const { isModelLoading } = useSelector((state: IStore) => state.modelReducer);
   const { isModalVisible } = useSelector((state: IStore) => state.rootReducer);
   const [mainDataIsLoading, setMainDataIsLoading] = useState(false);
 
@@ -43,6 +44,7 @@ export const MainNavigator = () => {
 
   useEffect(() => {
     setMainDataIsLoading(true);
+    //TODO: Get the model data too
     return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
       if (user) {
         await dispatch(userActions.getUser()).then(() =>
@@ -54,10 +56,10 @@ export const MainNavigator = () => {
 
   //TODO: Implement the onboarding check
   const isOnboardingCompleted = () => {
-    return true;
+    return isOnboardingComplete;
   };
 
-  return !isLoading && !mainDataIsLoading ? (
+  return !isLoading && !isModelLoading && !mainDataIsLoading ? (
     <Fragment>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isOnboardingCompleted() && (
