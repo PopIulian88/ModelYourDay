@@ -25,7 +25,6 @@ export const createModelThunk = createAsyncThunk(
       image: model.image,
       currentActivity: model.currentActivity,
       strike: 0,
-      // TODO: Test send without non-required fields
       motivation: model.motivation,
       meals: {
         monday: model.meals?.monday ?? {},
@@ -86,8 +85,8 @@ export const createModelThunk = createAsyncThunk(
             .then(() => {
               return newModel;
             })
-            .catch((e) => {
-              console.error(e);
+            .catch(async (e) => {
+              await helper.errorModal({ errorMessage: e, dispatch });
               return undefined;
             });
         })
@@ -117,7 +116,6 @@ export const getModelThunk = createAsyncThunk(
         });
         return undefined;
       }
-      // TODO: Verify if getModel Works and update the state, or should we add a RETURN
       await get(ref(FIREBASE_REALTIME_DB, "models/" + id))
         .then(async (snapshot) => {
           if (snapshot.exists()) {

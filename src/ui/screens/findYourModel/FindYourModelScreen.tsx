@@ -54,8 +54,6 @@ const FindYourModelScreen = () => {
       setSelectedModel(DefaultData.models[0]);
     } else {
       // Select default flow
-      //TODO: remove this before PR
-      console.log("MODEL SELECTED", selectedModel.name);
       await dispatch(modelActions.createModel(selectedModel)).then(() => {
         // @ts-ignore
         navigate(Routes.home);

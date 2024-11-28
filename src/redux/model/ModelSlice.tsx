@@ -16,7 +16,7 @@ const ModelSlice = createSlice({
   name: "model",
   initialState,
   reducers: {
-    resetUser: (state) => {
+    resetModel: (state) => {
       state.model = undefined;
       state.isModelLoading = false;
     },
@@ -60,5 +60,5 @@ const ModelSlice = createSlice({
     });
   },
 });
-export const { resetUser, setIsLoading } = ModelSlice.actions;
+export const { resetModel, setIsLoading } = ModelSlice.actions;
 export default ModelSlice.reducer;

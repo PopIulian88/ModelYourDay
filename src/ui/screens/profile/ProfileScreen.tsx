@@ -25,6 +25,7 @@ import {
   userActions,
 } from "../../../redux";
 import { useSelector } from "react-redux";
+import { resetModel } from "../../../redux/model/ModelSlice";
 
 const ProfileScreen = () => {
   const { username } = useSelector((state: IStore) => state.userReducer);
@@ -44,9 +45,12 @@ const ProfileScreen = () => {
           dispatch(rootActions.hideModal());
         },
         secondaryButtonTitle: StringsRepo.yesLogout,
-        secondaryButtonAction: () => {
+        secondaryButtonAction: async () => {
           dispatch(rootActions.hideModal());
-          dispatch(userActions.logout());
+          await dispatch(userActions.logout()).then(() => {
+            // Reset model state here because on redux we have a import loop
+            dispatch(resetModel());
+          });
         },
       }),
     );
