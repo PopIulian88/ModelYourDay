@@ -51,12 +51,24 @@ export const MainNavigator = () => {
     setMainDataIsLoading(true);
     return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
       if (user) {
-        await dispatch(userActions.getUser()).then(async (response) => {
-          await dispatch(
-            modelActions.getModel(response?.payload?.selectedModel ?? ""),
-          ).then(() => {
+        await dispatch(userActions.getUser()).then(async (userData) => {
+          if (
+            userData?.payload?.isOnboardingComplete &&
+            userData?.payload?.selectedModel
+          ) {
+            await dispatch(
+              modelActions.getModel(userData?.payload?.selectedModel ?? ""),
+            )
+              .then(() => {
+                setMainDataIsLoading(false);
+              })
+              .catch((e) => {
+                console.error("FAIL to getModel on MainNavigator: ", e);
+                setMainDataIsLoading(false);
+              });
+          } else {
             setMainDataIsLoading(false);
-          });
+          }
         });
       }
     });

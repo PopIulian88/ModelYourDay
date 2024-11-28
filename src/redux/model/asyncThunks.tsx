@@ -67,30 +67,40 @@ export const createModelThunk = createAsyncThunk(
       },
     };
 
-    await set(ref(FIREBASE_REALTIME_DB, "models/" + newModelId), newModel)
-      .then(async (response) => {
-        console.log("Model created successfully", response);
-        // Update the UserModelList
-        await dispatch(userActions.addModelToUser(newModelId))
-          .then(
-            // Set the new model as the selected one
-            async () =>
-              await dispatch(userActions.setSelectedModel(newModelId)),
-          )
-          .then(() => {
-            return newModel;
-          })
-          .catch((e) => {
-            console.error(e);
-            return undefined;
-          });
-      })
-      .catch(async (e) => {
-        console.error(e);
-        await helper.basicError({ dispatch });
-        return undefined;
-      });
-    return undefined;
+    try {
+      console.log("START creating new model");
+      return await set(
+        ref(FIREBASE_REALTIME_DB, "models/" + newModelId),
+        newModel,
+      )
+        .then(async () => {
+          console.log("Model created successfully");
+          // Update the UserModelList
+          return await dispatch(userActions.addModelToUser(newModelId))
+            .then(
+              // Set the new model as the selected one
+              async () => {
+                return await dispatch(userActions.setSelectedModel(newModelId));
+              },
+            )
+            .then(() => {
+              return newModel;
+            })
+            .catch((e) => {
+              console.error(e);
+              return undefined;
+            });
+        })
+        .catch(async (e) => {
+          console.error(e);
+          await helper.basicError({ dispatch });
+          return undefined;
+        });
+    } catch (e) {
+      console.error(e);
+      await helper.basicError({ dispatch });
+      return undefined;
+    }
   },
 );
 
@@ -100,6 +110,15 @@ export const getModelThunk = createAsyncThunk(
     console.log("Get model with id: ", id);
     try {
       let model: ModelModel | undefined = undefined;
+
+      if (id === "") {
+        console.error("Model id is empty");
+        await helper.basicError({
+          message: StringsRepo.getModelFailed,
+          dispatch,
+        });
+        return undefined;
+      }
 
       await get(ref(FIREBASE_REALTIME_DB, "models/" + id))
         .then(async (snapshot) => {

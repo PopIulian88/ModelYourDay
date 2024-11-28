@@ -29,7 +29,9 @@ const ModelSlice = createSlice({
     builder.addCase(
       createModelThunk.fulfilled,
       (state, action: PayloadAction<ModelModel | undefined>) => {
-        action.payload !== undefined && (state.model = action.payload);
+        if (action.payload !== undefined) {
+          state.model = action.payload;
+        }
         state.isModelLoading = false;
       },
     );
