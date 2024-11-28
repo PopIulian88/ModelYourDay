@@ -1,7 +1,7 @@
 import { sendVerificationMail } from "./VerificationMail";
 import { generateCode } from "./GenerateCode";
 import { getCurrentDay } from "./GetCurrentDay";
-import { basicError } from "./BasicError";
+import { errorModal } from "./ErrorModal";
 
 import { getTrainingsByDay } from "./model/GetTrainings";
 import { getMealsByDay } from "./model/GetMeals";
@@ -11,7 +11,7 @@ export const helper = {
   sendVerificationMail,
   generateCode,
   getCurrentDay,
-  basicError,
+  errorModal,
 };
 export const modelHelper = {
   getTrainingsByDay,

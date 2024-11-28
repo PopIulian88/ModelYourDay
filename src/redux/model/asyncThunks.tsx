@@ -92,13 +92,11 @@ export const createModelThunk = createAsyncThunk(
             });
         })
         .catch(async (e) => {
-          console.error(e);
-          await helper.basicError({ dispatch });
+          await helper.errorModal({ errorMessage: e, dispatch });
           return undefined;
         });
-    } catch (e) {
-      console.error(e);
-      await helper.basicError({ dispatch });
+    } catch (e: any) {
+      await helper.errorModal({ errorMessage: e, dispatch });
       return undefined;
     }
   },
@@ -112,14 +110,14 @@ export const getModelThunk = createAsyncThunk(
       let model: ModelModel | undefined = undefined;
 
       if (id === "") {
-        console.error("Model id is empty");
-        await helper.basicError({
+        await helper.errorModal({
+          errorMessage: StringsRepo.error.modelIdIsEmpty,
           message: StringsRepo.getModelFailed,
           dispatch,
         });
         return undefined;
       }
-
+      // TODO: Verify if getModel Works and update the state, or should we add a RETURN
       await get(ref(FIREBASE_REALTIME_DB, "models/" + id))
         .then(async (snapshot) => {
           if (snapshot.exists()) {
@@ -139,8 +137,8 @@ export const getModelThunk = createAsyncThunk(
             };
             return model;
           } else {
-            console.error("Model not found");
-            await helper.basicError({
+            await helper.errorModal({
+              errorMessage: StringsRepo.error.modelNotFound,
               message: StringsRepo.getModelFailed,
               dispatch,
             });
@@ -148,21 +146,21 @@ export const getModelThunk = createAsyncThunk(
           }
         })
         .catch(async (e) => {
-          console.error(e);
-          await helper.basicError({
+          await helper.errorModal({
+            errorMessage: e,
             message: StringsRepo.getModelFailed,
             dispatch,
           });
           return undefined;
         });
       return model;
-    } catch (e) {
-      console.error(e);
-      //TODO: Not a basic error (maybe logout)
-      await helper.basicError({
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: e,
         message: StringsRepo.getModelFailed,
         dispatch,
       });
+      await dispatch(userActions.logout());
       return undefined;
     }
   },

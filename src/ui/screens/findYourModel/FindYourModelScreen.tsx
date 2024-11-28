@@ -26,16 +26,18 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Loading } from "../loading";
 import ScrollView = Animated.ScrollView;
-import { sleep } from "openai/core";
 // Remove the cycle
 import { Routes } from "../../navigation/constats";
-import { modelActions, useAppDispatch } from "../../../redux";
+import { IStore, modelActions, useAppDispatch } from "../../../redux";
+import { useSelector } from "react-redux";
 
 const FindYourModelScreen = () => {
   const { params } =
     useRoute<RouteProp<MainNavigatorParams, "FindYourModel">>();
   const { goBack, navigate } =
     useNavigation<NavigationProp<MainNavigatorParams>>();
+
+  const { isModelLoading } = useSelector((state: IStore) => state.modelReducer);
 
   const { top, bottom } = useSafeAreaInsets();
 
@@ -45,29 +47,19 @@ const FindYourModelScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [addonSelected, setAddonSelected] = useState(-1);
 
-  //TODO: replace this after making the model reducer
-  //TODO: Handle go back situation
-  const [isLoading, setIsLoading] = useState(false);
-
   const onPressPrimary = async () => {
     if (!selectedModel) {
       //Find with AI flow (FIND YOUR MODEL)
       // TODO: Implement the AI search and replace the default model
       setSelectedModel(DefaultData.models[0]);
-
-      // TODO: remove this simulation of loading
-      setIsLoading(true);
-      sleep(300).then(() => setIsLoading(false));
     } else {
       // Select default flow
+      //TODO: remove this before PR
       console.log("MODEL SELECTED", selectedModel.name);
       await dispatch(modelActions.createModel(selectedModel)).then(() => {
         // @ts-ignore
         navigate(Routes.home);
       });
-      //TODO: Salvam modelul in baza de date si redux
-      //       -Modificam in user: isOnboardingCompleted: true, selectedModel: ID-ul acestui model,
-      //       modelsList: [ID-ul acestui model] (2 cazuri: daca e primul model sau nu)
     }
   };
 
@@ -94,7 +86,7 @@ const FindYourModelScreen = () => {
     );
   };
 
-  return !isLoading ? (
+  return !isModelLoading ? (
     <View style={pageStyle.container}>
       <ScrollView
         style={pageStyle.scrollContainer}

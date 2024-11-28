@@ -1,7 +1,15 @@
 export default {
   yes: "Yes",
-  error: "Error",
-  errorSettingInitialData: "Error setting initial data",
+  error: {
+    default: "Error",
+    settingInitialData: "Error setting initial data",
+    createModelNoData: "Create model FAIL: No data",
+    createModelFail: "Create model FAIL",
+    createUserFail: "Create user FAIL",
+    setSelectedModelFail: "Set selected model FAIL",
+    modelIdIsEmpty: "Model id is empty",
+    modelNotFound: "Model not found",
+  },
   close: "Close",
   register: "Register",
   login: "Login",

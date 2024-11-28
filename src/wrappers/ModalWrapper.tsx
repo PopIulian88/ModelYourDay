@@ -79,7 +79,8 @@ export const ModalWrapper = (props: ModalProps) => {
                   <Button
                     type={ButtonType.SECONDARY}
                     title={
-                      modalProps?.secondaryButtonTitle ?? StringsRepo.error
+                      modalProps?.secondaryButtonTitle ??
+                      StringsRepo.error.default
                     }
                     onPress={modalProps.secondaryButtonAction ?? closeModal}
                   />

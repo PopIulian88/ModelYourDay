@@ -13,8 +13,9 @@ const registerSettingDataFails = async (e: Error, dispatch: any) => {
   console.log("User set FAILED: " + e.message);
   const currentUser = FIREBASE_AUTH.currentUser;
 
-  await helper.basicError({
-    message: StringsRepo.errorSettingInitialData,
+  await helper.errorModal({
+    errorMessage: e.toString(),
+    message: StringsRepo.error.settingInitialData,
     dispatch,
   });
 
@@ -55,8 +56,10 @@ export const registerThunk = createAsyncThunk(
           .catch(async (e) => await registerSettingDataFails(e, dispatch));
       });
     } catch (e: any) {
-      console.error(e);
-      await helper.basicError({ dispatch });
+      await helper.errorModal({
+        errorMessage: e,
+        dispatch,
+      });
     }
   },
 );
@@ -68,8 +71,7 @@ export const logoutThunk = createAsyncThunk(
     try {
       return await FIREBASE_AUTH.signOut();
     } catch (e: any) {
-      console.error(e);
-      await helper.basicError({ dispatch });
+      await helper.errorModal({ errorMessage: e, dispatch });
     }
   },
 );
@@ -85,9 +87,9 @@ export const loginThunk = createAsyncThunk(
         payload.password,
       );
     } catch (e: any) {
-      console.error(e);
       if (e.code === "auth/invalid-credential") {
-        await helper.basicError({
+        await helper.errorModal({
+          errorMessage: e,
           message: StringsRepo.incorrectEmailOrPassword,
           dispatch,
         });
@@ -95,13 +97,6 @@ export const loginThunk = createAsyncThunk(
     }
   },
 );
-
-//TODO: Refactor this to help file
-const getUserFails = async (e: Error, dispatch: any) => {
-  console.error(e);
-  await helper.basicError({ dispatch });
-  await dispatch(logoutThunk());
-};
 
 export const getUserThunk = createAsyncThunk(
   "user/getUser",
@@ -121,17 +116,11 @@ export const getUserThunk = createAsyncThunk(
             modelsList: response.val().modelsList,
             selectedModel: response.val().selectedModel,
           };
-        } else {
-          await getUserFails(
-            Error("User not found: User does not exist"),
-            dispatch,
-          );
         }
-
         return user;
       });
     } catch (e: any) {
-      await getUserFails(e, dispatch);
+      await helper.errorModal({ errorMessage: e, dispatch });
     }
   },
 );
@@ -167,20 +156,25 @@ export const addModelToListThunk = createAsyncThunk(
               return modelsList;
             })
             .catch(async (e) => {
-              console.error("Create model FAIL: ", e);
-              await helper.basicError({ dispatch });
+              await helper.errorModal({
+                errorMessage: `${StringsRepo.error.createModelFail}: ${e}`,
+                dispatch,
+              });
               return undefined;
             });
         } else {
-          console.error("Create model FAIL: No data");
-          //Show an error modal
-          await helper.basicError({ dispatch });
+          await helper.errorModal({
+            errorMessage: StringsRepo.error.createModelNoData,
+            dispatch,
+          });
           return undefined;
         }
       });
     } catch (e: any) {
-      console.error("FAIL to create the user: ", e);
-      await helper.basicError({ dispatch });
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.createUserFail}: ${e}`,
+        dispatch,
+      });
       return undefined;
     }
   },
@@ -204,13 +198,17 @@ export const setSelectedModelThunk = createAsyncThunk(
           return payload;
         })
         .catch(async (e) => {
-          console.error("Set selected model FAIL: ", e);
-          await helper.basicError({ dispatch });
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.setSelectedModelFail}: ${e}`,
+            dispatch,
+          });
           return undefined;
         });
     } catch (e: any) {
-      console.error("FAIL to set the selected model: ", e);
-      await helper.basicError({ dispatch });
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.setSelectedModelFail}: ${e}`,
+        dispatch,
+      });
       return undefined;
     }
   },
