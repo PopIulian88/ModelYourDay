@@ -20,12 +20,12 @@ import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   IStore,
+  modelActions,
   rootActions,
   useAppDispatch,
   userActions,
 } from "../../../redux";
 import { useSelector } from "react-redux";
-import { resetModel } from "../../../redux/model/ModelSlice";
 
 const ProfileScreen = () => {
   const { username } = useSelector((state: IStore) => state.userReducer);
@@ -49,7 +49,7 @@ const ProfileScreen = () => {
           dispatch(rootActions.hideModal());
           await dispatch(userActions.logout()).then(() => {
             // Reset model state here because on redux we have a import loop
-            dispatch(resetModel());
+            dispatch(modelActions.resetModel());
           });
         },
       }),

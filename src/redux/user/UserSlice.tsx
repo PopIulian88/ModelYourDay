@@ -110,7 +110,6 @@ const UserSlice = createSlice({
     builder.addCase(
       addModelToListThunk.fulfilled,
       (state, action: PayloadAction<string[] | undefined>) => {
-        console.log("Action payload: ", action?.payload);
         if (action?.payload !== undefined) {
           state.modelsList = action.payload;
         }

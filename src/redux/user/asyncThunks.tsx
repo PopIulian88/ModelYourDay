@@ -125,7 +125,6 @@ export const getUserThunk = createAsyncThunk(
   },
 );
 
-// TODO: TEST if isnt working
 export const addModelToListThunk = createAsyncThunk(
   "user/addModelToList",
   // payload is the model ID
@@ -167,6 +166,8 @@ export const addModelToListThunk = createAsyncThunk(
             errorMessage: StringsRepo.error.createModelNoData,
             dispatch,
           });
+          //Logout the user
+          await dispatch(logoutThunk());
           return undefined;
         }
       });
@@ -175,6 +176,8 @@ export const addModelToListThunk = createAsyncThunk(
         errorMessage: `${StringsRepo.error.createUserFail}: ${e}`,
         dispatch,
       });
+      //Logout the user
+      await dispatch(logoutThunk());
       return undefined;
     }
   },
