@@ -11,7 +11,12 @@ import {
   ProfileScreen,
 } from "../../screens";
 import { Routes } from "../constats";
-import { IStore, useAppDispatch, userActions } from "../../../redux";
+import {
+  IStore,
+  modelActions,
+  useAppDispatch,
+  userActions,
+} from "../../../redux";
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { style } from "../../../styles";
@@ -33,9 +38,10 @@ export type MainNavigatorParams = {
 };
 
 export const MainNavigator = () => {
-  const { isLoading, email } = useSelector(
+  const { isLoading, isOnboardingComplete } = useSelector(
     (state: IStore) => state.userReducer,
   );
+  const { isModelLoading } = useSelector((state: IStore) => state.modelReducer);
   const { isModalVisible } = useSelector((state: IStore) => state.rootReducer);
   const [mainDataIsLoading, setMainDataIsLoading] = useState(false);
 
@@ -45,19 +51,34 @@ export const MainNavigator = () => {
     setMainDataIsLoading(true);
     return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
       if (user) {
-        await dispatch(userActions.getUser()).then(() =>
-          setMainDataIsLoading(false),
-        );
+        await dispatch(userActions.getUser()).then(async (userData) => {
+          if (
+            userData?.payload?.isOnboardingComplete &&
+            userData?.payload?.selectedModel
+          ) {
+            await dispatch(
+              modelActions.getModel(userData?.payload?.selectedModel ?? ""),
+            )
+              .then(() => {
+                setMainDataIsLoading(false);
+              })
+              .catch((e) => {
+                console.error("FAIL to getModel on MainNavigator: ", e);
+                setMainDataIsLoading(false);
+              });
+          } else {
+            setMainDataIsLoading(false);
+          }
+        });
       }
     });
   }, []);
 
-  //TODO: Implement the onboarding check
   const isOnboardingCompleted = () => {
-    return true;
+    return isOnboardingComplete;
   };
 
-  return !isLoading && !mainDataIsLoading ? (
+  return !isLoading && !isModelLoading && !mainDataIsLoading ? (
     <Fragment>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isOnboardingCompleted() && (

@@ -26,9 +26,10 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Loading } from "../loading";
 import ScrollView = Animated.ScrollView;
-import { sleep } from "openai/core";
 // Remove the cycle
 import { Routes } from "../../navigation/constats";
+import { IStore, modelActions, useAppDispatch } from "../../../redux";
+import { useSelector } from "react-redux";
 
 const FindYourModelScreen = () => {
   const { params } =
@@ -36,29 +37,27 @@ const FindYourModelScreen = () => {
   const { goBack, navigate } =
     useNavigation<NavigationProp<MainNavigatorParams>>();
 
+  const { isModelLoading } = useSelector((state: IStore) => state.modelReducer);
+
   const { top, bottom } = useSafeAreaInsets();
+
+  const dispatch = useAppDispatch();
 
   const [selectedModel, setSelectedModel] = useState(params);
   const [searchText, setSearchText] = useState("");
   const [addonSelected, setAddonSelected] = useState(-1);
 
-  //TODO: replace this after making the model reducer
-  //TODO: Handle go back situation
-  const [isLoading, setIsLoading] = useState(false);
-
-  const onPressPrimary = () => {
+  const onPressPrimary = async () => {
     if (!selectedModel) {
       //Find with AI flow (FIND YOUR MODEL)
       // TODO: Implement the AI search and replace the default model
       setSelectedModel(DefaultData.models[0]);
-
-      // TODO: remove this simulation of loading
-      setIsLoading(true);
-      sleep(300).then(() => setIsLoading(false));
     } else {
       // Select default flow
-      // @ts-ignore
-      navigate(Routes.home);
+      await dispatch(modelActions.createModel(selectedModel)).then(() => {
+        // @ts-ignore
+        navigate(Routes.home);
+      });
     }
   };
 
@@ -85,7 +84,7 @@ const FindYourModelScreen = () => {
     );
   };
 
-  return !isLoading ? (
+  return !isModelLoading ? (
     <View style={pageStyle.container}>
       <ScrollView
         style={pageStyle.scrollContainer}

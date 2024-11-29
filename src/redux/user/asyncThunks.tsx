@@ -5,22 +5,19 @@ import {
 } from "firebase/auth";
 import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
 import { UserType } from "../../models";
-import { get, ref, set } from "firebase/database";
-import { rootActions } from "../root";
+import { get, ref, set, update } from "firebase/database";
 import { StringsRepo } from "../../resources";
+import { helper } from "../../helper";
 
 const registerSettingDataFails = async (e: Error, dispatch: any) => {
   console.log("User set FAILED: " + e.message);
   const currentUser = FIREBASE_AUTH.currentUser;
 
-  //Show an error modal
-  dispatch(
-    rootActions.showModal({
-      error: true,
-      title: StringsRepo.errorSettingInitialData,
-      buttonTitle: StringsRepo.close,
-    }),
-  );
+  await helper.errorModal({
+    errorMessage: e.toString(),
+    message: StringsRepo.error.settingInitialData,
+    dispatch,
+  });
 
   // DELETE USER
   await currentUser
@@ -59,15 +56,10 @@ export const registerThunk = createAsyncThunk(
           .catch(async (e) => await registerSettingDataFails(e, dispatch));
       });
     } catch (e: any) {
-      console.error(e);
-      //Show an error modal
-      dispatch(
-        rootActions.showModal({
-          error: true,
-          title: StringsRepo.error,
-          buttonTitle: StringsRepo.close,
-        }),
-      );
+      await helper.errorModal({
+        errorMessage: e,
+        dispatch,
+      });
     }
   },
 );
@@ -79,15 +71,7 @@ export const logoutThunk = createAsyncThunk(
     try {
       return await FIREBASE_AUTH.signOut();
     } catch (e: any) {
-      console.error(e);
-      //Show an error modal
-      dispatch(
-        rootActions.showModal({
-          error: true,
-          title: StringsRepo.error,
-          buttonTitle: StringsRepo.close,
-        }),
-      );
+      await helper.errorModal({ errorMessage: e, dispatch });
     }
   },
 );
@@ -103,35 +87,16 @@ export const loginThunk = createAsyncThunk(
         payload.password,
       );
     } catch (e: any) {
-      console.error(e);
       if (e.code === "auth/invalid-credential") {
-        //Show an error modal
-        dispatch(
-          rootActions.showModal({
-            error: true,
-            title: StringsRepo.incorrectEmailOrPassword,
-            buttonTitle: StringsRepo.close,
-          }),
-        );
+        await helper.errorModal({
+          errorMessage: e,
+          message: StringsRepo.incorrectEmailOrPassword,
+          dispatch,
+        });
       }
     }
   },
 );
-
-const getUserFails = async (e: Error, dispatch: any) => {
-  console.error(e);
-  //Show an error modal
-  dispatch(
-    rootActions.showModal({
-      error: true,
-      title: StringsRepo.error,
-      buttonTitle: StringsRepo.logout,
-    }),
-  );
-  //Logout the user
-  await dispatch(logoutThunk());
-  // throw e;
-};
 
 export const getUserThunk = createAsyncThunk(
   "user/getUser",
@@ -151,17 +116,103 @@ export const getUserThunk = createAsyncThunk(
             modelsList: response.val().modelsList,
             selectedModel: response.val().selectedModel,
           };
-        } else {
-          await getUserFails(
-            Error("User not found: User does not exist"),
-            dispatch,
-          );
         }
-
         return user;
       });
     } catch (e: any) {
-      await getUserFails(e, dispatch);
+      await helper.errorModal({ errorMessage: e, dispatch });
+    }
+  },
+);
+
+export const addModelToListThunk = createAsyncThunk(
+  "user/addModelToList",
+  // payload is the model ID
+  async (payload: string, { dispatch }) => {
+    console.log("Adding model to list...");
+    try {
+      return await get(
+        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+      ).then(async (response) => {
+        if (response.exists()) {
+          const modelsList: string[] = response.val().modelsList;
+          //Just in case
+          if (modelsList[0] === "IGNORE" || modelsList.length < 1) {
+            modelsList.splice(0, 1);
+          }
+
+          modelsList.push(payload);
+          return await update(
+            ref(
+              FIREBASE_REALTIME_DB,
+              "users/" + FIREBASE_AUTH.currentUser?.uid,
+            ),
+            {
+              modelsList: modelsList,
+            },
+          )
+            .then(() => {
+              return modelsList;
+            })
+            .catch(async (e) => {
+              await helper.errorModal({
+                errorMessage: `${StringsRepo.error.createModelFail}: ${e}`,
+                dispatch,
+              });
+              return undefined;
+            });
+        } else {
+          await helper.errorModal({
+            errorMessage: StringsRepo.error.createModelNoData,
+            dispatch,
+          });
+          //Logout the user
+          await dispatch(logoutThunk());
+          return undefined;
+        }
+      });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.createUserFail}: ${e}`,
+        dispatch,
+      });
+      //Logout the user
+      await dispatch(logoutThunk());
+      return undefined;
+    }
+  },
+);
+
+export const setSelectedModelThunk = createAsyncThunk(
+  "user/setSelectedModel",
+  // payload is the model ID
+  async (payload: string, { dispatch }) => {
+    console.log("Setting selected model...");
+    try {
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+        {
+          //HERE WE COMPLETE THE ONBOARDING TOO
+          isOnboardingComplete: true,
+          selectedModel: payload,
+        },
+      )
+        .then(() => {
+          return payload;
+        })
+        .catch(async (e) => {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.setSelectedModelFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.setSelectedModelFail}: ${e}`,
+        dispatch,
+      });
+      return undefined;
     }
   },
 );

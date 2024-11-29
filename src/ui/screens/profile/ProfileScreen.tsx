@@ -20,6 +20,7 @@ import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   IStore,
+  modelActions,
   rootActions,
   useAppDispatch,
   userActions,
@@ -44,9 +45,12 @@ const ProfileScreen = () => {
           dispatch(rootActions.hideModal());
         },
         secondaryButtonTitle: StringsRepo.yesLogout,
-        secondaryButtonAction: () => {
+        secondaryButtonAction: async () => {
           dispatch(rootActions.hideModal());
-          dispatch(userActions.logout());
+          await dispatch(userActions.logout()).then(() => {
+            // Reset model state here because on redux we have a import loop
+            dispatch(modelActions.resetModel());
+          });
         },
       }),
     );

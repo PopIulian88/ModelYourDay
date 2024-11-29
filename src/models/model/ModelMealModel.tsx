@@ -6,6 +6,7 @@ export type ModelMealModel = {
   friday: ModelMealDay;
   saturday: ModelMealDay;
   sunday: ModelMealDay;
+  lastUpdated: string;
 };
 
 export type ModelMealDay = {

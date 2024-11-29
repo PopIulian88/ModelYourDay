@@ -6,6 +6,7 @@ export type ModelTrainingModel = {
   friday: ModelTrainingDay;
   saturday: ModelTrainingDay;
   sunday: ModelTrainingDay;
+  lastUpdated: string;
 };
 
 export type ModelTrainingDay = {

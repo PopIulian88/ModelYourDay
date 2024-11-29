@@ -6,6 +6,7 @@ export type ModelChallengeModel = {
   friday: ModelChallengeDay;
   saturday: ModelChallengeDay;
   sunday: ModelChallengeDay;
+  lastUpdated: string;
 };
 
 export type ModelChallengeDay = {

@@ -1,13 +1,23 @@
-import UserReducer, { IUserState } from "./UserSlice";
-import { register, login, getUser, logout } from "./actions";
-import { setIsLoading } from "./UserSlice";
-
-export { UserReducer, IUserState };
-
-export const userActions = {
-  setIsLoading,
+import UserReducer, { IUserState, setIsLoading } from "./UserSlice";
+import {
   register,
   login,
   getUser,
   logout,
+  addModelToUser,
+  setSelectedModel,
+} from "./actions";
+
+export { UserReducer, IUserState };
+
+export const userActions = {
+  // sync actions
+  setIsLoading,
+  // async actions
+  register,
+  login,
+  getUser,
+  logout,
+  addModelToUser,
+  setSelectedModel,
 };

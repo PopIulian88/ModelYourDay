@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { RootReducer, IRootState } from "./root";
 import { IUserState, UserReducer } from "./user";
+import { IModelState, ModelReducer } from "./model";
 
 //for backup - keep an eye on iOS
 // const transformCircular = createTransform(
@@ -32,12 +33,14 @@ const persistConfig = {
 export interface IStore {
   rootReducer: IRootState;
   userReducer: IUserState;
+  modelReducer: IModelState;
 }
 
 // For each new created slice add it here
 const reducers = combineReducers({
   rootReducer: RootReducer,
   userReducer: UserReducer,
+  modelReducer: ModelReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

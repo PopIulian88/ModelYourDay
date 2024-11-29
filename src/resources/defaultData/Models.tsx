@@ -3,6 +3,7 @@ import { Images } from "../images";
 
 export const models: ModelModel[] = [
   {
+    id: "1", // Fake ID - Should be generated
     name: "Andrew Tate",
     description:
       "American-British social media personality, businessman, kickbox world champion",
@@ -35,6 +36,7 @@ export const models: ModelModel[] = [
       sunday: {
         meals: [["Rice again alongside chicken or buffalo", "Protein shake"]],
       },
+      lastUpdated: "2021-07-01",
     },
     freeTime: [
       ["Reading", "Working out", "Traveling"],
@@ -67,6 +69,7 @@ export const models: ModelModel[] = [
       sunday: {
         trainings: [["Chest", "Back", "Legs"]],
       },
+      lastUpdated: "2021-07-01",
     },
     challenges: {
       monday: {
@@ -112,6 +115,7 @@ export const models: ModelModel[] = [
           freeTime: "No social media",
         },
       },
+      lastUpdated: "2021-07-01",
     },
     // This will not be generated
     challengesCompleted: {
@@ -119,9 +123,11 @@ export const models: ModelModel[] = [
       gym: 0,
       freeTime: 0,
       fail: 0,
+      lastUpdated: "2021-07-01",
     },
   },
   {
+    id: "2", // Fake ID - Should be generated
     name: "Dwayne Johnson",
     description:
       "American-Canadian actor, producer, businessman, retired professional wrestler",
@@ -154,6 +160,7 @@ export const models: ModelModel[] = [
       sunday: {
         meals: [["Protein shake", "Chicken salad"]],
       },
+      lastUpdated: "2021-07-01",
     },
     freeTime: [
       ["Working out", "Traveling", "Spending time with family"],
@@ -182,6 +189,7 @@ export const models: ModelModel[] = [
       sunday: {
         trainings: [["Chest", "Back", "Legs"]],
       },
+      lastUpdated: "2021-07-01",
     },
     challenges: {
       monday: {
@@ -227,6 +235,7 @@ export const models: ModelModel[] = [
           freeTime: "No social media",
         },
       },
+      lastUpdated: "2021-07-01",
     },
     // This will not be generated
     challengesCompleted: {
@@ -234,9 +243,11 @@ export const models: ModelModel[] = [
       gym: 0,
       freeTime: 0,
       fail: 0,
+      lastUpdated: "2021-07-01",
     },
   },
   {
+    id: "3", // Fake ID - Should be generated
     name: "Elon Musk",
     description:
       "Businessman and investor known for his key roles in space company SpaceX and automotive company Tesla",
@@ -269,6 +280,7 @@ export const models: ModelModel[] = [
       sunday: {
         meals: [["Protein shake", "Chicken salad"]],
       },
+      lastUpdated: "2021-07-01",
     },
     freeTime: [
       ["Reading", "Working out", "Traveling"],
@@ -299,6 +311,7 @@ export const models: ModelModel[] = [
       sunday: {
         trainings: [["Chest", "Back", "Legs"]],
       },
+      lastUpdated: "2021-07-01",
     },
     challenges: {
       monday: {
@@ -338,6 +351,7 @@ export const models: ModelModel[] = [
       },
       saturday: {},
       sunday: {},
+      lastUpdated: "2021-07-01",
     },
     // This will not be generated
     challengesCompleted: {
@@ -345,9 +359,11 @@ export const models: ModelModel[] = [
       gym: 0,
       freeTime: 0,
       fail: 0,
+      lastUpdated: "2021-07-01",
     },
   },
   {
+    id: "4", // Fake ID - Should be generated
     name: "AI",
     description: "Find using AI",
     image: Images.money,
@@ -359,6 +375,7 @@ export const models: ModelModel[] = [
       gym: 0,
       freeTime: 0,
       fail: 0,
+      lastUpdated: "2021-07-01",
     },
   },
 ];
