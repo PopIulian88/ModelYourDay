@@ -33,8 +33,6 @@ const ProfileScreen = () => {
 
   const { top, bottom } = useSafeAreaInsets();
 
-  const { modelsList } = useSelector((state: IStore) => state.userReducer);
-
   const dispatch = useAppDispatch();
 
   const onLogout = () => {

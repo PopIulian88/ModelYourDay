@@ -4,7 +4,13 @@ import { Lottie, StringsRepo } from "../../../../resources";
 import { ModelCard } from "../../cardComponents";
 import { ModelCardType } from "../../../../models";
 import { useState } from "react";
-import { IStore, rootActions, useAppDispatch } from "../../../../redux";
+import {
+  IStore,
+  modelActions,
+  rootActions,
+  useAppDispatch,
+  userActions,
+} from "../../../../redux";
 import { useSelector } from "react-redux";
 
 export const UserModelsComplex = ({
@@ -34,10 +40,16 @@ export const UserModelsComplex = ({
           dispatch(rootActions.hideModal());
         },
         secondaryButtonTitle: StringsRepo.yesPlease,
-        secondaryButtonAction: () => {
-          //TODO: Sava the changes into DB
-          setSelectedModelIndex(index);
+        secondaryButtonAction: async () => {
           dispatch(rootActions.hideModal());
+          // Change the current selected model
+          modelsList &&
+            (await dispatch(
+              userActions.setSelectedModel(modelsList[index].id),
+            ).then(async () => {
+              // Refresh the model data
+              await dispatch(modelActions.getModel(modelsList[index].id));
+            }));
         },
       }),
     );
