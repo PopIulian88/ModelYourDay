@@ -51,11 +51,13 @@ export const MainNavigator = () => {
     setMainDataIsLoading(true);
     return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
       if (user) {
+        //Get User data
         await dispatch(userActions.getUser()).then(async (userData) => {
           if (
             userData?.payload?.isOnboardingComplete &&
             userData?.payload?.selectedModel
           ) {
+            // Get Selected Model data
             await dispatch(
               modelActions.getModel(userData?.payload?.selectedModel ?? ""),
             )

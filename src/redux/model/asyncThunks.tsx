@@ -75,7 +75,13 @@ export const createModelThunk = createAsyncThunk(
         .then(async () => {
           console.log("Model created successfully");
           // Update the UserModelList
-          return await dispatch(userActions.addModelToUser(newModelId))
+          return await dispatch(
+            userActions.addModelToUser({
+              id: newModelId,
+              name: model.name,
+              photo: model.image,
+            }),
+          )
             .then(
               // Set the new model as the selected one
               async () => {

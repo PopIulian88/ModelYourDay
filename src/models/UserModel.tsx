@@ -1,8 +1,10 @@
+import { SmallModelModel } from "./model";
+
 export type UserType = {
   username: string;
   email: string;
   age: number;
   isOnboardingComplete: boolean;
-  modelsList: string[]; // Ids of models
+  modelsList: SmallModelModel[];
   selectedModel: string; // Id of selected model
 };

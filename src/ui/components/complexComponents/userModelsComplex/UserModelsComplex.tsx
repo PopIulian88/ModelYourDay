@@ -1,24 +1,25 @@
 import { StyleProp, View, ViewStyle } from "react-native";
 import { pageStyle } from "./pageStyle";
-import { DefaultData, Lottie, StringsRepo } from "../../../../resources";
+import { Lottie, StringsRepo } from "../../../../resources";
 import { ModelCard } from "../../cardComponents";
 import { ModelCardType } from "../../../../models";
 import { useState } from "react";
-import { models } from "../../../../resources/defaultData/Models";
-import { rootActions, useAppDispatch } from "../../../../redux";
+import { IStore, rootActions, useAppDispatch } from "../../../../redux";
+import { useSelector } from "react-redux";
 
 export const UserModelsComplex = ({
   styles,
 }: {
   styles?: StyleProp<ViewStyle>;
 }) => {
-  // TODO: Find by id
-  const [selectedModel, setSelectedModel] = useState(
-    models.indexOf(
-      DefaultData.models.find(
-        (model) => model.name === DefaultData.models[1].name,
-      ) ?? models[0],
-    ),
+  const { selectedModel } = useSelector((state: IStore) => state.userReducer);
+  const { modelsList } = useSelector((state: IStore) => state.userReducer);
+
+  const [selectedModelIndex, setSelectedModelIndex] = useState(
+    modelsList?.indexOf(
+      modelsList?.find((smallModel) => smallModel.id === selectedModel) ??
+        modelsList[0],
+    ) ?? 0,
   );
 
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ export const UserModelsComplex = ({
         secondaryButtonTitle: StringsRepo.yesPlease,
         secondaryButtonAction: () => {
           //TODO: Sava the changes into DB
-          setSelectedModel(index);
+          setSelectedModelIndex(index);
           dispatch(rootActions.hideModal());
         },
       }),
@@ -44,16 +45,15 @@ export const UserModelsComplex = ({
 
   return (
     <View style={[pageStyle.container, styles]}>
-      {/*TODO: Fetch off the use model data*/}
-      {DefaultData.models.map((model, index) => {
+      {modelsList?.map((model, index) => {
         return (
           <ModelCard
             key={index}
             type={ModelCardType.small}
             title={model.name}
-            image={model.image}
-            isSelected={index === selectedModel}
-            isDisabled={index === selectedModel}
+            image={model.photo}
+            isSelected={index === selectedModelIndex}
+            isDisabled={index === selectedModelIndex}
             onPress={() => onModelPress(index)}
           />
         );
