@@ -6,10 +6,14 @@ import { Fragment } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { pageStyle } from "./pageStyle";
 import { TextType } from "../../../models";
-import { DefaultData, StringsRepo } from "../../../resources";
+import { StringsRepo } from "../../../resources";
+import { IStore } from "../../../redux";
+import { useSelector } from "react-redux";
 
 const ModelGymScreen = () => {
   const { bottom, top } = useSafeAreaInsets();
+
+  const { model } = useSelector((state: IStore) => state.modelReducer);
 
   return (
     <Fragment>
@@ -28,37 +32,37 @@ const ModelGymScreen = () => {
             type={TextType.headingXL}
             style={{ color: style.color.sunshade }}
           >
-            {DefaultData.models[1].name}
+            {model?.name ?? "Unknown"}
           </Text>{" "}
           {StringsRepo.workoutRoutine}
         </Text>
         <ScrollView contentContainerStyle={pageStyle.trainingScroll}>
           <GymModelComplex
-            trainings={DefaultData.models?.[1].training?.monday.trainings}
+            trainings={model?.training?.monday?.trainings}
             day={StringsRepo.monday}
           />
           <GymModelComplex
-            trainings={DefaultData.models?.[1].training?.tuesday.trainings}
+            trainings={model?.training?.tuesday?.trainings}
             day={StringsRepo.tuesday}
           />
           <GymModelComplex
-            trainings={DefaultData.models?.[1].training?.wednesday.trainings}
+            trainings={model?.training?.wednesday?.trainings}
             day={StringsRepo.wednesday}
           />
           <GymModelComplex
-            trainings={DefaultData.models?.[1].training?.thursday.trainings}
+            trainings={model?.training?.thursday?.trainings}
             day={StringsRepo.thursday}
           />
           <GymModelComplex
-            trainings={DefaultData.models?.[1].training?.friday.trainings}
+            trainings={model?.training?.friday?.trainings}
             day={StringsRepo.friday}
           />
           <GymModelComplex
-            trainings={DefaultData.models?.[1].training?.saturday.trainings}
+            trainings={model?.training?.saturday?.trainings}
             day={StringsRepo.saturday}
           />
           <GymModelComplex
-            trainings={DefaultData.models?.[1].training?.sunday.trainings}
+            trainings={model?.training?.sunday?.trainings}
             day={StringsRepo.sunday}
           />
         </ScrollView>

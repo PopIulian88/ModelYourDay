@@ -5,19 +5,22 @@ import {
   ModelCardType,
   TextType,
 } from "../../../../models";
-import { DefaultData, StringsRepo } from "../../../../resources";
+import { StringsRepo } from "../../../../resources";
 import { Text } from "../../updatedComponents";
 import { style } from "../../../../styles";
 import { pageStyle } from "./pageStyle";
+import { IStore } from "../../../../redux";
+import { useSelector } from "react-redux";
 
 export const CurrentModelComplex = (props: CurrentModelComplexModel) => {
+  const { model } = useSelector((state: IStore) => state.modelReducer);
   return (
     <View style={props.styles}>
       <ModelCard
         type={ModelCardType.horizontal}
-        title={DefaultData.models[1].name}
-        description={DefaultData.models[1].description}
-        image={DefaultData.models[1].image}
+        title={model?.name ?? "Unknown"}
+        description={model?.description ?? "Unknown"}
+        image={model?.image ?? 0}
         onPress={props.onPress}
       />
       <View style={pageStyle.textContainer}>
@@ -25,7 +28,7 @@ export const CurrentModelComplex = (props: CurrentModelComplexModel) => {
           {StringsRepo.yourModelIsNow}:
         </Text>
         <Text type={TextType.body2MD} style={{ color: style.color.sunshade }}>
-          {DefaultData.models[1].currentActivity}
+          {model?.currentActivity ?? "Unknown"}
         </Text>
       </View>
     </View>

@@ -8,12 +8,7 @@ import {
 } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { TextType } from "../../../models";
-import {
-  DefaultData,
-  IconAssets,
-  Lottie,
-  StringsRepo,
-} from "../../../resources";
+import { IconAssets, Lottie, StringsRepo } from "../../../resources";
 import { Icon, Text } from "../updatedComponents";
 import { style } from "../../../styles";
 import LottieView from "lottie-react-native";
@@ -21,6 +16,8 @@ import React, { Fragment, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ChatText } from "../chatText";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../redux";
 
 type ChatListType = [
   {
@@ -36,6 +33,8 @@ export const ChatBotModal = () => {
   const [chatList, setChatList] = useState<ChatListType>([{}]);
 
   const scrollViewRef = useRef<ScrollView>(null);
+
+  const { model } = useSelector((state: IStore) => state.modelReducer);
 
   const marginBottomHeight = 106;
 
@@ -74,7 +73,7 @@ export const ChatBotModal = () => {
                   type={TextType.headingXL}
                   style={{ color: style.color.sunshade }}
                 >
-                  {DefaultData.models[1].name}
+                  {model?.name ?? "Unknown"}
                   {StringsRepo.plural}
                 </Text>{" "}
                 {StringsRepo.AI}

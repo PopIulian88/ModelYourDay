@@ -51,6 +51,7 @@ const FindYourModelScreen = () => {
     if (!selectedModel) {
       //Find with AI flow (FIND YOUR MODEL)
       // TODO: Implement the AI search and replace the default model
+
       setSelectedModel(DefaultData.models[0]);
     } else {
       // Select default flow

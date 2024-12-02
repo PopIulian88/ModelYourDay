@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { ButtonType, MotivationalCardType, TextType } from "../../../models";
 import { style } from "../../../styles";
-import { DefaultData, Lottie, StringsRepo } from "../../../resources";
+import { Lottie, StringsRepo } from "../../../resources";
 import { Fragment } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,17 +19,20 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 // Resolve the circle
 import { Routes } from "../../navigation/constats";
-import { rootActions, useAppDispatch } from "../../../redux";
+import { IStore, rootActions, useAppDispatch } from "../../../redux";
+import { useSelector } from "react-redux";
 
 const ModelScreen = () => {
   const { bottom, top } = useSafeAreaInsets();
   const { navigate } = useNavigation<NavigationProp<MainNavigatorParams>>();
   const { width } = useWindowDimensions();
 
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+
   const dispatch = useAppDispatch();
 
   const handleOnPressFood = () => {
-    DefaultData.models[1].meals
+    model?.meals
       ? // @ts-ignore
         navigate(Routes.modelFood)
       : dispatch(
@@ -50,7 +53,7 @@ const ModelScreen = () => {
   };
 
   const handleOnPressGym = () => {
-    DefaultData.models[1].training
+    model?.training
       ? // @ts-ignore
         navigate(Routes.modelGym)
       : dispatch(
@@ -103,7 +106,7 @@ const ModelScreen = () => {
           <View style={{ left: (width * 0.1) / 2 }}>
             <MotivationalCard
               type={MotivationalCardType.SIMPLE}
-              text={`${StringsRepo.what} ${DefaultData.models[1].name} ${StringsRepo.eats}`}
+              text={`${StringsRepo.what} ${model?.name ?? "Unknown"} ${StringsRepo.eats}`}
               lottie={Lottie.pizza}
               onPress={handleOnPressFood}
             />
@@ -114,7 +117,7 @@ const ModelScreen = () => {
           <View style={{ left: (width * 0.1) / 2 }}>
             <MotivationalCard
               type={MotivationalCardType.SIMPLE}
-              text={`${StringsRepo.whatIs} ${DefaultData.models[1].name} ${StringsRepo.workoutRoutine}`}
+              text={`${StringsRepo.whatIs} ${model?.name ?? "Unknown"} ${StringsRepo.workoutRoutine}`}
               lottie={Lottie.sport}
               onPress={handleOnPressGym}
             />

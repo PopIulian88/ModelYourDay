@@ -1,17 +1,21 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
-import { DefaultData, Lottie, StringsRepo } from "../../../../resources";
+import { Lottie, StringsRepo } from "../../../../resources";
 import { MotivationalCardType } from "../../../../models";
 import { Fragment } from "react";
 import { MotivationalCard } from "../../cardComponents";
 import { pageStyle } from "./pageStyle";
 import LottieView from "lottie-react-native";
 import { HeaderComponents } from "../../headerComponents";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../../redux";
 
 export const MotivationModelComplex = ({
   styles,
 }: {
   styles?: StyleProp<ViewStyle>;
 }) => {
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+
   const handleReload = () => {
     console.log("Reloaded");
   };
@@ -22,9 +26,9 @@ export const MotivationModelComplex = ({
         text={StringsRepo.motivation}
         onPressReload={handleReload}
       />
-      {DefaultData.models[1].motivation ? (
+      {model?.motivation ? (
         <FlatList
-          data={DefaultData.models[1].motivation}
+          data={model.motivation}
           horizontal
           showsHorizontalScrollIndicator={false}
           style={pageStyle.flatList}
@@ -34,14 +38,13 @@ export const MotivationModelComplex = ({
               <Fragment>
                 <MotivationalCard
                   type={MotivationalCardType.MOTIVATIONAL}
-                  header={DefaultData.models[1].name}
+                  header={model?.name ?? "Unknown"}
                   text={motivation.item}
                 />
-                {/*This force can make problems in the future*/}
-                {motivation.index ===
-                  DefaultData.models[1].motivation!.length - 1 && (
-                  <View style={{ width: 40 }} />
-                )}
+                {model?.motivation &&
+                  motivation.index === model?.motivation.length - 1 && (
+                    <View style={{ width: 40 }} />
+                  )}
               </Fragment>
             );
           }}

@@ -6,10 +6,14 @@ import { Fragment } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { pageStyle } from "./pageStyle";
 import { TextType } from "../../../models";
-import { DefaultData, StringsRepo } from "../../../resources";
+import { StringsRepo } from "../../../resources";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../redux";
 
 const ModelFoodScreen = () => {
   const { bottom, top } = useSafeAreaInsets();
+
+  const { model } = useSelector((state: IStore) => state.modelReducer);
 
   return (
     <Fragment>
@@ -28,37 +32,37 @@ const ModelFoodScreen = () => {
             type={TextType.headingXL}
             style={{ color: style.color.sunshade }}
           >
-            {DefaultData.models[1].name}
+            {model?.name ?? "Unknown"}
           </Text>{" "}
           {StringsRepo.eats}
         </Text>
         <ScrollView contentContainerStyle={pageStyle.mealsScroll}>
           <FoodModelComplex
-            meals={DefaultData.models?.[1].meals?.monday.meals}
+            meals={model?.meals?.monday?.meals}
             day={StringsRepo.monday}
           />
           <FoodModelComplex
-            meals={DefaultData.models?.[1].meals?.tuesday.meals}
+            meals={model?.meals?.tuesday?.meals}
             day={StringsRepo.tuesday}
           />
           <FoodModelComplex
-            meals={DefaultData.models?.[1].meals?.wednesday.meals}
+            meals={model?.meals?.wednesday?.meals}
             day={StringsRepo.wednesday}
           />
           <FoodModelComplex
-            meals={DefaultData.models?.[1].meals?.thursday.meals}
+            meals={model?.meals?.thursday?.meals}
             day={StringsRepo.thursday}
           />
           <FoodModelComplex
-            meals={DefaultData.models?.[1].meals?.friday.meals}
+            meals={model?.meals?.friday?.meals}
             day={StringsRepo.friday}
           />
           <FoodModelComplex
-            meals={DefaultData.models?.[1].meals?.saturday.meals}
+            meals={model?.meals?.saturday?.meals}
             day={StringsRepo.saturday}
           />
           <FoodModelComplex
-            meals={DefaultData.models?.[1].meals?.sunday.meals}
+            meals={model?.meals?.sunday?.meals}
             day={StringsRepo.sunday}
           />
         </ScrollView>

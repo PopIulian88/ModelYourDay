@@ -12,6 +12,7 @@ export const UserModelsComplex = ({
 }: {
   styles?: StyleProp<ViewStyle>;
 }) => {
+  // TODO: Find by id
   const [selectedModel, setSelectedModel] = useState(
     models.indexOf(
       DefaultData.models.find(
@@ -43,6 +44,7 @@ export const UserModelsComplex = ({
 
   return (
     <View style={[pageStyle.container, styles]}>
+      {/*TODO: Fetch off the use model data*/}
       {DefaultData.models.map((model, index) => {
         return (
           <ModelCard
