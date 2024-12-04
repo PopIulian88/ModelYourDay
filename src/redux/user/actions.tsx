@@ -6,7 +6,7 @@ import {
   registerThunk,
   setSelectedModelThunk,
 } from "./asyncThunks";
-import { UserType } from "../../models";
+import { SmallModelModel, UserType } from "../../models";
 
 export const register = (user: UserType, password: string) => {
   return async (dispatch: any) => {
@@ -32,7 +32,7 @@ export const getUser = () => {
   };
 };
 
-export const addModelToUser = (modelId: string) => {
+export const addModelToUser = (modelId: SmallModelModel) => {
   return async (dispatch: any) => {
     return await dispatch(addModelToListThunk(modelId));
   };

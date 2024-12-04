@@ -1,27 +1,29 @@
-import { DefaultData } from "../../resources";
 import { ModelTrainingDay } from "../../models";
+import { useSelector } from "react-redux";
+import { IStore } from "../../redux";
 
 export const getTrainingsByDay: (day: number) => ModelTrainingDay = (
   day: number,
 ) => {
-  if (!DefaultData.models[1].training) return {};
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+  if (!model?.training) return {};
 
   switch (day) {
     case 0:
-      return DefaultData.models[1].training.monday;
+      return model.training.monday;
     case 1:
-      return DefaultData.models[1].training.tuesday;
+      return model.training.tuesday;
     case 2:
-      return DefaultData.models[1].training.wednesday;
+      return model.training.wednesday;
     case 3:
-      return DefaultData.models[1].training.thursday;
+      return model.training.thursday;
     case 4:
-      return DefaultData.models[1].training.friday;
+      return model.training.friday;
     case 5:
-      return DefaultData.models[1].training.saturday;
+      return model.training.saturday;
     case 6:
-      return DefaultData.models[1].training.sunday;
+      return model.training.sunday;
     default:
-      return DefaultData.models[1].training.monday;
+      return model.training.monday;
   }
 };

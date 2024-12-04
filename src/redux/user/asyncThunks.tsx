@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
-import { UserType } from "../../models";
+import { SmallModelModel, UserType } from "../../models";
 import { get, ref, set, update } from "firebase/database";
 import { StringsRepo } from "../../resources";
 import { helper } from "../../helper";
@@ -46,7 +46,13 @@ export const registerThunk = createAsyncThunk(
             email: payload.user.email,
             age: payload.user.age,
             isOnboardingComplete: false,
-            modelsList: ["IGNORE"],
+            modelsList: [
+              {
+                id: "IGNORE",
+                name: "IGNORE",
+                description: "IGNORE",
+              },
+            ],
             selectedModel: "",
           },
         )
@@ -128,16 +134,16 @@ export const getUserThunk = createAsyncThunk(
 export const addModelToListThunk = createAsyncThunk(
   "user/addModelToList",
   // payload is the model ID
-  async (payload: string, { dispatch }) => {
+  async (payload: SmallModelModel, { dispatch }) => {
     console.log("Adding model to list...");
     try {
       return await get(
         ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
       ).then(async (response) => {
         if (response.exists()) {
-          const modelsList: string[] = response.val().modelsList;
+          const modelsList: SmallModelModel[] = response.val().modelsList;
           //Just in case
-          if (modelsList[0] === "IGNORE" || modelsList.length < 1) {
+          if (modelsList[0].id === "IGNORE" || modelsList.length < 1) {
             modelsList.splice(0, 1);
           }
 

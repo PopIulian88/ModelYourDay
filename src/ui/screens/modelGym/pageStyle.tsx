@@ -18,6 +18,7 @@ export const pageStyle = StyleSheet.create({
     zIndex: 1,
   },
   headerText: {
+    paddingHorizontal: 10,
     marginBottom: 20,
     textAlign: "center",
   },

@@ -1,16 +1,20 @@
 import { StyleProp, View, ViewStyle } from "react-native";
 import { Text } from "../../updatedComponents";
 import { TextType } from "../../../../models";
-import { DefaultData, StringsRepo } from "../../../../resources";
+import { StringsRepo } from "../../../../resources";
 import { Strike } from "../../strike";
 import { pageStyle } from "./pageStyle";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../../redux";
 
 export const StrikeBoxComplex = ({
   styles,
 }: {
   styles: StyleProp<ViewStyle>;
 }) => {
-  const currentStrike = DefaultData.models[1].strike;
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+
+  const currentStrike = model?.strike ?? 0;
 
   return (
     <View style={[pageStyle.container, styles]}>

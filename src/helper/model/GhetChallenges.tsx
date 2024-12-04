@@ -1,25 +1,28 @@
 import { ModelChallengeDay } from "../../models";
-import { DefaultData } from "../../resources";
+import { useSelector } from "react-redux";
+import { IStore } from "../../redux";
 
 export const getChallengesByDay = (day: number): ModelChallengeDay => {
-  if (!DefaultData.models[1].challenges) return {};
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+
+  if (!model?.challenges) return {};
 
   switch (day) {
     case 0:
-      return DefaultData.models[1].challenges.monday;
+      return model.challenges.monday;
     case 1:
-      return DefaultData.models[1].challenges.tuesday;
+      return model.challenges.tuesday;
     case 2:
-      return DefaultData.models[1].challenges.wednesday;
+      return model.challenges.wednesday;
     case 3:
-      return DefaultData.models[1].challenges.thursday;
+      return model.challenges.thursday;
     case 4:
-      return DefaultData.models[1].challenges.friday;
+      return model.challenges.friday;
     case 5:
-      return DefaultData.models[1].challenges.saturday;
+      return model.challenges.saturday;
     case 6:
-      return DefaultData.models[1].challenges.sunday;
+      return model.challenges.sunday;
     default:
-      return DefaultData.models[1].challenges.monday;
+      return model.challenges.monday;
   }
 };

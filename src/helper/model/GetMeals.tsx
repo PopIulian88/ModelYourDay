@@ -1,25 +1,26 @@
 import { ModelMealDay } from "../../models";
-import { DefaultData } from "../../resources";
+import { useSelector } from "react-redux";
 
 export const getMealsByDay = (day: number): ModelMealDay => {
-  if (!DefaultData.models[1].meals) return {};
+  const { model } = useSelector((state: any) => state.modelReducer);
+  if (!model?.meals) return {};
 
   switch (day) {
     case 0:
-      return DefaultData.models[1].meals.monday;
+      return model.meals.monday;
     case 1:
-      return DefaultData.models[1].meals.tuesday;
+      return model.meals.tuesday;
     case 2:
-      return DefaultData.models[1].meals.wednesday;
+      return model.meals.wednesday;
     case 3:
-      return DefaultData.models[1].meals.thursday;
+      return model.meals.thursday;
     case 4:
-      return DefaultData.models[1].meals.friday;
+      return model.meals.friday;
     case 5:
-      return DefaultData.models[1].meals.saturday;
+      return model.meals.saturday;
     case 6:
-      return DefaultData.models[1].meals.sunday;
+      return model.meals.sunday;
     default:
-      return DefaultData.models[1].meals.monday;
+      return model.meals.monday;
   }
 };

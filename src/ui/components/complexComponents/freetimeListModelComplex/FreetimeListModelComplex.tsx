@@ -1,17 +1,21 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
-import { DefaultData, Lottie, StringsRepo } from "../../../../resources";
+import { Lottie, StringsRepo } from "../../../../resources";
 import { MotivationalCardType } from "../../../../models";
 import { Fragment } from "react";
 import { MotivationalCard } from "../../cardComponents";
 import { pageStyle } from "./pageStyle";
 import { HeaderComponents } from "../../headerComponents";
 import LottieView from "lottie-react-native";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../../redux";
 
 export const FreetimeListModelComplex = ({
   styles,
 }: {
   styles?: StyleProp<ViewStyle>;
 }) => {
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+
   const handleReload = () => {
     console.log("Reloaded");
   };
@@ -22,9 +26,9 @@ export const FreetimeListModelComplex = ({
         text={StringsRepo.freeTime}
         onPressReload={handleReload}
       />
-      {DefaultData.models[1].freeTime ? (
+      {model?.freeTime ? (
         <FlatList
-          data={DefaultData.models[1].freeTime}
+          data={model?.freeTime}
           horizontal
           showsHorizontalScrollIndicator={false}
           style={pageStyle.flatList}
@@ -37,11 +41,10 @@ export const FreetimeListModelComplex = ({
                   header={StringsRepo.activities}
                   list={activities.item}
                 />
-                {/*This force can make problems in the future*/}
-                {activities.index ===
-                  DefaultData.models[1].freeTime!.length - 1 && (
-                  <View style={{ width: 40 }} />
-                )}
+                {model?.freeTime &&
+                  activities.index === model?.freeTime.length - 1 && (
+                    <View style={{ width: 40 }} />
+                  )}
               </Fragment>
             );
           }}

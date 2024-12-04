@@ -11,13 +11,15 @@ import {
 import React, { Fragment, useRef, useState } from "react";
 import { TextType } from "../../../models";
 import { style } from "../../../styles";
-import { DefaultData, Lottie, StringsRepo } from "../../../resources";
+import { Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
 import PieChart from "react-native-pie-chart";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp, useFocusEffect, useRoute } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 import { helper, modelHelper } from "../../../helper";
+import { IStore } from "../../../redux";
+import { useSelector } from "react-redux";
 
 const ChartScreen = () => {
   const { params } = useRoute<RouteProp<MainNavigatorParams, "Chart">>();
@@ -30,12 +32,14 @@ const ChartScreen = () => {
 
   const challenges = modelHelper.getChallengesByDay(helper.getCurrentDay());
 
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+
   const widthAndHeight = 300;
   const series = [
-    DefaultData.models[1].challengesCompleted.food + 1,
-    DefaultData.models[1].challengesCompleted.gym + 1,
-    DefaultData.models[1].challengesCompleted.freeTime + 1,
-    DefaultData.models[1].challengesCompleted.fail,
+    (model?.challengesCompleted.food ?? 0) + 1,
+    (model?.challengesCompleted.gym ?? 0) + 1,
+    (model?.challengesCompleted.freeTime ?? 0) + 1,
+    model?.challengesCompleted.fail ?? 0,
   ];
   const sliceColor = [
     style.color.barberry,
@@ -87,7 +91,7 @@ const ChartScreen = () => {
             {StringsRepo.yourStatsFrom}
           </Text>
           <Text type={TextType.heading2SM} style={{ color: style.color.gray }}>
-            {DefaultData.models[1].name}
+            {model?.name ?? "Unknown"}
           </Text>
         </View>
         <PieChart

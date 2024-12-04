@@ -7,7 +7,7 @@ import {
   registerThunk,
   setSelectedModelThunk,
 } from "./asyncThunks";
-import { UserType } from "../../models";
+import { SmallModelModel, UserType } from "../../models";
 
 export interface IUserState {
   username?: string;
@@ -15,7 +15,7 @@ export interface IUserState {
   age?: number;
   isLoading?: boolean;
   isOnboardingComplete?: boolean;
-  modelsList?: string[]; // Ids of models
+  modelsList?: SmallModelModel[];
   selectedModel?: string; // Id of selected model
 }
 
@@ -109,7 +109,7 @@ const UserSlice = createSlice({
     //Add new model to list
     builder.addCase(
       addModelToListThunk.fulfilled,
-      (state, action: PayloadAction<string[] | undefined>) => {
+      (state, action: PayloadAction<SmallModelModel[] | undefined>) => {
         if (action?.payload !== undefined) {
           state.modelsList = action.payload;
         }
@@ -123,6 +123,7 @@ const UserSlice = createSlice({
       state.isLoading = true;
     });
 
+    //Set selected model
     builder.addCase(
       setSelectedModelThunk.fulfilled,
       (state, action: PayloadAction<string | undefined>) => {

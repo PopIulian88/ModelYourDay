@@ -10,7 +10,7 @@ export const Images = {
   background: require("./background.png"),
 
   // Model images
-  topG: require("./defaultModels/topG.png"),
+  oprahWinfrey: require("./defaultModels/oprahWinfrey.png"),
   elonMusk: require("./defaultModels/elonMusk.png"),
   dwayneJohnson: require("./defaultModels/dwayneJohnson.png"),
 };
