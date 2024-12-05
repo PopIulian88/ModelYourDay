@@ -90,4 +90,5 @@ export default {
   modelNoGym: "For the moment, your model has no training plan found",
   loseEverything: "Lose everything",
   getModelFailed: "Get model failed, try reopening the app",
+  iDontUnderstand: "I don't understand, please try again!",
 };

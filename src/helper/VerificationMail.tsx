@@ -1,7 +1,9 @@
-const serviceId = process.env.EXPO_PUBLIC_EMAIL_SERVICE_ID;
-const templateId = process.env.EXPO_PUBLIC_EMAIL_TEMPLATE_ID;
-const userId = process.env.EXPO_PUBLIC_EMAIL_PUBLIC_KEY;
-const emailJs = process.env.EXPO_PUBLIC_EMAIL_JS;
+import {
+  emailJs,
+  emailPublicKey,
+  emailServiceId,
+  emailTemplateId,
+} from "../resources";
 
 export const sendVerificationMail = async ({
   email,
@@ -16,13 +18,11 @@ export const sendVerificationMail = async ({
   };
 
   const data = {
-    service_id: serviceId,
-    template_id: templateId,
-    user_id: userId,
-    template_params: templateParams,
+    service_id: emailServiceId,
+    template_id: emailTemplateId,
+    user_id: emailPublicKey,
+    template_params: emailJs,
   };
-
-  // console.log(data);
 
   await fetch(emailJs ?? "", {
     method: "POST",
