@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   ScrollView,
   TextInput,
   TouchableHighlight,
@@ -18,6 +19,7 @@ import { ChatText } from "../chatText";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../redux";
+import { AI } from "../../../backend";
 
 type ChatListType = [
   {
@@ -31,6 +33,7 @@ export const ChatBotModal = () => {
 
   const [question, setQuestion] = useState("");
   const [chatList, setChatList] = useState<ChatListType>([{}]);
+  const [chatLoading, setChatLoading] = useState(false);
 
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -38,11 +41,25 @@ export const ChatBotModal = () => {
 
   const marginBottomHeight = 106;
 
-  //TODO: Implement the bot logic
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (question === "") return;
+
+    setChatLoading(true);
+
     chatList.push({ user: question });
-    chatList.push({ bot: "I am a bot I don't do much yet" });
+
+    await AI.chatRequest(question, model?.name ?? "Unknown")
+      .then((response) => {
+        chatList.push({ bot: response });
+        setChatLoading(false);
+      })
+      .catch((error) => {
+        console.error("CHAT REQUEST ERROR in ChatBotModal: ", error);
+        chatList.push({ bot: StringsRepo.iDontUnderstand });
+        setChatLoading(false);
+      });
+
+    //Prepare for the next question
     setQuestion("");
     setTimeout(() => {
       if (scrollViewRef.current) {
@@ -125,12 +142,21 @@ export const ChatBotModal = () => {
           placeholder={StringsRepo.typeYourQuestion}
           onChangeText={(r) => setQuestion(r)}
         />
-        <TouchableOpacity
-          style={pageStyle.sendButton}
-          onPress={handleSendMessage}
-        >
-          <Icon name={IconAssets.send} size={30} />
-        </TouchableOpacity>
+        {/*While sending the message*/}
+        {chatLoading ? (
+          <ActivityIndicator
+            size="small"
+            color={style.color.sunshade}
+            style={pageStyle.sendButton}
+          />
+        ) : (
+          <TouchableOpacity
+            style={pageStyle.sendButton}
+            onPress={handleSendMessage}
+          >
+            <Icon name={IconAssets.send} size={30} />
+          </TouchableOpacity>
+        )}
       </View>
     </Fragment>
   );

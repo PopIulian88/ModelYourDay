@@ -1,5 +1,6 @@
 import { openAiApiKey } from "../../resources";
 
+// TODO: to be implemented
 export const getPersonalityRequest = async (personality: string) => {
   console.log("AI START PERSONALITY REQUEST");
   try {
