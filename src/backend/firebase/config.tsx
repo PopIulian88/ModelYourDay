@@ -4,15 +4,20 @@ import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 // @ts-ignore
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import {
+  firebaseApiKey,
+  firebaseAppId,
+  firebaseMessagingSenderId,
+} from "../../resources";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD08S_ijoqjOgJO70F0m57i7auziKXjsAk",
+  apiKey: firebaseApiKey,
   authDomain: "modelyourday.firebaseapp.com",
   databaseURL: "https://modelyourday-default-rtdb.firebaseio.com",
   projectId: "modelyourday",
   storageBucket: "modelyourday.appspot.com",
-  messagingSenderId: "372526517273",
-  appId: "1:372526517273:web:888b4dbc3fc0040a676e88",
+  messagingSenderId: firebaseMessagingSenderId,
+  appId: firebaseAppId,
 };
 
 const FIREBASE_APP = initializeApp(firebaseConfig);

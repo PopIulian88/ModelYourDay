@@ -87,11 +87,11 @@ const HomeScreen = () => {
         <Line />
         <View style={pageStyle.relaxSectionContainer}>
           <FoodModelComplex
-            meals={modelHelper.getMealsByDay(helper.getCurrentDay()).meals}
+            meals={modelHelper.getMealsByDay(helper.getCurrentDay())?.meals}
           />
           <GymModelComplex
             trainings={
-              modelHelper.getTrainingsByDay(helper.getCurrentDay()).trainings
+              modelHelper.getTrainingsByDay(helper.getCurrentDay())?.trainings
             }
           />
           <FreetimeListModelComplex />

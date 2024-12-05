@@ -1,4 +1,4 @@
-import { AI_KEY } from "@env";
+import { openAiApiKey } from "../../resources";
 
 export const getPersonalityRequest = async (personality: string) => {
   console.log("AI START PERSONALITY REQUEST");
@@ -8,7 +8,7 @@ export const getPersonalityRequest = async (personality: string) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${AI_KEY}`,
+        Authorization: `Bearer ${openAiApiKey}`,
       },
       body: JSON.stringify({
         model: "gpt-4-turbo-preview",
