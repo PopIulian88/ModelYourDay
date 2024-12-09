@@ -1,5 +1,5 @@
-import { ModelTrainingModel } from "../../models";
-import { openAiApiKey } from "../../resources";
+import { ModelTrainingModel } from "../../../models";
+import { openAiApiKey } from "../../../resources";
 
 export const generateModelTrainings: (
   modelName: string,

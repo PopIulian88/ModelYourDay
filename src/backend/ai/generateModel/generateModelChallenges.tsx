@@ -1,5 +1,5 @@
-import { ModelChallengeModel } from "../../models";
-import { openAiApiKey } from "../../resources";
+import { ModelChallengeModel } from "../../../models";
+import { openAiApiKey } from "../../../resources";
 
 // TODO: Cand facem acest call ar trebuiis a incercam sa il repetam pana la 3-5 ori in caz de eroare
 export const generateModelChallenges: (

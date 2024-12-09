@@ -1,4 +1,4 @@
-import { openAiApiKey } from "../../resources";
+import { openAiApiKey } from "../../../resources";
 
 export const generateModelCurrentActivity: (
   modelName: string,

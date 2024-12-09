@@ -11,7 +11,7 @@ export type ModelModel = {
   strike: number; // Initial value: 0
   motivation?: string[];
   meals?: ModelMealModel;
-  freeTime?: string[][]; // AM UITAT DE ASTA
+  freeTime?: string[][];
   training?: ModelTrainingModel;
   challenges?: ModelChallengeModel;
   challengesCompleted: {

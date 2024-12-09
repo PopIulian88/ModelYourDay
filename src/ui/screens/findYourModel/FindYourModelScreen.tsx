@@ -16,7 +16,7 @@ import {
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
 import { useState } from "react";
 import { pageStyle } from "./pageStyle";
-import { DefaultData, StringsRepo } from "../../../resources";
+import { StringsRepo } from "../../../resources";
 import {
   ButtonType,
   ModelCardType,
@@ -30,7 +30,6 @@ import ScrollView = Animated.ScrollView;
 import { Routes } from "../../navigation/constats";
 import { IStore, modelActions, useAppDispatch } from "../../../redux";
 import { useSelector } from "react-redux";
-import { AI } from "../../../backend";
 
 const FindYourModelScreen = () => {
   const { params } =
@@ -51,19 +50,9 @@ const FindYourModelScreen = () => {
   const onPressPrimary = async () => {
     if (!selectedModel) {
       //Find with AI flow (FIND YOUR MODEL)
-      // TODO: Implement the AI search and replace the default model
       console.log(`Find with AI flow (${searchText})`);
 
       if (searchText !== "") {
-        await AI.generateModelChallenges(searchText).then((response) => {
-          console.log("AI response Monday: ", response.monday);
-          console.log("AI response Tuesday: ", response.tuesday);
-          console.log("AI response Wednesday: ", response.wednesday);
-          console.log("AI response Thursday: ", response.thursday);
-          console.log("AI response Friday: ", response.friday);
-          console.log("AI response Saturday: ", response.saturday);
-          console.log("AI response Sunday: ", response.sunday);
-        });
       }
 
       // setSelectedModel(DefaultData.models[0]);

@@ -1,19 +1,23 @@
-import { generateModelDescription } from "./generateModelDescription";
-import { generateModelCurrentActivity } from "./generateModelCurrentActivity";
 import { chatRequest } from "./chat";
 import { verifyNameCorrectness } from "./verifyNameCorrectness";
-import { generateModelMotivation } from "./generateModelMotivation";
-import { generateModelMeals } from "./generateModelMeals";
-import { generateModelTrainings } from "./generateModelTrainings";
-import { generateModelChallenges } from "./generateModelChallenges";
+import {
+  generateModelChallenges,
+  generateModelCurrentActivity,
+  generateModelDescription,
+  generateModelFreeTime,
+  generateModelMeals,
+  generateModelMotivation,
+  generateModelTrainings,
+} from "./generateModel";
 
 export const AI = {
-  chatRequest,
   generateModelDescription,
   generateModelCurrentActivity,
-  verifyNameCorrectness,
   generateModelMotivation,
   generateModelMeals,
   generateModelTrainings,
   generateModelChallenges,
+  generateModelFreeTime,
+  chatRequest,
+  verifyNameCorrectness,
 };

@@ -1,5 +1,5 @@
-import { openAiApiKey } from "../../resources";
-import { ModelMealModel } from "../../models";
+import { openAiApiKey } from "../../../resources";
+import { ModelMealModel } from "../../../models";
 
 export const generateModelMeals: (
   modelName: string,
