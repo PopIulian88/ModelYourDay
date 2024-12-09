@@ -30,6 +30,7 @@ import ScrollView = Animated.ScrollView;
 import { Routes } from "../../navigation/constats";
 import { IStore, modelActions, useAppDispatch } from "../../../redux";
 import { useSelector } from "react-redux";
+import { AI } from "../../../backend";
 
 const FindYourModelScreen = () => {
   const { params } =
@@ -51,8 +52,15 @@ const FindYourModelScreen = () => {
     if (!selectedModel) {
       //Find with AI flow (FIND YOUR MODEL)
       // TODO: Implement the AI search and replace the default model
+      console.log(`Find with AI flow (${searchText})`);
 
-      setSelectedModel(DefaultData.models[0]);
+      if (searchText !== "") {
+        await AI.generateModelMotivation(searchText).then((response) => {
+          console.log("AI response: ", response);
+        });
+      }
+
+      // setSelectedModel(DefaultData.models[0]);
     } else {
       // Select default flow
       await dispatch(modelActions.createModel(selectedModel)).then(() => {
