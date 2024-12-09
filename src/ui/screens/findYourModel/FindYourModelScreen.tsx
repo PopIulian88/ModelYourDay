@@ -28,8 +28,14 @@ import { Loading } from "../loading";
 import ScrollView = Animated.ScrollView;
 // Remove the cycle
 import { Routes } from "../../navigation/constats";
-import { IStore, modelActions, useAppDispatch } from "../../../redux";
+import {
+  IStore,
+  modelActions,
+  rootActions,
+  useAppDispatch,
+} from "../../../redux";
 import { useSelector } from "react-redux";
+import { AI } from "../../../backend/ai";
 
 const FindYourModelScreen = () => {
   const { params } =
@@ -37,12 +43,14 @@ const FindYourModelScreen = () => {
   const { goBack, navigate } =
     useNavigation<NavigationProp<MainNavigatorParams>>();
 
+  const { modelsList } = useSelector((state: IStore) => state.userReducer);
   const { isModelLoading } = useSelector((state: IStore) => state.modelReducer);
 
   const { top, bottom } = useSafeAreaInsets();
 
   const dispatch = useAppDispatch();
 
+  const [isFindingModel, setIsFindingModel] = useState(false);
   const [selectedModel, setSelectedModel] = useState(params);
   const [searchText, setSearchText] = useState("");
   const [addonSelected, setAddonSelected] = useState(-1);
@@ -53,6 +61,39 @@ const FindYourModelScreen = () => {
       console.log(`Find with AI flow (${searchText})`);
 
       if (searchText !== "") {
+        setIsFindingModel(true);
+        // Verify if the model name is correct
+        await AI.verifyNameCorrectness(searchText).then((name) => {
+          console.log("NAME IS CORRECT: ", name);
+          if (name == "FAIL") {
+            setIsFindingModel(false);
+            dispatch(
+              rootActions.showModal({
+                error: true,
+                title: StringsRepo.error.modelNotFound,
+              }),
+            );
+            return;
+          }
+
+          //Verify if the model name is not already used for this user
+          modelsList?.forEach((model) => {
+            if (model.name === name) {
+              setIsFindingModel(false);
+              dispatch(
+                rootActions.showModal({
+                  error: true,
+                  title: StringsRepo.error.modelAlreadyExists,
+                }),
+              );
+              return;
+            }
+          });
+
+          // TODO: (It should work) but just in case: Verify if works both on onboarding and app
+
+          //TODO: 3. Create the new model
+        });
       }
 
       // setSelectedModel(DefaultData.models[0]);
@@ -88,7 +129,7 @@ const FindYourModelScreen = () => {
     );
   };
 
-  return !isModelLoading ? (
+  return !isModelLoading && !isFindingModel ? (
     <View style={pageStyle.container}>
       <ScrollView
         style={pageStyle.scrollContainer}

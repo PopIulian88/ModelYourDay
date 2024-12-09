@@ -9,6 +9,7 @@ export default {
     setSelectedModelFail: "Set selected model FAIL",
     modelIdIsEmpty: "Model id is empty",
     modelNotFound: "Model not found",
+    modelAlreadyExists: "Model already exists",
   },
   close: "Close",
   register: "Register",

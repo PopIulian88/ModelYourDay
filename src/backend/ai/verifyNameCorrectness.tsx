@@ -24,7 +24,8 @@ export const verifyNameCorrectness = async (modelName: string) => {
             role: "user",
             content:
               `Check if you know a public figure named ${modelName}.` +
-              `If it is misspelled or there is a person, write only the correct name, no extra names.`,
+              `If it is misspelled or there is a person, write only the correct name, no extra names.` +
+              `If you can't find it, write FAIL.`,
           },
         ],
       }),
@@ -32,9 +33,9 @@ export const verifyNameCorrectness = async (modelName: string) => {
 
     const jsonResponse = await response.json();
 
-    return jsonResponse.choices?.[0]?.message?.content ?? "ERROR";
+    return jsonResponse.choices?.[0]?.message?.content ?? "FAIL";
   } catch (error) {
     console.error("VERIFY NAME REQUEST ERROR: ", error);
-    return "ERROR";
+    return "FAIL";
   }
 };
