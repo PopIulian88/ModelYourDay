@@ -3,6 +3,9 @@ import { generateModelCurrentActivity } from "./generateModelCurrentActivity";
 import { chatRequest } from "./chat";
 import { verifyNameCorrectness } from "./verifyNameCorrectness";
 import { generateModelMotivation } from "./generateModelMotivation";
+import { generateModelMeals } from "./generateModelMeals";
+import { generateModelTrainings } from "./generateModelTrainings";
+import { generateModelChallenges } from "./generateModelChallenges";
 
 export const AI = {
   chatRequest,
@@ -10,4 +13,7 @@ export const AI = {
   generateModelCurrentActivity,
   verifyNameCorrectness,
   generateModelMotivation,
+  generateModelMeals,
+  generateModelTrainings,
+  generateModelChallenges,
 };
