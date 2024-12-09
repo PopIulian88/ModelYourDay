@@ -14,7 +14,6 @@ export const generateModelCurrentActivity: (
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo-1106",
-        // temperature: 0,
         max_tokens: 100,
         messages: [
           {
@@ -25,14 +24,12 @@ export const generateModelCurrentActivity: (
         functions: [
           {
             name: "generate_model_current_activity",
-            // description: "Description of the function",
             parameters: {
               type: "object",
               properties: {
                 param_current_activity: {
                   type: "string",
                   description: `What is ${modelName} doing now? In 2 words maximum `,
-                  // description: `A representative activity for ${modelName}, in 2 words maximum`,
                 },
               },
             },

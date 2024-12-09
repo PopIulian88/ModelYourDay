@@ -28,11 +28,10 @@ export const generateModelFreeTime: (
 
     const rawFreeTime =
       jsonResponse.choices?.[0]?.message?.content?.split(";") ?? [];
-    const freeTimeList: string[][] = rawFreeTime.map((row: string) =>
-      row.split(","),
-    );
+    const freeTimeList: string[][] =
+      rawFreeTime.map((row: string) => row.split(",")) ?? [];
 
-    return freeTimeList;
+    return freeTimeList ?? [];
   } catch (error) {
     console.error("VERIFY NAME REQUEST ERROR: ", error);
     return [];

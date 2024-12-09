@@ -2,7 +2,7 @@ import { openAiApiKey } from "../../../resources";
 
 export const generateModelMotivation: (
   modelName: string,
-) => Promise<string> = async (modelName: string) => {
+) => Promise<string[]> = async (modelName: string) => {
   console.log("AI START GENERATE MODEL MOTIVATION ACTIVITY REQUEST");
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -14,7 +14,6 @@ export const generateModelMotivation: (
       },
       body: JSON.stringify({
         model: "gpt-4-turbo-preview",
-        // temperature: 0,
         max_tokens: 200,
         messages: [
           {
@@ -31,10 +30,9 @@ export const generateModelMotivation: (
 
     const jsonResponse = await response.json();
 
-    // Split the messages by the semicolon
-    return jsonResponse.choices?.[0]?.message?.content?.split(";") ?? undefined;
+    return jsonResponse.choices?.[0]?.message?.content?.split(";") ?? [];
   } catch (error) {
     console.error("ModelMotivation request error: ", error);
-    return undefined;
+    return [];
   }
 };

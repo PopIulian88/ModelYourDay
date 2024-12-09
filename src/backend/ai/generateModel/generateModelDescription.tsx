@@ -25,7 +25,6 @@ export const generateModelDescription: (
         functions: [
           {
             name: "generate_model_description",
-            // description: "Description of the function",
             parameters: {
               type: "object",
               properties: {

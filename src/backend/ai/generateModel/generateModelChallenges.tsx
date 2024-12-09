@@ -1,7 +1,7 @@
 import { ModelChallengeModel } from "../../../models";
 import { openAiApiKey } from "../../../resources";
 
-// TODO: Cand facem acest call ar trebuiis a incercam sa il repetam pana la 3-5 ori in caz de eroare
+// Cand facem acest call ar trebuiis a incercam sa il repetam pana la 3-5 ori in caz de eroare
 export const generateModelChallenges: (
   modelName: string,
 ) => Promise<ModelChallengeModel> = async (modelName: string) => {
@@ -183,13 +183,13 @@ export const generateModelChallenges: (
     });
 
     const modelChallenges: ModelChallengeModel = {
-      monday: parseChallenges(rawChallenges.param_days?.monday),
-      tuesday: parseChallenges(rawChallenges.param_days?.tuesday),
-      wednesday: parseChallenges(rawChallenges.param_days?.wednesday),
-      thursday: parseChallenges(rawChallenges.param_days?.thursday),
-      friday: parseChallenges(rawChallenges.param_days?.friday),
-      saturday: parseChallenges(rawChallenges.param_days?.saturday),
-      sunday: parseChallenges(rawChallenges.param_days?.sunday),
+      monday: parseChallenges(rawChallenges.param_days?.monday ?? {}),
+      tuesday: parseChallenges(rawChallenges.param_days?.tuesday ?? {}),
+      wednesday: parseChallenges(rawChallenges.param_days?.wednesday ?? {}),
+      thursday: parseChallenges(rawChallenges.param_days?.thursday ?? {}),
+      friday: parseChallenges(rawChallenges.param_days?.friday ?? {}),
+      saturday: parseChallenges(rawChallenges.param_days?.saturday ?? {}),
+      sunday: parseChallenges(rawChallenges.param_days?.sunday ?? {}),
       lastUpdated: new Date().toISOString(),
     };
 

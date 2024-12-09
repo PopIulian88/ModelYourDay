@@ -82,13 +82,13 @@ export const generateModelMeals: (
     };
 
     const modelMeals = {
-      monday: { meals: parseMeals(rawMeals.param_days?.monday) },
-      tuesday: { meals: parseMeals(rawMeals.param_days?.tuesday) },
-      wednesday: { meals: parseMeals(rawMeals.param_days?.wednesday) },
-      thursday: { meals: parseMeals(rawMeals.param_days?.thursday) },
-      friday: { meals: parseMeals(rawMeals.param_days?.friday) },
-      saturday: { meals: parseMeals(rawMeals.param_days?.saturday) },
-      sunday: { meals: parseMeals(rawMeals.param_days?.sunday) },
+      monday: { meals: parseMeals(rawMeals.param_days?.monday) ?? [] },
+      tuesday: { meals: parseMeals(rawMeals.param_days?.tuesday) ?? [] },
+      wednesday: { meals: parseMeals(rawMeals.param_days?.wednesday) ?? [] },
+      thursday: { meals: parseMeals(rawMeals.param_days?.thursday) ?? [] },
+      friday: { meals: parseMeals(rawMeals.param_days?.friday) ?? [] },
+      saturday: { meals: parseMeals(rawMeals.param_days?.saturday) ?? [] },
+      sunday: { meals: parseMeals(rawMeals.param_days?.sunday) ?? [] },
       lastUpdated: new Date().toISOString(),
     };
 

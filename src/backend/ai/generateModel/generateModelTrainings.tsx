@@ -85,19 +85,27 @@ export const generateModelTrainings: (
     };
 
     const modelTrainings = {
-      monday: { trainings: parseTrainings(rawTrainings.param_days?.monday) },
-      tuesday: { trainings: parseTrainings(rawTrainings.param_days?.tuesday) },
+      monday: {
+        trainings: parseTrainings(rawTrainings.param_days?.monday) ?? [],
+      },
+      tuesday: {
+        trainings: parseTrainings(rawTrainings.param_days?.tuesday) ?? [],
+      },
       wednesday: {
-        trainings: parseTrainings(rawTrainings.param_days?.wednesday),
+        trainings: parseTrainings(rawTrainings.param_days?.wednesday) ?? [],
       },
       thursday: {
-        trainings: parseTrainings(rawTrainings.param_days?.thursday),
+        trainings: parseTrainings(rawTrainings.param_days?.thursday) ?? [],
       },
-      friday: { trainings: parseTrainings(rawTrainings.param_days?.friday) },
+      friday: {
+        trainings: parseTrainings(rawTrainings.param_days?.friday) ?? [],
+      },
       saturday: {
-        trainings: parseTrainings(rawTrainings.param_days?.saturday),
+        trainings: parseTrainings(rawTrainings.param_days?.saturday) ?? [],
       },
-      sunday: { trainings: parseTrainings(rawTrainings.param_days?.sunday) },
+      sunday: {
+        trainings: parseTrainings(rawTrainings.param_days?.sunday) ?? [],
+      },
       lastUpdated: new Date().toISOString(),
     };
 

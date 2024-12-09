@@ -36,6 +36,7 @@ import {
 } from "../../../redux";
 import { useSelector } from "react-redux";
 import { AI } from "../../../backend/ai";
+import { modelHelper } from "../../../helper";
 
 const FindYourModelScreen = () => {
   const { params } =
@@ -63,37 +64,45 @@ const FindYourModelScreen = () => {
       if (searchText !== "") {
         setIsFindingModel(true);
         // Verify if the model name is correct
-        await AI.verifyNameCorrectness(searchText).then((name) => {
-          console.log("NAME IS CORRECT: ", name);
-          if (name == "FAIL") {
-            setIsFindingModel(false);
-            dispatch(
-              rootActions.showModal({
-                error: true,
-                title: StringsRepo.error.modelNotFound,
-              }),
-            );
-            return;
-          }
-
-          //Verify if the model name is not already used for this user
-          modelsList?.forEach((model) => {
-            if (model.name === name) {
+        await AI.verifyNameCorrectness(searchText).then(
+          async (newModelName) => {
+            console.log("NAME IS CORRECT: ", newModelName);
+            if (newModelName == "FAIL") {
               setIsFindingModel(false);
               dispatch(
                 rootActions.showModal({
                   error: true,
-                  title: StringsRepo.error.modelAlreadyExists,
+                  title: StringsRepo.error.modelNotFound,
                 }),
               );
               return;
             }
-          });
 
-          // TODO: (It should work) but just in case: Verify if works both on onboarding and app
+            //Verify if the model name is not already used for this user
+            modelsList?.forEach((model) => {
+              if (model.name === newModelName) {
+                setIsFindingModel(false);
+                dispatch(
+                  rootActions.showModal({
+                    error: true,
+                    title: StringsRepo.error.modelAlreadyExists,
+                  }),
+                );
+                return;
+              }
+            });
 
-          //TODO: 3. Create the new model
-        });
+            // TODO: (It should work) but just in case: Verify if works both on onboarding and app
+
+            //TODO: 3. Create the new model data
+            modelHelper.createNewModel(newModelName).then((newModelData) => {
+              setIsFindingModel(false);
+              console.log("NEW MODEL DATA: ", newModelData);
+              //TODO: 4. Add the new model to the user's list and db
+            });
+            setIsFindingModel(false);
+          },
+        );
       }
 
       // setSelectedModel(DefaultData.models[0]);
