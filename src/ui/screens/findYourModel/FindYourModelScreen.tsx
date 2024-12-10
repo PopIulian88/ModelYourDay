@@ -79,6 +79,8 @@ const FindYourModelScreen = () => {
             }
 
             //Verify if the model name is not already used for this user
+            let alreadyExists = false;
+
             modelsList?.forEach((model) => {
               if (model.name === newModelName) {
                 setIsFindingModel(false);
@@ -88,52 +90,49 @@ const FindYourModelScreen = () => {
                     title: StringsRepo.error.modelAlreadyExists,
                   }),
                 );
+                alreadyExists = true;
                 return;
               }
             });
 
-            // TODO: (It should work) but just in case: Verify if works both on onboarding and app
-
-            //Create the new model data
-            modelHelper
-              .createNewModel(newModelName)
-              .then(async (newModelData) => {
-                // console.log("NEW MODEL DATA: ", newModelData);
-                //Add the new model to the user's list and db
-                await dispatch(
-                  modelActions.createModel({
-                    id: "Unknown",
-                    name: newModelName,
-                    description: newModelData.description ?? "Unknown",
-                    image: 0, // This should be generated in the future
-                    currentActivity: newModelData.currentActivity ?? "Unknown",
-                    strike: 0, // Initial value: 0
-                    motivation: newModelData.motivation,
-                    meals: newModelData.meals,
-                    freeTime: newModelData.freeTime,
-                    training: newModelData.training,
-                    challenges: newModelData.challenges,
-                    challengesCompleted: {
-                      // This will not be generated
-                      food: 0,
-                      gym: 0,
-                      freeTime: 0,
-                      fail: 0,
-                      lastUpdated: new Date().toISOString().slice(0, 10),
-                    },
-                  }),
-                ).then(() => {
-                  setIsFindingModel(false);
-                  // @ts-ignore
-                  // navigate(Routes.home);
-                });
-              });
+            //Create the new model data if is not exists yet
+            !alreadyExists &&
+              (await modelHelper
+                .createNewModel(newModelName)
+                .then(async (newModelData) => {
+                  // console.log("NEW MODEL DATA: ", newModelData);
+                  //Add the new model to the user's list and db
+                  await dispatch(
+                    modelActions.createModel({
+                      id: "Unknown",
+                      name: newModelName,
+                      description: newModelData.description ?? "Unknown",
+                      image: 0, // This should be generated in the future
+                      currentActivity:
+                        newModelData.currentActivity ?? "Unknown",
+                      strike: 0, // Initial value: 0
+                      motivation: newModelData.motivation,
+                      meals: newModelData.meals,
+                      freeTime: newModelData.freeTime,
+                      training: newModelData.training,
+                      challenges: newModelData.challenges,
+                      challengesCompleted: {
+                        // This will not be generated
+                        food: 0,
+                        gym: 0,
+                        freeTime: 0,
+                        fail: 0,
+                        lastUpdated: new Date().toISOString().slice(0, 10),
+                      },
+                    }),
+                  ).then(() => {
+                    setIsFindingModel(false);
+                  });
+                }));
             setIsFindingModel(false);
           },
         );
       }
-
-      // setSelectedModel(DefaultData.models[0]);
     } else {
       // Select default flow
       await dispatch(modelActions.createModel(selectedModel)).then(() => {
