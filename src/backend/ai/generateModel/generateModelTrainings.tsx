@@ -106,7 +106,7 @@ export const generateModelTrainings: (
       sunday: {
         trainings: parseTrainings(rawTrainings.param_days?.sunday) ?? [],
       },
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: new Date().toISOString().slice(0, 10),
     };
 
     return modelTrainings;
@@ -120,7 +120,7 @@ export const generateModelTrainings: (
       friday: { trainings: [] },
       saturday: { trainings: [] },
       sunday: { trainings: [] },
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: new Date().toISOString().slice(0, 10),
     };
   }
 };

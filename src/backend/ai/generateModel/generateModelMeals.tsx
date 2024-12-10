@@ -89,7 +89,7 @@ export const generateModelMeals: (
       friday: { meals: parseMeals(rawMeals.param_days?.friday) ?? [] },
       saturday: { meals: parseMeals(rawMeals.param_days?.saturday) ?? [] },
       sunday: { meals: parseMeals(rawMeals.param_days?.sunday) ?? [] },
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: new Date().toISOString().slice(0, 10),
     };
 
     return modelMeals;
@@ -103,7 +103,7 @@ export const generateModelMeals: (
       friday: { meals: [] },
       saturday: { meals: [] },
       sunday: { meals: [] },
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: new Date().toISOString().slice(0, 10),
     };
   }
 };

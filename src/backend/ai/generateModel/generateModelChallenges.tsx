@@ -190,23 +190,21 @@ export const generateModelChallenges: (
       friday: parseChallenges(rawChallenges.param_days?.friday ?? {}),
       saturday: parseChallenges(rawChallenges.param_days?.saturday ?? {}),
       sunday: parseChallenges(rawChallenges.param_days?.sunday ?? {}),
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: new Date().toISOString().slice(0, 10),
     };
 
     return modelChallenges;
   } catch (error) {
     console.error("fetchModelChallenges error: ", error);
     return {
-      monday: { challenges: { food: "FAIL", gym: "FAIL", freeTime: "FAIL" } },
-      tuesday: { challenges: { food: "FAIL", gym: "FAIL", freeTime: "FAIL" } },
-      wednesday: {
-        challenges: { food: "FAIL", gym: "FAIL", freeTime: "FAIL" },
-      },
-      thursday: { challenges: { food: "FAIL", gym: "FAIL", freeTime: "FAIL" } },
-      friday: { challenges: { food: "FAIL", gym: "FAIL", freeTime: "FAIL" } },
-      saturday: { challenges: { food: "FAIL", gym: "FAIL", freeTime: "FAIL" } },
-      sunday: { challenges: { food: "FAIL", gym: "FAIL", freeTime: "FAIL" } },
-      lastUpdated: new Date().toISOString(),
+      monday: {},
+      tuesday: {},
+      wednesday: {},
+      thursday: {},
+      friday: {},
+      saturday: {},
+      sunday: {},
+      lastUpdated: new Date().toISOString().slice(0, 10),
     };
   }
 };

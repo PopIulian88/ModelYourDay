@@ -21,7 +21,7 @@ export const createNewModel = async (modelName: string) => {
       friday: {},
       saturday: {},
       sunday: {},
-      lastUpdated: "",
+      lastUpdated: new Date().toISOString().slice(0, 10),
     },
     freeTime: [],
     training: {
@@ -32,7 +32,7 @@ export const createNewModel = async (modelName: string) => {
       friday: {},
       saturday: {},
       sunday: {},
-      lastUpdated: "",
+      lastUpdated: new Date().toISOString().slice(0, 10),
     },
     challenges: {
       monday: {},
@@ -42,14 +42,14 @@ export const createNewModel = async (modelName: string) => {
       friday: {},
       saturday: {},
       sunday: {},
-      lastUpdated: "",
+      lastUpdated: new Date().toISOString().slice(0, 10),
     },
     challengesCompleted: {
       food: 0,
       gym: 0,
       freeTime: 0,
       fail: 0,
-      lastUpdated: "",
+      lastUpdated: new Date().toISOString().slice(0, 10),
     },
   };
 

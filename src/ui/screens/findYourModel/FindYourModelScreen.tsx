@@ -66,7 +66,7 @@ const FindYourModelScreen = () => {
         // Verify if the model name is correct
         await AI.verifyNameCorrectness(searchText).then(
           async (newModelName) => {
-            console.log("NAME IS CORRECT: ", newModelName);
+            console.log("CORRECT NAME: ", newModelName);
             if (newModelName == "FAIL") {
               setIsFindingModel(false);
               dispatch(
@@ -94,12 +94,40 @@ const FindYourModelScreen = () => {
 
             // TODO: (It should work) but just in case: Verify if works both on onboarding and app
 
-            //TODO: 3. Create the new model data
-            modelHelper.createNewModel(newModelName).then((newModelData) => {
-              setIsFindingModel(false);
-              console.log("NEW MODEL DATA: ", newModelData);
-              //TODO: 4. Add the new model to the user's list and db
-            });
+            //Create the new model data
+            modelHelper
+              .createNewModel(newModelName)
+              .then(async (newModelData) => {
+                // console.log("NEW MODEL DATA: ", newModelData);
+                //Add the new model to the user's list and db
+                await dispatch(
+                  modelActions.createModel({
+                    id: "Unknown",
+                    name: newModelName,
+                    description: newModelData.description ?? "Unknown",
+                    image: 0, // This should be generated in the future
+                    currentActivity: newModelData.currentActivity ?? "Unknown",
+                    strike: 0, // Initial value: 0
+                    motivation: newModelData.motivation,
+                    meals: newModelData.meals,
+                    freeTime: newModelData.freeTime,
+                    training: newModelData.training,
+                    challenges: newModelData.challenges,
+                    challengesCompleted: {
+                      // This will not be generated
+                      food: 0,
+                      gym: 0,
+                      freeTime: 0,
+                      fail: 0,
+                      lastUpdated: new Date().toISOString().slice(0, 10),
+                    },
+                  }),
+                ).then(() => {
+                  setIsFindingModel(false);
+                  // @ts-ignore
+                  // navigate(Routes.home);
+                });
+              });
             setIsFindingModel(false);
           },
         );
