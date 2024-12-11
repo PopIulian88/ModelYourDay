@@ -1,10 +1,7 @@
 import { ModelModel } from "../../models";
-import { AI } from "../../backend/ai";
+import { AI } from "../../backend";
 
 export const createNewModel = async (modelName: string) => {
-  // await AI.generateModelMotivation(searchText).then((response) => {
-  //    console.log("AI response: ", response);
-
   const newModel: ModelModel = {
     id: "Unknown",
     name: "Unknown",
@@ -70,8 +67,7 @@ export const createNewModel = async (modelName: string) => {
     AI.generateModelMeals(modelName),
     AI.generateModelFreeTime(modelName),
     AI.generateModelTrainings(modelName),
-    // TODO: Cand facem acest call ar trebuiis a incercam sa il repetam pana la 3-5 ori in caz de eroare
-    AI.generateModelChallenges(modelName), //(LOOK AT THE RESPONSE) IF THE RESPONSE HASE A FAIL OUTPUT, WE SHOULD TRY AGAIN
+    AI.generateModelChallenges(modelName),
   ]);
 
   // TODO: Try to regenerate the ungenerated fields

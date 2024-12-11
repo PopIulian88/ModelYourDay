@@ -1,7 +1,7 @@
 import { ModelChallengeModel } from "../../../models";
 import { openAiApiKey } from "../../../resources";
 
-// Cand facem acest call ar trebuiis a incercam sa il repetam pana la 3-5 ori in caz de eroare
+// TODO: We should refactor this
 export const generateModelChallenges: (
   modelName: string,
 ) => Promise<ModelChallengeModel> = async (modelName: string) => {
@@ -181,6 +181,22 @@ export const generateModelChallenges: (
         freeTime: dayData?.freeTime ?? "FAIL",
       },
     });
+
+    // TODO: Replace the above function with the following function after fixing the challenge generation
+    // const parseChallenges = (dayData: {
+    //   food: string;
+    //   gym: string;
+    //   freeTime: string;
+    // }) =>
+    //     dayData?.food && dayData?.gym && dayData?.freeTime
+    //         ? {
+    //           challenges: {
+    //             food: dayData?.food ?? "",
+    //             gym: dayData?.gym ?? "",
+    //             freeTime: dayData?.freeTime ?? "",
+    //           },
+    //         }
+    //         : {};
 
     const modelChallenges: ModelChallengeModel = {
       monday: parseChallenges(rawChallenges.param_days?.monday ?? {}),

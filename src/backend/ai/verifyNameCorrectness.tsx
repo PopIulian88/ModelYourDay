@@ -1,6 +1,6 @@
 import { openAiApiKey } from "../../resources";
 
-// When use, verify is the response is ERROR
+// When use, verify is the response is "FAIL" to show an error message
 export const verifyNameCorrectness = async (modelName: string) => {
   console.log("AI START VERIFY NAME CORRECTNESS REQUEST");
   try {
