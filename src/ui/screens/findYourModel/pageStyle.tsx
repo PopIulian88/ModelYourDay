@@ -15,6 +15,7 @@ export const pageStyle = StyleSheet.create({
     alignItems: "center",
   },
   findModelContainer: {
+    alignItems: "center",
     paddingVertical: 20,
     gap: 10,
   },

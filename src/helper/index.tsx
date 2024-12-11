@@ -6,6 +6,7 @@ import { errorModal } from "./ErrorModal";
 import { getTrainingsByDay } from "./model/GetTrainings";
 import { getMealsByDay } from "./model/GetMeals";
 import { getChallengesByDay } from "./model/GhetChallenges";
+import { createNewModel } from "./model/CreateNewModel";
 
 export const helper = {
   sendVerificationMail,
@@ -17,4 +18,5 @@ export const modelHelper = {
   getTrainingsByDay,
   getMealsByDay,
   getChallengesByDay,
+  createNewModel,
 };
