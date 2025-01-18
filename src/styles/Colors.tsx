@@ -9,6 +9,7 @@ export const color = {
   sunshade: "#FD9827",
   serenade: "#FFF5EA",
 
+  cerise: "#C41E3A",
   barberry: "#E5DD0E",
   chenin: "#DAD17A",
 

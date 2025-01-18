@@ -1,4 +1,4 @@
-import { StyleProp, View, ViewStyle } from "react-native";
+import { StyleProp, TouchableOpacity, View, ViewStyle } from "react-native";
 import { pageStyle } from "./pageStyle";
 import { Lottie, StringsRepo } from "../../../../resources";
 import { ModelCard } from "../../cardComponents";
@@ -12,6 +12,8 @@ import {
   userActions,
 } from "../../../../redux";
 import { useSelector } from "react-redux";
+import { Chip } from "../../chip";
+import { style } from "../../../../styles";
 
 export const UserModelsComplex = ({
   styles,
@@ -55,19 +57,50 @@ export const UserModelsComplex = ({
     );
   };
 
+  const handleOnPressDelete = (idToDelete: string) => {
+    dispatch(
+      rootActions.showModal({
+        title: StringsRepo.deleteModel,
+        lottie: Lottie.astronaut,
+        buttonTitle: StringsRepo.noItWasMistake,
+        buttonAction: () => {
+          dispatch(rootActions.hideModal());
+        },
+        secondaryButtonTitle: StringsRepo.yes,
+        secondaryButtonAction: async () => {
+          dispatch(rootActions.hideModal());
+
+          await dispatch(
+            userActions.removeModelFromUser(idToDelete, modelsList || []),
+          );
+        },
+      }),
+    );
+  };
+
   return (
     <View style={[pageStyle.container, styles]}>
       {modelsList?.map((model, index) => {
         return (
-          <ModelCard
-            key={index}
-            type={ModelCardType.small}
-            title={model.name}
-            image={model.photo}
-            isSelected={index === selectedModelIndex}
-            isDisabled={index === selectedModelIndex}
-            onPress={() => onModelPress(index)}
-          />
+          <View key={index} style={{ gap: 7, alignItems: "center" }}>
+            <ModelCard
+              type={ModelCardType.small}
+              title={model.name}
+              image={model.photo}
+              isSelected={index === selectedModelIndex}
+              isDisabled={index === selectedModelIndex}
+              onPress={() => onModelPress(index)}
+            />
+            {index !== selectedModelIndex && (
+              <TouchableOpacity onPress={() => handleOnPressDelete(model.id)}>
+                <Chip
+                  text={StringsRepo.remove}
+                  styles={{ borderColor: style.color.cerise }}
+                  textStyle={{ color: style.color.cerise }}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
         );
       })}
     </View>

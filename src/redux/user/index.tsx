@@ -6,6 +6,7 @@ import {
   logout,
   addModelToUser,
   setSelectedModel,
+  removeModelFromUser,
 } from "./actions";
 
 export { UserReducer, IUserState };
@@ -20,4 +21,5 @@ export const userActions = {
   logout,
   addModelToUser,
   setSelectedModel,
+  removeModelFromUser,
 };

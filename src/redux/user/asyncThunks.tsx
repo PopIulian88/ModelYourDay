@@ -189,6 +189,57 @@ export const addModelToListThunk = createAsyncThunk(
   },
 );
 
+export const removeModelFromListThunk = createAsyncThunk(
+  "user/removeModelToList",
+  // payload is the model ID
+  async (
+    payload: { id: string; modelList: SmallModelModel[] },
+    { dispatch },
+  ) => {
+    console.log(`Remove model(${payload.id}) from list...`);
+    //One model should always be there
+    if (payload.id === "" || payload.modelList.length < 2) {
+      await helper.errorModal({
+        errorMessage: StringsRepo.error.default,
+        dispatch,
+      });
+      return undefined;
+    }
+    try {
+      const modelsList: SmallModelModel[] = [...payload.modelList];
+
+      const indexModelToRemove: number = modelsList.findIndex(
+        (model) => model.id === payload.id,
+      );
+
+      modelsList.splice(indexModelToRemove, 1);
+
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+        {
+          modelsList: modelsList,
+        },
+      )
+        .then(() => {
+          return modelsList;
+        })
+        .catch(async (e) => {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.removeModelFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.removeModelFail}: ${e}`,
+        dispatch,
+      });
+      return undefined;
+    }
+  },
+);
+
 export const setSelectedModelThunk = createAsyncThunk(
   "user/setSelectedModel",
   // payload is the model ID
