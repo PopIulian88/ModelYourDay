@@ -4,6 +4,7 @@ import {
   loginThunk,
   logoutThunk,
   registerThunk,
+  removeModelFromListThunk,
   setSelectedModelThunk,
 } from "./asyncThunks";
 import { SmallModelModel, UserType } from "../../models";
@@ -35,6 +36,15 @@ export const getUser = () => {
 export const addModelToUser = (modelId: SmallModelModel) => {
   return async (dispatch: any) => {
     return await dispatch(addModelToListThunk(modelId));
+  };
+};
+
+export const removeModelFromUser = (
+  id: string,
+  modelList: SmallModelModel[],
+) => {
+  return async (dispatch: any) => {
+    return await dispatch(removeModelFromListThunk({ id, modelList }));
   };
 };
 

@@ -5,6 +5,7 @@ import {
   loginThunk,
   logoutThunk,
   registerThunk,
+  removeModelFromListThunk,
   setSelectedModelThunk,
 } from "./asyncThunks";
 import { SmallModelModel, UserType } from "../../models";
@@ -138,6 +139,23 @@ const UserSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(setSelectedModelThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    //Remove model to list
+    builder.addCase(
+      removeModelFromListThunk.fulfilled,
+      (state, action: PayloadAction<SmallModelModel[] | undefined>) => {
+        if (action?.payload !== undefined) {
+          state.modelsList = action.payload;
+        }
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(removeModelFromListThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(removeModelFromListThunk.pending, (state) => {
       state.isLoading = true;
     });
   },

@@ -5,6 +5,7 @@ export default {
     settingInitialData: "Error setting initial data",
     createModelNoData: "Create model FAIL: No data",
     createModelFail: "Create model FAIL",
+    removeModelFail: "Remove model FAIL",
     createUserFail: "Create user FAIL",
     setSelectedModelFail: "Set selected model FAIL",
     modelIdIsEmpty: "Model id is empty",
@@ -92,4 +93,6 @@ export default {
   loseEverything: "Lose everything",
   getModelFailed: "Get model failed, try reopening the app",
   iDontUnderstand: "I don't understand, please try again!",
+  deleteModel: "Are you sure you want to delete this model?",
+  remove: "Remove",
 };
