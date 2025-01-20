@@ -124,6 +124,12 @@ const FindYourModelScreen = () => {
                         fail: 0,
                         lastUpdated: new Date().toISOString().slice(0, 10),
                       },
+                      currentChallenge: {
+                        // This will not be generated
+                        food: 0,
+                        gym: 0,
+                        freeTime: 0,
+                      },
                     }),
                   ).then(() => {
                     setIsFindingModel(false);

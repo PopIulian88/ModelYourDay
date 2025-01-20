@@ -97,56 +97,9 @@ export const models: ModelModel[] = [
       lastUpdated: "2021-07-01",
     },
     challenges: {
-      monday: {
-        challenges: {
-          food: "Eat a plant-based meal",
-          gym: "Practice yoga for 30 minutes",
-          freeTime: "Write in your gratitude journal",
-        },
-      },
-      tuesday: {
-        challenges: {
-          food: "Try a new healthy recipe",
-          gym: "Walk 10,000 steps",
-          freeTime: "Spend 30 minutes reading",
-        },
-      },
-      wednesday: {
-        challenges: {
-          food: "Drink 8 glasses of water",
-          gym: "Stretch for 20 minutes",
-          freeTime: "Meditate for 15 minutes",
-        },
-      },
-      thursday: {
-        challenges: {
-          food: "Include more greens in your meals",
-          gym: "Perform bodyweight exercises",
-          freeTime: "Listen to an inspiring podcast",
-        },
-      },
-      friday: {
-        challenges: {
-          food: "Avoid processed sugar for a day",
-          gym: "Do a 30-minute Pilates session",
-          freeTime: "Spend time in nature",
-        },
-      },
-      saturday: {
-        challenges: {
-          food: "Cook a meal with locally-sourced ingredients",
-          gym: "Engage in a fun physical activity",
-          freeTime: "Volunteer for a cause",
-        },
-      },
-      sunday: {
-        challenges: {
-          food: "Plan meals for the week",
-          gym: "Do light yoga",
-          freeTime: "Reflect on the week and plan the next",
-        },
-      },
-      lastUpdated: "2021-07-01",
+      food: "Avoid processed sugar for a day",
+      gym: "Do a 30-minute Pilates session",
+      freeTime: "Spend time in nature",
     },
     // This will not be generated
     challengesCompleted: {
@@ -256,50 +209,9 @@ export const models: ModelModel[] = [
       lastUpdated: "2021-07-01",
     },
     challenges: {
-      monday: {
-        challenges: {
-          food: "Consume 5,000 clean calories",
-          gym: "Train legs until exhaustion",
-          freeTime: "Spend 30 minutes reflecting on the week ahead",
-        },
-      },
-      tuesday: {},
-      wednesday: {
-        challenges: {
-          food: "Try a new recipe with high protein",
-          gym: "Train upper body intensely",
-          freeTime: "Engage in a relaxing activity",
-        },
-      },
-      thursday: {
-        challenges: {
-          food: "Maintain consistent hydration",
-          gym: "Focus on functional fitness",
-          freeTime: "Help someone achieve their goals",
-        },
-      },
-      friday: {
-        challenges: {
-          food: "Avoid processed sugar",
-          gym: "Push through a grueling arm workout",
-          freeTime: "Spend quality time with family",
-        },
-      },
-      saturday: {
-        challenges: {
-          food: "Consume extra vegetables",
-          gym: "Perform an outdoor workout",
-          freeTime: "Plan a weekend getaway",
-        },
-      },
-      sunday: {
-        challenges: {
-          food: "Cook a cheat meal with a healthy twist",
-          gym: "Engage in active recovery",
-          freeTime: "Set goals for the upcoming week",
-        },
-      },
-      lastUpdated: "2021-07-01",
+      food: "Maintain consistent hydration",
+      gym: "Focus on functional fitness",
+      freeTime: "Help someone achieve their goals",
     },
     // This will not be generated
     challengesCompleted: {
@@ -406,44 +318,9 @@ export const models: ModelModel[] = [
       lastUpdated: "2021-07-01",
     },
     challenges: {
-      monday: {
-        challenges: {
-          food: "Stick to a balanced meal plan",
-          gym: "Perform 30 minutes of HIIT",
-          freeTime: "Read a chapter of a new book",
-        },
-      },
-      tuesday: {
-        challenges: {
-          food: "Avoid caffeine after 2 PM",
-          gym: "Complete 10 pull-ups in one go",
-          freeTime: "Spend an hour brainstorming innovative ideas",
-        },
-      },
-      wednesday: {
-        challenges: {
-          food: "Try a plant-based meal",
-          gym: "Stretch for 20 minutes",
-          freeTime: "Meditate for 10 minutes",
-        },
-      },
-      thursday: {
-        challenges: {
-          food: "Drink at least 2 liters of water",
-          gym: "Run a 5K",
-          freeTime: "Draft plans for a new project",
-        },
-      },
-      friday: {
-        challenges: {
-          food: "Cook a healthy dinner from scratch",
-          gym: "Do a full-body workout",
-          freeTime: "Play a strategy game",
-        },
-      },
-      saturday: {},
-      sunday: {},
-      lastUpdated: "2021-07-01",
+      food: "Avoid caffeine after 2 PM",
+      gym: "Complete 10 pull-ups in one go",
+      freeTime: "Spend an hour brainstorming innovative ideas",
     },
     // This will not be generated
     challengesCompleted: {

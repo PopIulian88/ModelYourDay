@@ -1,7 +1,7 @@
 import { ModelModel } from "./ModelModel";
 import { ModelTrainingModel, ModelTrainingDay } from "./ModelTrainingModel";
 import { ModelMealModel, ModelMealDay } from "./ModelMealModel";
-import { ModelChallengeModel, ModelChallengeDay } from "./ModelChallengeModel";
+import { ModelChallengeModel } from "./ModelChallengeModel";
 import { SmallModelModel } from "./SmallModelModel";
 
 export {
@@ -11,6 +11,5 @@ export {
   ModelMealDay,
   ModelMealModel,
   ModelChallengeModel,
-  ModelChallengeDay,
   SmallModelModel,
 };

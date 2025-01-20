@@ -32,14 +32,9 @@ export const createNewModel = async (modelName: string) => {
       lastUpdated: new Date().toISOString().slice(0, 10),
     },
     challenges: {
-      monday: {},
-      tuesday: {},
-      wednesday: {},
-      thursday: {},
-      friday: {},
-      saturday: {},
-      sunday: {},
-      lastUpdated: new Date().toISOString().slice(0, 10),
+      food: "Unknown",
+      gym: "Unknown",
+      freeTime: "Unknown",
     },
     challengesCompleted: {
       food: 0,

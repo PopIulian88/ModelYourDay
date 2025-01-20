@@ -17,7 +17,6 @@ import PieChart from "react-native-pie-chart";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp, useFocusEffect, useRoute } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
-import { helper, modelHelper } from "../../../helper";
 import { IStore } from "../../../redux";
 import { useSelector } from "react-redux";
 
@@ -26,8 +25,6 @@ const ChartScreen = () => {
 
   const { bottom, top } = useSafeAreaInsets();
   const { height } = useWindowDimensions();
-
-  const challenges = modelHelper.getChallengesByDay(helper.getCurrentDay());
 
   const { model } = useSelector((state: IStore) => state.modelReducer);
 
@@ -111,26 +108,26 @@ const ChartScreen = () => {
             onPressReload={handleReload}
           />
 
-          {challenges.challenges ? (
+          {model?.challenges ? (
             <Fragment>
               <ChallengeCard
                 type={challengeType.FOOD}
                 header={StringsRepo.food}
-                description={challenges.challenges.food}
+                description={model.challenges.food}
                 color={style.color.barberry}
                 isCompleted={!!(model?.currentChallenge.food ?? 0 > 0)}
               />
               <ChallengeCard
                 type={challengeType.GYM}
                 header={StringsRepo.gym}
-                description={challenges.challenges.gym}
+                description={model.challenges.gym}
                 color={style.color.sunshade}
                 isCompleted={!!(model?.currentChallenge.gym ?? 0 > 0)}
               />
               <ChallengeCard
                 type={challengeType.FREE_TIME}
                 header={StringsRepo.freeTime}
-                description={challenges.challenges.freeTime}
+                description={model.challenges.freeTime}
                 color={style.color.chenin}
                 isCompleted={!!(model?.currentChallenge.freeTime ?? 0 > 0)}
               />

@@ -48,14 +48,9 @@ export const createModelThunk = createAsyncThunk(
         lastUpdated: lastUpdatedDate,
       },
       challenges: {
-        monday: model.challenges?.monday ?? {},
-        tuesday: model.challenges?.tuesday ?? {},
-        wednesday: model.challenges?.wednesday ?? {},
-        thursday: model.challenges?.thursday ?? {},
-        friday: model.challenges?.friday ?? {},
-        saturday: model.challenges?.saturday ?? {},
-        sunday: model.challenges?.sunday ?? {},
-        lastUpdated: lastUpdatedDate,
+        food: model.challenges?.food ?? "Unknown",
+        gym: model.challenges?.gym ?? "Unknown",
+        freeTime: model.challenges?.freeTime ?? "Unknown",
       },
       challengesCompleted: {
         food: 0,
