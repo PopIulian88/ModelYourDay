@@ -22,4 +22,10 @@ export type ModelModel = {
     fail: number;
     lastUpdated: string;
   };
+  currentChallenge: {
+    // This will not be generated
+    food: number;
+    gym: number;
+    freeTime: number;
+  };
 };

@@ -61,7 +61,12 @@ export const MainNavigator = () => {
             await dispatch(
               modelActions.getModel(userData?.payload?.selectedModel ?? ""),
             )
-              .then(() => {
+              .then(async (modelData) => {
+                // Prepare the date for the new day
+                console.log("ModelData: ", modelData?.payload?.id);
+
+                await dispatch(modelActions.dailyChecks(modelData?.payload));
+
                 setMainDataIsLoading(false);
               })
               .catch((e) => {

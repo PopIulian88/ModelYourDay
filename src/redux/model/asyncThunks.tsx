@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ModelModel } from "../../models";
-import { ref, set, get } from "firebase/database";
+import { challengeType, ModelModel } from "../../models";
+import { get, ref, set, update } from "firebase/database";
 import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
 import { helper } from "../../helper";
 import { userActions } from "../user";
@@ -48,14 +48,9 @@ export const createModelThunk = createAsyncThunk(
         lastUpdated: lastUpdatedDate,
       },
       challenges: {
-        monday: model.challenges?.monday ?? {},
-        tuesday: model.challenges?.tuesday ?? {},
-        wednesday: model.challenges?.wednesday ?? {},
-        thursday: model.challenges?.thursday ?? {},
-        friday: model.challenges?.friday ?? {},
-        saturday: model.challenges?.saturday ?? {},
-        sunday: model.challenges?.sunday ?? {},
-        lastUpdated: lastUpdatedDate,
+        food: model.challenges?.food ?? "Unknown",
+        gym: model.challenges?.gym ?? "Unknown",
+        freeTime: model.challenges?.freeTime ?? "Unknown",
       },
       challengesCompleted: {
         food: 0,
@@ -63,6 +58,11 @@ export const createModelThunk = createAsyncThunk(
         freeTime: 0,
         fail: 0,
         lastUpdated: lastUpdatedDate,
+      },
+      currentChallenge: {
+        food: 0,
+        gym: 0,
+        freeTime: 0,
       },
     };
 
@@ -138,6 +138,7 @@ export const getModelThunk = createAsyncThunk(
               training: snapshot.val().training,
               challenges: snapshot.val().challenges,
               challengesCompleted: snapshot.val().challengesCompleted,
+              currentChallenge: snapshot.val().currentChallenge,
             };
             return model;
           } else {
@@ -165,6 +166,188 @@ export const getModelThunk = createAsyncThunk(
         dispatch,
       });
       await dispatch(userActions.logout());
+      return undefined;
+    }
+  },
+);
+
+export const completeChallengeModelThunk = createAsyncThunk(
+  "model/completeChallengeModel",
+
+  async (
+    payload: {
+      currentModel: ModelModel | undefined;
+      challengeType: challengeType;
+    },
+    { dispatch },
+  ) => {
+    if (!payload.currentModel) {
+      await helper.errorModal({
+        errorMessage: StringsRepo.error.modelNotFound,
+        dispatch,
+      });
+      return undefined;
+    }
+    console.log(`Complete ${payload.challengeType} challenge in progress...`);
+
+    try {
+      const newModel: ModelModel = {
+        ...payload.currentModel,
+        challengesCompleted: {
+          gym:
+            payload.challengeType === challengeType.GYM
+              ? payload.currentModel.challengesCompleted.gym + 1
+              : payload.currentModel.challengesCompleted.gym,
+          food:
+            payload.challengeType === challengeType.FOOD
+              ? payload.currentModel.challengesCompleted.food + 1
+              : payload.currentModel.challengesCompleted.food,
+          freeTime:
+            payload.challengeType === challengeType.FREE_TIME
+              ? payload.currentModel.challengesCompleted.freeTime + 1
+              : payload.currentModel.challengesCompleted.freeTime,
+          fail: payload.currentModel.challengesCompleted.fail,
+          lastUpdated: new Date().toISOString().slice(0, 10),
+        },
+        currentChallenge: {
+          gym:
+            payload.challengeType === challengeType.GYM
+              ? payload.currentModel.currentChallenge.gym + 1
+              : payload.currentModel.currentChallenge.gym,
+          food:
+            payload.challengeType === challengeType.FOOD
+              ? payload.currentModel.currentChallenge.food + 1
+              : payload.currentModel.currentChallenge.food,
+          freeTime:
+            payload.challengeType === challengeType.FREE_TIME
+              ? payload.currentModel.currentChallenge.freeTime + 1
+              : payload.currentModel.currentChallenge.freeTime,
+        },
+      };
+
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "models/" + newModel.id),
+        newModel,
+      )
+        .then(() => {
+          return newModel;
+        })
+        .catch(async (e) => {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.completeChallengeFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.completeChallengeFail}: ${e}`,
+        dispatch,
+      });
+      return undefined;
+    }
+  },
+);
+
+export const dailyChecksModelThunk = createAsyncThunk(
+  "model/dailyChecksModel",
+
+  async (
+    payload: {
+      currentModel: ModelModel | undefined;
+    },
+    { dispatch },
+  ) => {
+    if (!payload.currentModel) {
+      await helper.errorModal({
+        errorMessage: StringsRepo.error.modelNotFound,
+        dispatch,
+      });
+      return undefined;
+    }
+    console.log(`Daily verification on ${payload.currentModel.id}...`);
+
+    try {
+      // TODO: To make a day pass 1) comment this
+      if (
+        payload.currentModel.challengesCompleted.lastUpdated ===
+        new Date().toISOString().slice(0, 10)
+      ) {
+        console.log("Already checked for today");
+        return undefined;
+      }
+
+      const lastChallengeDate = new Date(
+        payload.currentModel.challengesCompleted.lastUpdated,
+      );
+      const currentDate = new Date();
+
+      // TODO: To make a day pass 2) uncomment this
+      // currentDate.setDate(currentDate.getDate() + 1);
+
+      const diffInDays =
+        // @ts-ignore
+        Math.floor((currentDate - lastChallengeDate) / (1000 * 60 * 60 * 24));
+
+      console.log("Days since last check: ", diffInDays);
+
+      const completedChallenges =
+        payload.currentModel.currentChallenge.food +
+        payload.currentModel.currentChallenge.gym +
+        payload.currentModel.currentChallenge.freeTime;
+
+      let fail =
+        payload.currentModel.challengesCompleted.fail +
+        (3 - completedChallenges);
+
+      let strike =
+        completedChallenges > 0 ? payload.currentModel.strike + 1 : 0;
+
+      // If is more then 1 day
+      //We add 3 fails for each day that has passed, because the user didn't complete the 3 daily challenges
+      if (diffInDays > 1) {
+        fail += 3 * (diffInDays - 1);
+        strike = 0;
+      }
+
+      // TODO: Regeneram challenge-urile si resetam currentChallenge
+
+      const newModel: ModelModel = {
+        ...payload.currentModel,
+        strike: strike,
+        challengesCompleted: {
+          gym: payload.currentModel.challengesCompleted.gym,
+          food: payload.currentModel.challengesCompleted.food,
+          freeTime: payload.currentModel.challengesCompleted.freeTime,
+          fail: fail,
+          lastUpdated: new Date().toISOString().slice(0, 10),
+        },
+        currentChallenge: {
+          gym: 0,
+          food: 0,
+          freeTime: 0,
+        },
+      };
+
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "models/" + newModel.id),
+        newModel,
+      )
+        .then(() => {
+          return newModel;
+        })
+        .catch(async (e) => {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.dailyChecksFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.dailyChecksFail}: ${e}`,
+        dispatch,
+      });
       return undefined;
     }
   },

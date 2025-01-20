@@ -3,7 +3,12 @@ import ModelReducer, {
   setIsLoading,
   resetModel,
 } from "./ModelSlice";
-import { createModel, getModel } from "./actions";
+import {
+  completeChallengeModel,
+  createModel,
+  dailyChecks,
+  getModel,
+} from "./actions";
 
 export { ModelReducer, IModelState };
 
@@ -14,4 +19,6 @@ export const modelActions = {
   // async
   createModel,
   getModel,
+  completeChallengeModel,
+  dailyChecks,
 };

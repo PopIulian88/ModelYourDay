@@ -2,13 +2,48 @@ import { ChallengeCardModel, TextType } from "../../../../models";
 import { pageStyle } from "./pageStyle";
 import { TouchableOpacity, View } from "react-native";
 import { Icon, Text } from "../../updatedComponents";
-import { useState } from "react";
+import {
+  IStore,
+  modelActions,
+  rootActions,
+  useAppDispatch,
+} from "../../../../redux";
+import { Lottie, StringsRepo } from "../../../../resources";
+import { useSelector } from "react-redux";
 
 const ChallengeCard = (props: ChallengeCardModel) => {
-  const [isCompleted, setIsCompleted] = useState(props.isCompleted);
-  const handleCheck = () => {
-    setIsCompleted(!isCompleted);
-    props.onCheck(!isCompleted);
+  const { model } = useSelector((state: IStore) => state.modelReducer);
+
+  const dispatch = useAppDispatch();
+
+  const handleCheck = async () => {
+    console.log("Completed: ", props.type);
+
+    dispatch(
+      rootActions.showModal({
+        title:
+          StringsRepo.verifyCompleteChallenge1 +
+          " " +
+          props.header +
+          " " +
+          StringsRepo.smallChallenge,
+        lottie: Lottie.lit,
+        secondaryButtonTitle: StringsRepo.yes,
+        secondaryButtonAction: () => {
+          dispatch(rootActions.hideModal());
+
+          dispatch(modelActions.completeChallengeModel(model, props.type));
+        },
+        buttonTitle: StringsRepo.noItWasMistake,
+        buttonAction: () => {
+          dispatch(rootActions.hideModal());
+        },
+      }),
+    );
+
+    //This is the old way
+    // setIsCompleted(!isCompleted);
+    // props.onCheck(!isCompleted);
   };
 
   return (
@@ -25,14 +60,15 @@ const ChallengeCard = (props: ChallengeCardModel) => {
         </Text>
       </View>
       <TouchableOpacity
+        disabled={props.isCompleted}
         onPress={handleCheck}
         style={[
           pageStyle.checkContainer,
-          isCompleted && { backgroundColor: props.color },
+          props.isCompleted && { backgroundColor: props.color },
         ]}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
-        {isCompleted && <Icon name={"check"} size={40} />}
+        {props.isCompleted && <Icon name={"check"} size={40} />}
       </TouchableOpacity>
     </View>
   );

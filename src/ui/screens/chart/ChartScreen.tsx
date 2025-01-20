@@ -8,8 +8,8 @@ import {
   Line,
   Text,
 } from "../../components";
-import React, { Fragment, useRef, useState } from "react";
-import { TextType } from "../../../models";
+import React, { Fragment, useRef } from "react";
+import { challengeType, TextType } from "../../../models";
 import { style } from "../../../styles";
 import { Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
@@ -17,7 +17,6 @@ import PieChart from "react-native-pie-chart";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp, useFocusEffect, useRoute } from "@react-navigation/native";
 import { MainNavigatorParams } from "../../navigation/navigators/MainNavigator";
-import { helper, modelHelper } from "../../../helper";
 import { IStore } from "../../../redux";
 import { useSelector } from "react-redux";
 
@@ -26,11 +25,6 @@ const ChartScreen = () => {
 
   const { bottom, top } = useSafeAreaInsets();
   const { height } = useWindowDimensions();
-  const [foodCompleted, setFoodCompleted] = useState(false);
-  const [gymCompleted, setGymCompleted] = useState(false);
-  const [freeTimeCompleted, setFreeTimeCompleted] = useState(false);
-
-  const challenges = modelHelper.getChallengesByDay(helper.getCurrentDay());
 
   const { model } = useSelector((state: IStore) => state.modelReducer);
 
@@ -68,7 +62,7 @@ const ChartScreen = () => {
   );
 
   const handleReload = () => {
-    console.log("Reloaded");
+    console.log("Reloaded " + model?.currentChallenge.freeTime);
   };
 
   return (
@@ -113,30 +107,29 @@ const ChartScreen = () => {
             style={pageStyle.challengeHeaderContainer}
             onPressReload={handleReload}
           />
-          {/*TODO: FInd a logic to save the completed challenges*/}
-          {/*  A solution  must be, when we change the data in redux,*/}
-          {challenges.challenges ? (
+
+          {model?.challenges ? (
             <Fragment>
               <ChallengeCard
+                type={challengeType.FOOD}
                 header={StringsRepo.food}
-                description={challenges.challenges.food}
+                description={model.challenges.food}
                 color={style.color.barberry}
-                isCompleted={foodCompleted}
-                onCheck={(r) => setFoodCompleted(r)}
+                isCompleted={!!(model?.currentChallenge.food ?? 0 > 0)}
               />
               <ChallengeCard
+                type={challengeType.GYM}
                 header={StringsRepo.gym}
-                description={challenges.challenges.gym}
+                description={model.challenges.gym}
                 color={style.color.sunshade}
-                isCompleted={gymCompleted}
-                onCheck={(r) => setGymCompleted(r)}
+                isCompleted={!!(model?.currentChallenge.gym ?? 0 > 0)}
               />
               <ChallengeCard
+                type={challengeType.FREE_TIME}
                 header={StringsRepo.freeTime}
-                description={challenges.challenges.freeTime}
+                description={model.challenges.freeTime}
                 color={style.color.chenin}
-                isCompleted={freeTimeCompleted}
-                onCheck={(r) => setFreeTimeCompleted(r)}
+                isCompleted={!!(model?.currentChallenge.freeTime ?? 0 > 0)}
               />
             </Fragment>
           ) : (
