@@ -11,6 +11,8 @@ export default {
     modelIdIsEmpty: "Model id is empty",
     modelNotFound: "Model not found",
     modelAlreadyExists: "Model already exists",
+    completeChallengeFail: "Complete challenge FAIL",
+    dailyChecksFail: "Daily checks FAIL",
   },
   close: "Close",
   register: "Register",
@@ -95,4 +97,6 @@ export default {
   iDontUnderstand: "I don't understand, please try again!",
   deleteModel: "Are you sure you want to delete this model?",
   remove: "Remove",
+  verifyCompleteChallenge1: "Are you really finished the",
+  smallChallenge: "challenge",
 };

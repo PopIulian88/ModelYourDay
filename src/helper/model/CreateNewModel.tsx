@@ -48,6 +48,11 @@ export const createNewModel = async (modelName: string) => {
       fail: 0,
       lastUpdated: new Date().toISOString().slice(0, 10),
     },
+    currentChallenge: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+    },
   };
 
   console.log("START getting the data for the new model");

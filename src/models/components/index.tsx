@@ -11,7 +11,7 @@ import {
   MotivationalCardModel,
   MotivationalCardType,
 } from "./MotivationalCardModel";
-import { ChallengeCardModel } from "./ChallengeCardModel";
+import { ChallengeCardModel, challengeType } from "./ChallengeCardModel";
 import { CurrentModelComplexModel } from "./CurrentModelComplexModel";
 
 export {
@@ -32,4 +32,5 @@ export {
   ChallengeCardModel,
   TextInputType,
   CurrentModelComplexModel,
+  challengeType,
 };

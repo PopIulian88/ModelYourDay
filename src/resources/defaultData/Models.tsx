@@ -156,6 +156,11 @@ export const models: ModelModel[] = [
       fail: 0,
       lastUpdated: "2021-07-01",
     },
+    currentChallenge: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+    },
   },
   {
     id: "2", // Fake ID - Should be generated
@@ -304,6 +309,11 @@ export const models: ModelModel[] = [
       fail: 0,
       lastUpdated: "2021-07-01",
     },
+    currentChallenge: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+    },
   },
   {
     id: "3", // Fake ID - Should be generated
@@ -443,6 +453,11 @@ export const models: ModelModel[] = [
       fail: 0,
       lastUpdated: "2021-07-01",
     },
+    currentChallenge: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
+    },
   },
   //This is the AI model, don't touch it
   {
@@ -458,6 +473,11 @@ export const models: ModelModel[] = [
       freeTime: 0,
       fail: 0,
       lastUpdated: "2021-07-01",
+    },
+    currentChallenge: {
+      food: 0,
+      gym: 0,
+      freeTime: 0,
     },
   },
 ];
