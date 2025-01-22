@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { challengeType, ModelModel } from "../../models";
+import { challengeType, ModelModel, RegenDataModel } from "../../models";
 import { get, ref, set, update } from "firebase/database";
-import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
+import { AI, FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
 import { helper } from "../../helper";
 import { userActions } from "../user";
 import { StringsRepo } from "../../resources";
+import { generateModelChallenges } from "../../backend/ai/generateModel";
 
 export const createModelThunk = createAsyncThunk(
   "model/createModel",
@@ -268,7 +269,7 @@ export const dailyChecksModelThunk = createAsyncThunk(
     console.log(`Daily verification on ${payload.currentModel.id}...`);
 
     try {
-      // TODO: To make a day pass 1) comment this
+      // 1) To make a day pass comment this
       if (
         payload.currentModel.challengesCompleted.lastUpdated ===
         new Date().toISOString().slice(0, 10)
@@ -282,7 +283,7 @@ export const dailyChecksModelThunk = createAsyncThunk(
       );
       const currentDate = new Date();
 
-      // TODO: To make a day pass 2) uncomment this
+      // 2) To make a day pass uncomment this
       // currentDate.setDate(currentDate.getDate() + 1);
 
       const diffInDays =
@@ -310,7 +311,9 @@ export const dailyChecksModelThunk = createAsyncThunk(
         strike = 0;
       }
 
-      // TODO: Regeneram challenge-urile si resetam currentChallenge
+      const newChallenges = await AI.generateModelChallenges(
+        payload.currentModel.name,
+      );
 
       const newModel: ModelModel = {
         ...payload.currentModel,
@@ -327,6 +330,7 @@ export const dailyChecksModelThunk = createAsyncThunk(
           food: 0,
           freeTime: 0,
         },
+        challenges: newChallenges,
       };
 
       return await update(
@@ -346,6 +350,84 @@ export const dailyChecksModelThunk = createAsyncThunk(
     } catch (e: any) {
       await helper.errorModal({
         errorMessage: `${StringsRepo.error.dailyChecksFail}: ${e}`,
+        dispatch,
+      });
+      return undefined;
+    }
+  },
+);
+
+export const regenerateDataModelThunk = createAsyncThunk(
+  "model/regenerateDataModel",
+
+  async (
+    payload: {
+      currentModel: ModelModel | undefined;
+      regenDataType: RegenDataModel;
+    },
+    { dispatch },
+  ) => {
+    if (!payload.currentModel) {
+      await helper.errorModal({
+        errorMessage: StringsRepo.error.modelNotFound,
+        dispatch,
+      });
+      return undefined;
+    }
+    console.log(`Regenerate ${payload.regenDataType} data in progress...`);
+
+    try {
+      const newMotivation =
+        payload.regenDataType === RegenDataModel.MOTIVATION
+          ? await AI.generateModelMotivation(payload.currentModel.name)
+          : payload.currentModel.motivation;
+
+      const newFood =
+        payload.regenDataType === RegenDataModel.FOOD
+          ? await AI.generateModelMeals(payload.currentModel.name)
+          : payload.currentModel.meals;
+
+      const newTraining =
+        payload.regenDataType === RegenDataModel.GYM
+          ? await AI.generateModelTrainings(payload.currentModel.name)
+          : payload.currentModel.training;
+
+      const newFreeTime =
+        payload.regenDataType === RegenDataModel.FREE_TIME
+          ? await AI.generateModelFreeTime(payload.currentModel.name)
+          : payload.currentModel.freeTime;
+
+      const newChallenges =
+        payload.regenDataType === RegenDataModel.CHALLENGE
+          ? await generateModelChallenges(payload.currentModel.name)
+          : payload.currentModel.challenges;
+
+      const newModel: ModelModel = {
+        ...payload.currentModel,
+        motivation: newMotivation,
+        meals: newFood,
+        training: newTraining,
+        freeTime: newFreeTime,
+        challenges: newChallenges,
+      };
+
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "models/" + newModel.id),
+        newModel,
+      )
+        .then(() => {
+          return newModel;
+        })
+        .catch(async (e) => {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.regenerateDataFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.regenerateDataFail}: ${e}`,
         dispatch,
       });
       return undefined;

@@ -50,6 +50,9 @@ const AuthVerification = () => {
             email: route.params.email,
             username: route.params.username,
             age: route.params.age,
+            isOnboardingComplete: false,
+            modelsList: [],
+            selectedModel: "",
           },
           route.params.password,
         ),
@@ -113,7 +116,6 @@ const AuthVerification = () => {
             </Text>
           </View>
 
-          {/*TODO: Change ts-ignore*/}
           {/*@ts-ignore*/}
           <CodeField
             ref={refBlur}

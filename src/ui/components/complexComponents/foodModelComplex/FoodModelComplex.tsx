@@ -1,7 +1,11 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
 import { Lottie, StringsRepo } from "../../../../resources";
 import { Text } from "../../updatedComponents";
-import { MotivationalCardType, TextType } from "../../../../models";
+import {
+  MotivationalCardType,
+  RegenDataModel,
+  TextType,
+} from "../../../../models";
 import { Fragment } from "react";
 import { MotivationalCard } from "../../cardComponents";
 import { style } from "../../../../styles";
@@ -13,20 +17,19 @@ export const FoodModelComplex = ({
   styles,
   meals,
   day,
+  showReload,
 }: {
   styles?: StyleProp<ViewStyle>;
   meals?: string[][] | undefined;
   day?: string;
+  showReload?: boolean;
 }) => {
-  const handleReload = () => {
-    console.log("Reloaded");
-  };
-
   return (
     <View style={[pageStyle.container, styles]}>
       <HeaderComponents
         text={day ?? StringsRepo.food}
-        onPressReload={handleReload}
+        dataToReload={RegenDataModel.FOOD}
+        showReload={showReload ?? true}
       />
       {meals ? (
         <Fragment>
