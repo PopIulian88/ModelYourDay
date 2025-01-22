@@ -40,30 +40,37 @@ const ModelGymScreen = () => {
           <GymModelComplex
             trainings={model?.training?.monday?.trainings}
             day={StringsRepo.monday}
+            showReload={false}
           />
           <GymModelComplex
             trainings={model?.training?.tuesday?.trainings}
             day={StringsRepo.tuesday}
+            showReload={false}
           />
           <GymModelComplex
             trainings={model?.training?.wednesday?.trainings}
             day={StringsRepo.wednesday}
+            showReload={false}
           />
           <GymModelComplex
             trainings={model?.training?.thursday?.trainings}
             day={StringsRepo.thursday}
+            showReload={false}
           />
           <GymModelComplex
             trainings={model?.training?.friday?.trainings}
             day={StringsRepo.friday}
+            showReload={false}
           />
           <GymModelComplex
             trainings={model?.training?.saturday?.trainings}
             day={StringsRepo.saturday}
+            showReload={false}
           />
           <GymModelComplex
             trainings={model?.training?.sunday?.trainings}
             day={StringsRepo.sunday}
+            showReload={false}
           />
         </ScrollView>
       </ScrollView>

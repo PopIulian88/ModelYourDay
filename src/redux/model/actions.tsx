@@ -3,8 +3,9 @@ import {
   createModelThunk,
   dailyChecksModelThunk,
   getModelThunk,
+  regenerateDataModelThunk,
 } from "./asyncThunks";
-import { challengeType, ModelModel } from "../../models";
+import { challengeType, ModelModel, RegenDataModel } from "../../models";
 
 export const createModel = (model: ModelModel) => {
   return async (dispatch: any) => {
@@ -31,5 +32,16 @@ export const completeChallengeModel = (
 export const dailyChecks = (currentModel: ModelModel | undefined) => {
   return async (dispatch: any) => {
     return await dispatch(dailyChecksModelThunk({ currentModel }));
+  };
+};
+
+export const regenDataModel = (
+  currentModel: ModelModel | undefined,
+  regenDataType: RegenDataModel,
+) => {
+  return async (dispatch: any) => {
+    return await dispatch(
+      regenerateDataModelThunk({ currentModel, regenDataType }),
+    );
   };
 };

@@ -1,6 +1,6 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
 import { Lottie, StringsRepo } from "../../../../resources";
-import { MotivationalCardType } from "../../../../models";
+import { MotivationalCardType, RegenDataModel } from "../../../../models";
 import { Fragment } from "react";
 import { MotivationalCard } from "../../cardComponents";
 import { pageStyle } from "./pageStyle";
@@ -15,16 +15,12 @@ export const MotivationModelComplex = ({
   styles?: StyleProp<ViewStyle>;
 }) => {
   const { model } = useSelector((state: IStore) => state.modelReducer);
-
-  const handleReload = () => {
-    console.log("Reloaded");
-  };
-
   return (
     <View style={[pageStyle.container, styles]}>
       <HeaderComponents
         text={StringsRepo.motivation}
-        onPressReload={handleReload}
+        dataToReload={RegenDataModel.MOTIVATION}
+        showReload={true}
       />
       {model?.motivation ? (
         <FlatList

@@ -23,7 +23,7 @@ export const generateModelChallenges: (
           },
           {
             role: "user",
-            content: `Using ${modelName}, generate 3 daily challenges, each no longer than 30 words. The first challenge is about food, the second challenge is about gym and the third challenge is about free time. Separate each message with a semicolon.`,
+            content: `Using ${modelName}, generate 3 daily challenges, each no longer than 20 words. The first challenge is about food, the second challenge is about gym and the third challenge is about free time. Separate each message with a semicolon.`,
           },
         ],
       }),

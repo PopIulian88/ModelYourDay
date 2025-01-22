@@ -1,6 +1,6 @@
 import { FlatList, StyleProp, View, ViewStyle } from "react-native";
 import { Lottie, StringsRepo } from "../../../../resources";
-import { MotivationalCardType } from "../../../../models";
+import { MotivationalCardType, RegenDataModel } from "../../../../models";
 import { Fragment } from "react";
 import { MotivationalCard } from "../../cardComponents";
 import { pageStyle } from "./pageStyle";
@@ -11,19 +11,19 @@ export const GymModelComplex = ({
   styles,
   trainings,
   day,
+  showReload,
 }: {
   styles?: StyleProp<ViewStyle>;
   trainings: string[][] | undefined;
   day?: string;
+  showReload?: boolean;
 }) => {
-  const handleReload = () => {
-    console.log("Refreshed");
-  };
   return (
     <View style={[pageStyle.container, styles]}>
       <HeaderComponents
         text={day ?? StringsRepo.gym}
-        onPressReload={handleReload}
+        dataToReload={RegenDataModel.GYM}
+        showReload={showReload ?? true}
       />
       {trainings ? (
         <FlatList

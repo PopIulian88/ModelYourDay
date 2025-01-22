@@ -13,6 +13,7 @@ export default {
     modelAlreadyExists: "Model already exists",
     completeChallengeFail: "Complete challenge FAIL",
     dailyChecksFail: "Daily checks FAIL",
+    regenerateDataFail: "Regenerate data FAIL",
   },
   close: "Close",
   register: "Register",
@@ -99,4 +100,5 @@ export default {
   remove: "Remove",
   verifyCompleteChallenge1: "Are you really finished the",
   smallChallenge: "challenge",
+  wannaReload: "All related data will be reloaded, are you sure?",
 };

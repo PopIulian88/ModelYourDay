@@ -40,30 +40,37 @@ const ModelFoodScreen = () => {
           <FoodModelComplex
             meals={model?.meals?.monday?.meals}
             day={StringsRepo.monday}
+            showReload={false}
           />
           <FoodModelComplex
             meals={model?.meals?.tuesday?.meals}
             day={StringsRepo.tuesday}
+            showReload={false}
           />
           <FoodModelComplex
             meals={model?.meals?.wednesday?.meals}
             day={StringsRepo.wednesday}
+            showReload={false}
           />
           <FoodModelComplex
             meals={model?.meals?.thursday?.meals}
             day={StringsRepo.thursday}
+            showReload={false}
           />
           <FoodModelComplex
             meals={model?.meals?.friday?.meals}
             day={StringsRepo.friday}
+            showReload={false}
           />
           <FoodModelComplex
             meals={model?.meals?.saturday?.meals}
             day={StringsRepo.saturday}
+            showReload={false}
           />
           <FoodModelComplex
             meals={model?.meals?.sunday?.meals}
             day={StringsRepo.sunday}
+            showReload={false}
           />
         </ScrollView>
       </ScrollView>

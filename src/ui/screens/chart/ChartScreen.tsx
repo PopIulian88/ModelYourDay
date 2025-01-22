@@ -9,7 +9,7 @@ import {
   Text,
 } from "../../components";
 import React, { Fragment, useRef } from "react";
-import { challengeType, TextType } from "../../../models";
+import { challengeType, RegenDataModel, TextType } from "../../../models";
 import { style } from "../../../styles";
 import { Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
@@ -61,10 +61,6 @@ const ChartScreen = () => {
     </View>
   );
 
-  const handleReload = () => {
-    console.log("Reloaded " + model?.currentChallenge.freeTime);
-  };
-
   return (
     <Fragment>
       <BackButton styles={[pageStyle.backButton, { marginTop: top }]} />
@@ -105,7 +101,10 @@ const ChartScreen = () => {
           <HeaderComponents
             text={StringsRepo.challenge}
             style={pageStyle.challengeHeaderContainer}
-            onPressReload={handleReload}
+            showReload={
+              !model?.challenges || model?.challenges?.food === "Unknown"
+            }
+            dataToReload={RegenDataModel.CHALLENGE}
           />
 
           {model?.challenges ? (

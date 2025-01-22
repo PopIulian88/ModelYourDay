@@ -70,7 +70,5 @@ export const createNewModel = async (modelName: string) => {
     AI.generateModelChallenges(modelName),
   ]);
 
-  // TODO: Try to regenerate the ungenerated fields
-
   return newModel;
 };
