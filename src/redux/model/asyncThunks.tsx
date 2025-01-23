@@ -5,7 +5,6 @@ import { AI, FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
 import { helper } from "../../helper";
 import { userActions } from "../user";
 import { StringsRepo } from "../../resources";
-import { generateModelChallenges } from "../../backend/ai/generateModel";
 
 export const createModelThunk = createAsyncThunk(
   "model/createModel",
@@ -399,7 +398,7 @@ export const regenerateDataModelThunk = createAsyncThunk(
 
       const newChallenges =
         payload.regenDataType === RegenDataModel.CHALLENGE
-          ? await generateModelChallenges(payload.currentModel.name)
+          ? await AI.generateModelChallenges(payload.currentModel.name)
           : payload.currentModel.challenges;
 
       const newModel: ModelModel = {
