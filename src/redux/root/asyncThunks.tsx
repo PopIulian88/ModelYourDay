@@ -12,6 +12,8 @@ export const getUsersThunk = createAsyncThunk("root/getUsers", async () => {
         users = [
           ...users,
           {
+            id: user.val().id,
+            isConnectedWithGoogle: user.val().isConnectedWithGoogle,
             username: user.val().username,
             email: user.val().email,
             age: user.val().age,

@@ -7,10 +7,13 @@ import {
   registerThunk,
   removeModelFromListThunk,
   setSelectedModelThunk,
+  signInGoogleThunk,
 } from "./asyncThunks";
 import { SmallModelModel, UserType } from "../../models";
 
 export interface IUserState {
+  id?: string;
+  isConnectedWithGoogle?: boolean;
   username?: string;
   email?: string;
   age?: number;
@@ -21,6 +24,8 @@ export interface IUserState {
 }
 
 const initialState: IUserState = {
+  id: "",
+  isConnectedWithGoogle: false,
   username: "username",
   email: "email",
   age: 0,
@@ -35,6 +40,8 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     resetUser: (state) => {
+      state.id = "";
+      state.isConnectedWithGoogle = false;
       state.username = "";
       state.email = "";
       state.age = 0;
@@ -59,6 +66,17 @@ const UserSlice = createSlice({
       state.isLoading = true;
     });
 
+    //Sign in with google
+    builder.addCase(signInGoogleThunk.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(signInGoogleThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(signInGoogleThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
     //Login
     builder.addCase(loginThunk.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -72,6 +90,8 @@ const UserSlice = createSlice({
 
     //Logout
     builder.addCase(logoutThunk.fulfilled, (state, action) => {
+      state.id = "";
+      state.isConnectedWithGoogle = false;
       state.username = "";
       state.email = "";
       state.age = 0;
@@ -91,6 +111,8 @@ const UserSlice = createSlice({
     builder.addCase(
       getUserThunk.fulfilled,
       (state, action: PayloadAction<UserType | undefined>) => {
+        state.id = action.payload?.id;
+        state.isConnectedWithGoogle = action.payload?.isConnectedWithGoogle;
         state.username = action.payload?.username;
         state.email = action.payload?.email;
         state.age = action.payload?.age;

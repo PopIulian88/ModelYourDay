@@ -7,13 +7,7 @@ import {
 } from "react-native";
 import { Button, Text, TextInput } from "../../components";
 import { style } from "../../../styles";
-import {
-  googleWebClientId,
-  IconAssets,
-  Images,
-  Lottie,
-  StringsRepo,
-} from "../../../resources";
+import { IconAssets, Images, Lottie, StringsRepo } from "../../../resources";
 import LottieView from "lottie-react-native";
 import { pageStyle } from "./pageStyle";
 import {
@@ -37,14 +31,7 @@ import { AuthNavigatorProps } from "../../navigation";
 import { useSelector } from "react-redux";
 import { Loading } from "../loading";
 import { helper } from "../../../helper";
-import {
-  GoogleSignin,
-  isErrorWithCode,
-  statusCodes,
-  GoogleSigninButton,
-} from "@react-native-google-signin/google-signin";
-import auth from "@react-native-firebase/auth";
-import { FIREBASE_AUTH } from "../../../backend";
+import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 
 const AuthScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -111,56 +98,6 @@ const AuthScreen = () => {
       }
     });
   };
-
-  // Somewhere in your code
-
-  GoogleSignin.configure({
-    webClientId: googleWebClientId,
-  });
-
-  const signIn = async () => {
-    try {
-      // Check if your device supports Google Play
-      await GoogleSignin.hasPlayServices({
-        showPlayServicesUpdateDialog: true,
-      });
-      // Get the users ID token
-      const signInResult = await GoogleSignin.signIn();
-
-      console.log("SignIn Rez: ", signInResult);
-
-      // Create a Google credential with the token
-      if (signInResult.data === null) {
-        throw new Error("ERROR: ID Token is undefined");
-      }
-      const googleCredential = auth.GoogleAuthProvider.credential(
-        signInResult.data.idToken,
-      );
-
-      console.log("Google Credential: ", googleCredential);
-
-      // Sign-in the user with the credential
-      return auth().signInWithCredential(googleCredential);
-    } catch (error) {
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.IN_PROGRESS:
-            console.log("ERROR: Operation in progress");
-            break;
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            console.log("ERROR: Play services not available");
-            break;
-          default:
-            console.log("ERROR: ", error);
-            break;
-        }
-      } else {
-        console.log("ERROR: ", error);
-      }
-    }
-  };
-
-  console.log("FIREBASE_AUTH: ", FIREBASE_AUTH.currentUser?.uid);
 
   const isButtonDisabled = () => {
     const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -264,32 +201,22 @@ const AuthScreen = () => {
           </View>
         </View>
 
-        <GoogleSigninButton
-          // style={{ width: 192, height: 48 }}
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={signIn}
-        />
-        <Button
-          title={"LogOut"}
-          type={ButtonType.PRIMARY}
-          onPress={async () => {
-            // TODO: This clear the google auth cache
-            // await GoogleSignin.signOut();
-
-            auth()
-              .signOut()
-              .then(() => console.log("Signed Out"))
-              .catch((e) => console.log("Error: ", e));
-          }}
-        />
-
-        <Button
-          type={ButtonType.PRIMARY}
-          title={isLogin ? StringsRepo.login : StringsRepo.register}
-          isDisabled={isButtonDisabled()}
-          onPress={isLogin ? handleLogin : handleRegister}
-        />
+        <View style={pageStyle.bottomButtonContainer}>
+          <Button
+            type={ButtonType.PRIMARY}
+            title={isLogin ? StringsRepo.login : StringsRepo.register}
+            isDisabled={isButtonDisabled()}
+            onPress={isLogin ? handleLogin : handleRegister}
+          />
+          <GoogleSigninButton
+            style={{ width: "70%" }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={async () => {
+              await dispatch(userActions.singInWithGoogle());
+            }}
+          />
+        </View>
       </ImageBackground>
     </Fragment>
   ) : (

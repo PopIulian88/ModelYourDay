@@ -1,15 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { challengeType, ModelModel, RegenDataModel } from "../../models";
 import { get, ref, set, update } from "firebase/database";
-import { AI, FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
+import { AI, FIREBASE_REALTIME_DB } from "../../backend";
 import { helper } from "../../helper";
 import { userActions } from "../user";
 import { StringsRepo } from "../../resources";
+import auth from "@react-native-firebase/auth";
 
 export const createModelThunk = createAsyncThunk(
   "model/createModel",
   async (model: ModelModel, { dispatch }) => {
-    const currentUserId = FIREBASE_AUTH.currentUser?.uid;
+    const currentUserId = auth().currentUser?.uid;
+
     //Verify that we have a user id
     if (!currentUserId) {
       throw new Error("User not found: We don't have a user id");

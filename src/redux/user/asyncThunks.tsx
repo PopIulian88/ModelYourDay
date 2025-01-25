@@ -1,17 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { FIREBASE_AUTH, FIREBASE_REALTIME_DB } from "../../backend";
+import { FIREBASE_REALTIME_DB } from "../../backend";
 import { SmallModelModel, UserType } from "../../models";
 import { get, ref, set, update } from "firebase/database";
-import { StringsRepo } from "../../resources";
+import { googleWebClientId, StringsRepo } from "../../resources";
 import { helper } from "../../helper";
+import {
+  GoogleSignin,
+  isErrorWithCode,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
+import auth from "@react-native-firebase/auth";
 
 const registerSettingDataFails = async (e: Error, dispatch: any) => {
   console.log("User set FAILED: " + e.message);
-  const currentUser = FIREBASE_AUTH.currentUser;
+  const currentUser = auth().currentUser;
 
   await helper.errorModal({
     errorMessage: e.toString(),
@@ -33,34 +35,34 @@ export const registerThunk = createAsyncThunk(
   async (payload: { user: UserType; password: string }, { dispatch }) => {
     try {
       console.log("Registering...");
-      return await createUserWithEmailAndPassword(
-        FIREBASE_AUTH,
-        payload.user.email,
-        payload.password,
-      ).then(async () => {
-        console.log("User created SUCCESSFULLY");
-        await set(
-          ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
-          {
-            username: payload.user.username,
-            email: payload.user.email,
-            age: payload.user.age,
-            isOnboardingComplete: false,
-            modelsList: [
-              {
-                id: "IGNORE",
-                name: "IGNORE",
-                description: "IGNORE",
-              },
-            ],
-            selectedModel: "",
-          },
-        )
-          .then((r) => {
-            console.log("User set SUCCESSFULLY");
-          })
-          .catch(async (e) => await registerSettingDataFails(e, dispatch));
-      });
+      return await auth()
+        .createUserWithEmailAndPassword(payload.user.email, payload.password)
+        .then(async () => {
+          console.log("User created SUCCESSFULLY: ", auth().currentUser?.uid);
+          await set(
+            ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
+            {
+              id: auth().currentUser?.uid,
+              isConnectedWithGoogle: false,
+              username: payload.user.username,
+              email: payload.user.email,
+              age: payload.user.age,
+              isOnboardingComplete: false,
+              modelsList: [
+                {
+                  id: "IGNORE",
+                  name: "IGNORE",
+                  description: "IGNORE",
+                },
+              ],
+              selectedModel: "",
+            },
+          )
+            .then((r) => {
+              console.log("User set SUCCESSFULLY");
+            })
+            .catch(async (e) => await registerSettingDataFails(e, dispatch));
+        });
     } catch (e: any) {
       await helper.errorModal({
         errorMessage: e,
@@ -70,12 +72,101 @@ export const registerThunk = createAsyncThunk(
   },
 );
 
+export const signInGoogleThunk = createAsyncThunk(
+  "user/signInGoogle",
+  async (payload: void, { dispatch }) => {
+    try {
+      console.log("SignIn with Google...");
+
+      GoogleSignin.configure({
+        webClientId: googleWebClientId,
+      });
+
+      // Check if your device supports Google Play
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
+
+      // Get the users ID token
+      const signInResult = await GoogleSignin.signIn();
+
+      if (!signInResult.data?.idToken) {
+        throw new Error("ERROR: ID Token is undefined");
+      }
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        signInResult.data.idToken,
+      );
+
+      // Sign-in the user with the credential
+      return await auth()
+        .signInWithCredential(googleCredential)
+        .then(async (credential) => {
+          console.log("User created SUCCESSFULLY");
+
+          // If is a new user, set the initial data
+          if (credential.additionalUserInfo?.isNewUser) {
+            await set(
+              ref(FIREBASE_REALTIME_DB, "users/" + credential.user.uid),
+              {
+                id: credential.user.uid,
+                isConnectedWithGoogle: true,
+                username: "Unknown",
+                email: credential.user.email,
+                age: 0,
+                isOnboardingComplete: false,
+                modelsList: [
+                  {
+                    id: "IGNORE",
+                    name: "IGNORE",
+                    description: "IGNORE",
+                  },
+                ],
+                selectedModel: "",
+              },
+            )
+              .then((r) => {
+                console.log("User set SUCCESSFULLY");
+              })
+              .catch(async (e) => await registerSettingDataFails(e, dispatch));
+          }
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: e,
+        dispatch,
+      });
+
+      if (isErrorWithCode(e)) {
+        switch (e.code) {
+          case statusCodes.IN_PROGRESS:
+            console.log("ERROR: Operation in progress");
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            console.log("ERROR: Play services not available");
+            break;
+          default:
+            console.log("ERROR: ", e);
+            break;
+        }
+      } else {
+        console.log("ERROR: ", e);
+      }
+    }
+  },
+);
+
 export const logoutThunk = createAsyncThunk(
   "user/logout",
   async (payload: void, { dispatch }) => {
     console.log("Logging out...");
     try {
-      return await FIREBASE_AUTH.signOut();
+      if (auth().currentUser?.providerData[0].providerId === "google.com") {
+        await GoogleSignin.signOut();
+      }
+      return await auth()
+        .signOut()
+        .then(() => console.log("Signed Out"))
+        .catch((e) => console.log("Error: ", e));
     } catch (e: any) {
       await helper.errorModal({ errorMessage: e, dispatch });
     }
@@ -87,11 +178,11 @@ export const loginThunk = createAsyncThunk(
   async (payload: { email: string; password: string }, { dispatch }) => {
     try {
       console.log("Logging in...");
-      return await signInWithEmailAndPassword(
-        FIREBASE_AUTH,
-        payload.email,
-        payload.password,
-      );
+      return auth()
+        .signInWithEmailAndPassword(payload.email, payload.password)
+        .then(() => {
+          console.log("User logged in SUCCESSFULLY");
+        });
     } catch (e: any) {
       if (e.code === "auth/invalid-credential") {
         await helper.errorModal({
@@ -107,14 +198,17 @@ export const loginThunk = createAsyncThunk(
 export const getUserThunk = createAsyncThunk(
   "user/getUser",
   async (payload: void, { dispatch }) => {
-    console.log("Fetching User Data...");
     try {
+      console.log("Fetching User Data..., " + auth().currentUser?.uid);
+
       return await get(
-        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+        ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
       ).then(async (response) => {
         let user: UserType | undefined = undefined;
         if (response.exists()) {
           user = {
+            id: response.val().id,
+            isConnectedWithGoogle: response.val().isConnectedWithGoogle,
             username: response.val().username,
             email: response.val().email,
             age: response.val().age,
@@ -138,7 +232,7 @@ export const addModelToListThunk = createAsyncThunk(
     console.log("Adding model to list...");
     try {
       return await get(
-        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+        ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
       ).then(async (response) => {
         if (response.exists()) {
           const modelsList: SmallModelModel[] = response.val().modelsList;
@@ -149,10 +243,7 @@ export const addModelToListThunk = createAsyncThunk(
 
           modelsList.push(payload);
           return await update(
-            ref(
-              FIREBASE_REALTIME_DB,
-              "users/" + FIREBASE_AUTH.currentUser?.uid,
-            ),
+            ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
             {
               modelsList: modelsList,
             },
@@ -215,7 +306,7 @@ export const removeModelFromListThunk = createAsyncThunk(
       modelsList.splice(indexModelToRemove, 1);
 
       return await update(
-        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+        ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
         {
           modelsList: modelsList,
         },
@@ -247,7 +338,7 @@ export const setSelectedModelThunk = createAsyncThunk(
     console.log("Setting selected model...");
     try {
       return await update(
-        ref(FIREBASE_REALTIME_DB, "users/" + FIREBASE_AUTH.currentUser?.uid),
+        ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
         {
           //HERE WE COMPLETE THE ONBOARDING TOO
           isOnboardingComplete: true,
