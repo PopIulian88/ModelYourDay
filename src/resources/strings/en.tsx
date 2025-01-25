@@ -14,6 +14,7 @@ export default {
     completeChallengeFail: "Complete challenge FAIL",
     dailyChecksFail: "Daily checks FAIL",
     regenerateDataFail: "Regenerate data FAIL",
+    updateNameAndAgeFail: "Update name and age FAIL",
   },
   close: "Close",
   register: "Register",
@@ -101,4 +102,6 @@ export default {
   verifyCompleteChallenge1: "Are you really finished the",
   smallChallenge: "challenge",
   wannaReload: "All related data will be reloaded, are you sure?",
+  confirm: "Confirm",
+  howCanWeCallYou: "What would you like us to call you?",
 };

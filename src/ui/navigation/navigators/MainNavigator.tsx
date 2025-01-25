@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import {
+  AdditionalUserInfoScreen,
   ChartScreen,
   ChooseFirstModelScreen,
   FindYourModelScreen,
@@ -26,6 +27,7 @@ import { ChartModel, ModelModel } from "../../../models";
 const Stack = createStackNavigator<MainNavigatorParams>();
 
 export type MainNavigatorParams = {
+  AdditionalUserInfo: undefined;
   Home: undefined;
   ChooseFirstModel: undefined;
   FindYourModel: ModelModel | undefined;
@@ -37,7 +39,7 @@ export type MainNavigatorParams = {
 };
 
 export const MainNavigator = () => {
-  const { isLoading, isOnboardingComplete } = useSelector(
+  const { isLoading, isOnboardingComplete, age, username } = useSelector(
     (state: IStore) => state.userReducer,
   );
   const { isModelLoading } = useSelector((state: IStore) => state.modelReducer);
@@ -92,11 +94,21 @@ export const MainNavigator = () => {
     <Fragment>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isOnboardingCompleted() && (
-          <Stack.Screen
-            // @ts-ignore
-            name={Routes.chooseFirstModel}
-            component={ChooseFirstModelScreen}
-          />
+          <>
+            {/*Add this only if the user is loged in with google*/}
+            {(age === 0 || username === "Unknown") && (
+              <Stack.Screen
+                // @ts-ignore
+                name={Routes.additionalUserInfo}
+                component={AdditionalUserInfoScreen}
+              />
+            )}
+            <Stack.Screen
+              // @ts-ignore
+              name={Routes.chooseFirstModel}
+              component={ChooseFirstModelScreen}
+            />
+          </>
         )}
         <Stack.Screen
           // @ts-ignore

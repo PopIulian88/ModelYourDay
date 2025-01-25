@@ -8,6 +8,7 @@ import {
   removeModelFromListThunk,
   setSelectedModelThunk,
   signInGoogleThunk,
+  updateNameAndAgeUserThunk,
 } from "./asyncThunks";
 import { SmallModelModel, UserType } from "../../models";
 
@@ -161,6 +162,27 @@ const UserSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(setSelectedModelThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    //Update name and age model
+    builder.addCase(
+      updateNameAndAgeUserThunk.fulfilled,
+      (
+        state,
+        action: PayloadAction<{ username: string; age: number } | undefined>,
+      ) => {
+        if (action.payload !== undefined) {
+          state.username = action.payload.username;
+          state.age = action.payload.age;
+        }
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(updateNameAndAgeUserThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(updateNameAndAgeUserThunk.pending, (state) => {
       state.isLoading = true;
     });
 

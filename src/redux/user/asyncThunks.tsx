@@ -364,3 +364,39 @@ export const setSelectedModelThunk = createAsyncThunk(
     }
   },
 );
+
+export const updateNameAndAgeUserThunk = createAsyncThunk(
+  "user/updateNameAndAgeUser",
+  // payload is the model ID
+  async (payload: { username: string; age: number }, { dispatch }) => {
+    console.log("Update name and age to: ", payload.username, payload.age);
+    try {
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
+        {
+          username: payload.username,
+          age: payload.age,
+        },
+      )
+        .then(() => {
+          return {
+            username: payload.username,
+            age: payload.age,
+          };
+        })
+        .catch(async (e) => {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.updateNameAndAgeFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.updateNameAndAgeFail}: ${e}`,
+        dispatch,
+      });
+      return undefined;
+    }
+  },
+);
