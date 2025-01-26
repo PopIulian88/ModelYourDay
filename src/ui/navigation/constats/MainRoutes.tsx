@@ -1,4 +1,5 @@
 export const MainRoutes = {
+  additionalUserInfo: "AdditionalUserInfo",
   home: "Home",
   chooseFirstModel: "ChooseFirstModel",
   findYourModel: "FindYourModel",

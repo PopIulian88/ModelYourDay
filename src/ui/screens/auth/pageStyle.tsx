@@ -29,4 +29,9 @@ export const pageStyle = StyleSheet.create({
   textInputContainer: {
     gap: 16,
   },
+  bottomButtonContainer: {
+    width: "100%",
+    alignItems: "center",
+    gap: 10,
+  },
 });

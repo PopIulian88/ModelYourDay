@@ -31,6 +31,7 @@ import { AuthNavigatorProps } from "../../navigation";
 import { useSelector } from "react-redux";
 import { Loading } from "../loading";
 import { helper } from "../../../helper";
+import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 
 const AuthScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -200,12 +201,22 @@ const AuthScreen = () => {
           </View>
         </View>
 
-        <Button
-          type={ButtonType.PRIMARY}
-          title={isLogin ? StringsRepo.login : StringsRepo.register}
-          isDisabled={isButtonDisabled()}
-          onPress={isLogin ? handleLogin : handleRegister}
-        />
+        <View style={pageStyle.bottomButtonContainer}>
+          <Button
+            type={ButtonType.PRIMARY}
+            title={isLogin ? StringsRepo.login : StringsRepo.register}
+            isDisabled={isButtonDisabled()}
+            onPress={isLogin ? handleLogin : handleRegister}
+          />
+          <GoogleSigninButton
+            style={{ width: "70%" }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={async () => {
+              await dispatch(userActions.singInWithGoogle());
+            }}
+          />
+        </View>
       </ImageBackground>
     </Fragment>
   ) : (

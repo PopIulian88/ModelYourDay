@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "372526517273",
+    "firebase_url": "https://modelyourday-default-rtdb.firebaseio.com",
+    "project_id": "modelyourday",
+    "storage_bucket": "modelyourday.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372526517273:android:ab6e8d1012024d10676e88",
+        "android_client_info": {
+          "package_name": "com.iulianpop.ModelYourDay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372526517273-4i9ec5dpbbdr8g9b1ec06f35svq3cg2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iulianpop.ModelYourDay",
+            "certificate_hash": "f6280b714aa9a715b65a342176af3e690b67d8a5"
+          }
+        },
+        {
+          "client_id": "372526517273-pkkuipn1urmo490mugpims37uhudcog3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHEy9rIUuSNLxeVfcVjIHiL_nwt1jOLlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372526517273-pkkuipn1urmo490mugpims37uhudcog3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "372526517273-8lutl0qd17qf269b0g76pva985r1cgmc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iulianpop.ModelYourDay"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

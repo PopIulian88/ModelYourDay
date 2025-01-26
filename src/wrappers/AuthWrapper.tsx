@@ -1,13 +1,12 @@
-import { FIREBASE_AUTH } from "../backend";
 import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import { rootActions, useAppDispatch } from "../redux";
+import auth from "@react-native-firebase/auth";
 
 export const AuthWrapper = ({ children }: { children: any | null }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+    auth().onAuthStateChanged((user) => {
       dispatch(rootActions.setIsLoggedIn(user !== null));
     });
   }, []);

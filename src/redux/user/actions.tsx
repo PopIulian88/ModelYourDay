@@ -6,12 +6,20 @@ import {
   registerThunk,
   removeModelFromListThunk,
   setSelectedModelThunk,
+  signInGoogleThunk,
+  updateNameAndAgeUserThunk,
 } from "./asyncThunks";
 import { SmallModelModel, UserType } from "../../models";
 
 export const register = (user: UserType, password: string) => {
   return async (dispatch: any) => {
     return await dispatch(registerThunk({ user, password }));
+  };
+};
+
+export const singInWithGoogle = () => {
+  return async (dispatch: any) => {
+    return await dispatch(signInGoogleThunk());
   };
 };
 
@@ -51,5 +59,16 @@ export const removeModelFromUser = (
 export const setSelectedModel = (modelId: string) => {
   return async (dispatch: any) => {
     return await dispatch(setSelectedModelThunk(modelId));
+  };
+};
+
+export const updateNameAndAgeUser = (username: string, age: number) => {
+  return async (dispatch: any) => {
+    return await dispatch(
+      updateNameAndAgeUserThunk({
+        username,
+        age,
+      }),
+    );
   };
 };

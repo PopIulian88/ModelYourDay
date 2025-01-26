@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import {
+  AdditionalUserInfoScreen,
   ChartScreen,
   ChooseFirstModelScreen,
   FindYourModelScreen,
@@ -21,12 +22,12 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { style } from "../../../styles";
 import { StatusBar } from "react-native";
-import { FIREBASE_AUTH } from "../../../backend";
 import { ChartModel, ModelModel } from "../../../models";
 
 const Stack = createStackNavigator<MainNavigatorParams>();
 
 export type MainNavigatorParams = {
+  AdditionalUserInfo: undefined;
   Home: undefined;
   ChooseFirstModel: undefined;
   FindYourModel: ModelModel | undefined;
@@ -38,7 +39,7 @@ export type MainNavigatorParams = {
 };
 
 export const MainNavigator = () => {
-  const { isLoading, isOnboardingComplete } = useSelector(
+  const { isLoading, isOnboardingComplete, age, username } = useSelector(
     (state: IStore) => state.userReducer,
   );
   const { isModelLoading } = useSelector((state: IStore) => state.modelReducer);
@@ -49,36 +50,40 @@ export const MainNavigator = () => {
 
   useEffect(() => {
     setMainDataIsLoading(true);
-    return FIREBASE_AUTH.onAuthStateChanged(async (user: any | null) => {
-      if (user) {
-        //Get User data
-        await dispatch(userActions.getUser()).then(async (userData) => {
-          if (
-            userData?.payload?.isOnboardingComplete &&
-            userData?.payload?.selectedModel
-          ) {
-            // Get Selected Model data
-            await dispatch(
-              modelActions.getModel(userData?.payload?.selectedModel ?? ""),
-            )
-              .then(async (modelData) => {
-                // Prepare the date for the new day
-                console.log("ModelData: ", modelData?.payload?.id);
+    // IMPORTANT: This is the old way to get the user data
+    // (if something goes wrong, use this way)
 
-                await dispatch(modelActions.dailyChecks(modelData?.payload));
+    // auth().onAuthStateChanged(async (user: any | null) => {
+    //  if (user) {
 
-                setMainDataIsLoading(false);
-              })
-              .catch((e) => {
-                console.error("FAIL to getModel on MainNavigator: ", e);
-                setMainDataIsLoading(false);
-              });
-          } else {
+    //Get User data
+    dispatch(userActions.getUser()).then(async (userData) => {
+      if (
+        userData?.payload?.isOnboardingComplete &&
+        userData?.payload?.selectedModel
+      ) {
+        // Get Selected Model data
+        await dispatch(
+          modelActions.getModel(userData?.payload?.selectedModel ?? ""),
+        )
+          .then(async (modelData) => {
+            // Prepare the date for the new day
+            console.log("ModelData: ", modelData?.payload?.id);
+
+            await dispatch(modelActions.dailyChecks(modelData?.payload));
+
             setMainDataIsLoading(false);
-          }
-        });
+          })
+          .catch((e) => {
+            console.error("FAIL to getModel on MainNavigator: ", e);
+            setMainDataIsLoading(false);
+          });
+      } else {
+        setMainDataIsLoading(false);
       }
     });
+    //   }
+    // });
   }, []);
 
   const isOnboardingCompleted = () => {
@@ -89,11 +94,21 @@ export const MainNavigator = () => {
     <Fragment>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isOnboardingCompleted() && (
-          <Stack.Screen
-            // @ts-ignore
-            name={Routes.chooseFirstModel}
-            component={ChooseFirstModelScreen}
-          />
+          <>
+            {/*Add this only if the user is loged in with google*/}
+            {(age === 0 || username === "Unknown") && (
+              <Stack.Screen
+                // @ts-ignore
+                name={Routes.additionalUserInfo}
+                component={AdditionalUserInfoScreen}
+              />
+            )}
+            <Stack.Screen
+              // @ts-ignore
+              name={Routes.chooseFirstModel}
+              component={ChooseFirstModelScreen}
+            />
+          </>
         )}
         <Stack.Screen
           // @ts-ignore
