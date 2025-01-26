@@ -80,6 +80,7 @@ export const signInGoogleThunk = createAsyncThunk(
 
       GoogleSignin.configure({
         webClientId: googleWebClientId,
+        offlineAccess: true,
       });
 
       // Check if your device supports Google Play
@@ -161,13 +162,19 @@ export const logoutThunk = createAsyncThunk(
     console.log("Logging out...");
     try {
       if (auth().currentUser?.providerData[0].providerId === "google.com") {
+        console.log("Signing out from Google...");
+        GoogleSignin.configure({
+          webClientId: googleWebClientId,
+          offlineAccess: true,
+        });
+
         await GoogleSignin.signOut();
       }
-      return await auth()
-        .signOut()
-        .then(() => console.log("Signed Out"))
-        .catch((e) => console.log("Error: ", e));
+      console.log("Signing out from Firebase...");
+      await auth().signOut();
+      console.log("Signed out successfully!");
     } catch (e: any) {
+      console.error("Error during sign-out:", e);
       await helper.errorModal({ errorMessage: e, dispatch });
     }
   },
