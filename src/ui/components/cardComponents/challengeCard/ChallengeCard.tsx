@@ -32,7 +32,20 @@ const ChallengeCard = (props: ChallengeCardModel) => {
         secondaryButtonAction: () => {
           dispatch(rootActions.hideModal());
 
-          dispatch(modelActions.completeChallengeModel(model, props.type));
+          dispatch(modelActions.completeChallengeModel(model, props.type)).then(
+            () => {
+              dispatch(
+                rootActions.showModal({
+                  title: StringsRepo.challengeCompletedCongrats,
+                  lottie: Lottie.lit,
+                  buttonTitle: StringsRepo.thanks,
+                  buttonAction: () => {
+                    dispatch(rootActions.hideModal());
+                  },
+                }),
+              );
+            },
+          );
         },
         buttonTitle: StringsRepo.noItWasMistake,
         buttonAction: () => {

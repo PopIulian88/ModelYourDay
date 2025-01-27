@@ -107,4 +107,8 @@ export default {
   strikeNote:
     "Note: If you don’t complete at least one daily challenges, you will lose all your progress.",
   newChallenge: "New challenge",
+  thanks: "Thanks",
+  challengeCompletedCongrats: "Challenge completed, congrats!",
+  modelDeleted: "Model deleted successfully!",
+  dataRegenerated: "Data regenerated successfully!",
 };

@@ -6,6 +6,8 @@ import {
   regenerateDataModelThunk,
 } from "./asyncThunks";
 import { challengeType, ModelModel, RegenDataModel } from "../../models";
+import { rootActions } from "../root";
+import { Lottie, StringsRepo } from "../../resources";
 
 export const createModel = (model: ModelModel) => {
   return async (dispatch: any) => {
@@ -42,6 +44,17 @@ export const regenDataModel = (
   return async (dispatch: any) => {
     return await dispatch(
       regenerateDataModelThunk({ currentModel, regenDataType }),
-    );
+    ).then(() => {
+      dispatch(
+        rootActions.showModal({
+          title: StringsRepo.dataRegenerated,
+          lottie: Lottie.aiBot,
+          buttonTitle: StringsRepo.thanks,
+          buttonAction: () => {
+            dispatch(rootActions.hideModal());
+          },
+        }),
+      );
+    });
   };
 };

@@ -72,7 +72,18 @@ export const UserModelsComplex = ({
 
           await dispatch(
             userActions.removeModelFromUser(idToDelete, modelsList || []),
-          );
+          ).then(() => {
+            dispatch(
+              rootActions.showModal({
+                title: StringsRepo.modelDeleted,
+                lottie: Lottie.chill,
+                buttonTitle: StringsRepo.thanks,
+                buttonAction: () => {
+                  dispatch(rootActions.hideModal());
+                },
+              }),
+            );
+          });
         },
       }),
     );
