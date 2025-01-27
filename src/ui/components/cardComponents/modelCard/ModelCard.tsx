@@ -7,12 +7,18 @@ import {
 import { ModelCardModel, ModelCardType, TextType } from "../../../../models";
 import { pageStyle } from "./pageStyle";
 import { Text } from "../../updatedComponents";
-import { Images } from "../../../../resources";
+import { Images, StringsRepo } from "../../../../resources";
 import { LinearGradient } from "expo-linear-gradient";
 import { style } from "../../../../styles";
+import { Fragment } from "react";
+import { Chip } from "../../chip";
+import { IStore } from "../../../../redux";
+import { useSelector } from "react-redux";
 
 const ModelCard = (props: ModelCardModel) => {
   const { height } = useWindowDimensions();
+
+  const { model } = useSelector((state: IStore) => state.modelReducer);
 
   const containerStyleByType = () => {
     return props.type === ModelCardType.vertical
@@ -56,25 +62,37 @@ const ModelCard = (props: ModelCardModel) => {
         }
       >
         {props.type !== ModelCardType.vertical && (
-          <View style={pageStyle.imageTextContainer}>
-            <Text
-              type={TextType.headingMD}
-              style={pageStyle.title}
-              numberOfLines={2}
-            >
-              {props.title}
-            </Text>
-            {props.type !== ModelCardType.small && (
+          <Fragment>
+            {props.type === ModelCardType.horizontal &&
+              model !== undefined &&
+              model?.currentChallenge?.gym === 0 &&
+              model?.currentChallenge?.food === 0 &&
+              model?.currentChallenge?.freeTime === 0 && (
+                <Chip
+                  text={StringsRepo.newChallenge}
+                  styles={pageStyle.chipChallenge}
+                />
+              )}
+            <View style={pageStyle.imageTextContainer}>
               <Text
-                type={TextType.bodySM}
-                style={pageStyle.description}
-                numberOfLines={3}
+                type={TextType.headingMD}
+                style={pageStyle.title}
+                numberOfLines={2}
               >
-                {props.description ??
-                  "This model is to lit for a description. If you need more information feel bad because you dont know"}
+                {props.title}
               </Text>
-            )}
-          </View>
+              {props.type !== ModelCardType.small && (
+                <Text
+                  type={TextType.bodySM}
+                  style={pageStyle.description}
+                  numberOfLines={3}
+                >
+                  {props.description ??
+                    "This model is to lit for a description. If you need more information feel bad because you dont know"}
+                </Text>
+              )}
+            </View>
+          </Fragment>
         )}
         <LinearGradient
           colors={linerGradientColors()}

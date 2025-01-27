@@ -20,10 +20,18 @@ const firebaseConfig = {
   appId: firebaseAppId,
 };
 
+// Verify that the Firebase app is not already initialized
 const FIREBASE_APP = initializeApp(firebaseConfig);
-const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-});
+
+// If we want to use Firebase Auth, we need to initialize it
+// const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
+//   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+// });
+
 const FIREBASE_REALTIME_DB = getDatabase();
 
-export { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_REALTIME_DB };
+export {
+  FIREBASE_APP,
+  // FIREBASE_AUTH,
+  FIREBASE_REALTIME_DB,
+};

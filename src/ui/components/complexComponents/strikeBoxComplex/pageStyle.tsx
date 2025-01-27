@@ -12,4 +12,8 @@ export const pageStyle = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: style.color.alto,
   },
+  underText: {
+    textAlign: "center",
+    color: style.color.indochine,
+  },
 });

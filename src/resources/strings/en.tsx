@@ -104,4 +104,7 @@ export default {
   wannaReload: "All related data will be reloaded, are you sure?",
   confirm: "Confirm",
   howCanWeCallYou: "What would you like us to call you?",
+  strikeNote:
+    "Note: If you don’t complete at least one daily challenges, you will lose all your progress.",
+  newChallenge: "New challenge",
 };
