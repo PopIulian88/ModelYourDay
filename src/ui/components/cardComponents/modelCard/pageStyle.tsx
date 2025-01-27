@@ -31,6 +31,14 @@ export const pageStyle = StyleSheet.create({
     borderBottomRightRadius: 20,
     backgroundColor: style.color.background,
   },
+  chipChallenge: {
+    width: "60%",
+    position: "absolute",
+    zIndex: 1,
+    top: 0,
+    left: -20,
+    transform: [{ rotate: "-10deg" }],
+  },
   horizontalContainer: {
     height: 175,
     width: "100%",

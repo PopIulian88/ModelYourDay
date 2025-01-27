@@ -1,4 +1,4 @@
-import { ModalProps, StyleSheet, View } from "react-native";
+import { ModalProps, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Fragment } from "react";
 import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
@@ -50,7 +50,13 @@ export const ModalWrapper = (props: ModalProps) => {
             modalProps?.isChatBot && { padding: 0, paddingTop: 16 },
           ]}
         >
-          <View style={pageStyle.modalLine} />
+          <TouchableOpacity
+            style={pageStyle.modalLine}
+            onPress={() => {
+              if (modalProps?.isDismissible === false) return;
+              dispatch(rootActions.hideModal());
+            }}
+          />
           {!modalProps?.isChatBot ? (
             <Fragment>
               <LottieView

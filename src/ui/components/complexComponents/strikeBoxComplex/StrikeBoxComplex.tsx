@@ -48,6 +48,13 @@ export const StrikeBoxComplex = ({
           <Strike day={currentStrike + 2} />
         </View>
       )}
+      <Text
+        type={TextType.body2SM}
+        numberOfLines={3}
+        style={pageStyle.underText}
+      >
+        {StringsRepo.strikeNote}
+      </Text>
     </View>
   );
 };

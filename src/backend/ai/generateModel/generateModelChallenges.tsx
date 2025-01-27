@@ -34,10 +34,28 @@ export const generateModelChallenges: (
     const challengeList =
       jsonResponse.choices?.[0]?.message?.content?.split(";") ?? [];
 
+    const challenge1 = challengeList[0]
+      ? challengeList[0]?.startsWith(" ")
+        ? challengeList[0].trimStart()
+        : challengeList[0]
+      : "Unknown";
+
+    const challenge2 = challengeList[1]
+      ? challengeList[1].startsWith(" ")
+        ? challengeList[1].trimStart()
+        : challengeList[1]
+      : "Unknown";
+
+    const challenge3 = challengeList[2]
+      ? challengeList[2].startsWith(" ")
+        ? challengeList[2].trimStart()
+        : challengeList[2]
+      : "Unknown";
+
     return {
-      food: challengeList[0] ?? "Unknown",
-      gym: challengeList[1] ?? "Unknown",
-      freeTime: challengeList[2] ?? "Unknown",
+      food: challenge1,
+      gym: challenge2,
+      freeTime: challenge3,
     };
   } catch (error) {
     console.error("fetchModelChallenges error: ", error);
