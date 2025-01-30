@@ -18,6 +18,8 @@ export const createModelThunk = createAsyncThunk(
   async (model: ModelModel, { dispatch }) => {
     const currentUserId = auth().currentUser?.uid;
 
+    console.log("Creating new model...");
+
     //Verify that we have a user id
     if (!currentUserId) {
       throw new Error("User not found: We don't have a user id");
@@ -107,7 +109,7 @@ export const createModelThunk = createAsyncThunk(
             userActions.addModelToUser({
               id: newModelId,
               name: model.name,
-              photo: model.image,
+              photo: image,
             }),
           )
             .then(
@@ -168,7 +170,10 @@ export const getModelThunk = createAsyncThunk(
                 image = url;
               })
               .catch((e) => {
-                console.error(e);
+                console.log(
+                  "Error getting image from Firebase Storage(model could not have a image yet): ",
+                  e,
+                );
               });
 
             model = {
@@ -537,7 +542,15 @@ export const updateModelPhotoThunk = createAsyncThunk(
         ref(FIREBASE_REALTIME_DB, "models/" + newModel.id),
         newModel,
       )
-        .then(() => {
+        .then(async () => {
+          // Update user model list
+          await dispatch(
+            userActions.updateModelsList({
+              id: newModel.id,
+              name: newModel.name,
+              photo: newModel.image,
+            }),
+          );
           return newModel;
         })
         .catch(async (e) => {

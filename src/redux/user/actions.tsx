@@ -7,6 +7,7 @@ import {
   removeModelFromListThunk,
   setSelectedModelThunk,
   signInGoogleThunk,
+  updateModelsListThunk,
   updateNameAndAgeUserThunk,
 } from "./asyncThunks";
 import { SmallModelModel, UserType } from "../../models";
@@ -68,6 +69,16 @@ export const updateNameAndAgeUser = (username: string, age: number) => {
       updateNameAndAgeUserThunk({
         username,
         age,
+      }),
+    );
+  };
+};
+
+export const updateModelsList = (newModelData: SmallModelModel) => {
+  return async (dispatch: any) => {
+    return await dispatch(
+      updateModelsListThunk({
+        newModelData,
       }),
     );
   };

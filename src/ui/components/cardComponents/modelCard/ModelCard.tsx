@@ -34,8 +34,6 @@ const ModelCard = (props: ModelCardModel) => {
 
   const { model } = useSelector((state: IStore) => state.modelReducer);
 
-  const [isImageLoading, setIsImageLoading] = useState(true);
-
   const containerStyleByType = () => {
     return props.type === ModelCardType.vertical
       ? [pageStyle.verticalContainer, { height: height * 0.6 }]
@@ -84,23 +82,17 @@ const ModelCard = (props: ModelCardModel) => {
       ]}
     >
       <ImageBackground
-        onLoadEnd={() => setIsImageLoading(false)}
         style={pageStyle.imageContainer}
         imageStyle={[
           pageStyle.imageStyle,
           !props.image && pageStyle.noImageStyle,
         ]}
         source={
-          // If the onboarding is not completed, the image is a number
-          props.type === ModelCardType.vertical &&
           typeof props.image === "number"
             ? props.image
-            : // If the onboarding is completed, the image is a string
-              isImageLoading
+            : props.image === ""
               ? Images.imageGallery
-              : model?.image
-                ? { uri: model?.image }
-                : Images.imageGallery
+              : { uri: props.image }
         }
       >
         {props.type !== ModelCardType.vertical && (

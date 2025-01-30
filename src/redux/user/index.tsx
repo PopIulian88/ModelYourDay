@@ -9,6 +9,7 @@ import {
   removeModelFromUser,
   singInWithGoogle,
   updateNameAndAgeUser,
+  updateModelsList,
 } from "./actions";
 
 export { UserReducer, IUserState };
@@ -26,4 +27,5 @@ export const userActions = {
   removeModelFromUser,
   singInWithGoogle,
   updateNameAndAgeUser,
+  updateModelsList,
 };

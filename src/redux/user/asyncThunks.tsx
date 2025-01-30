@@ -407,3 +407,82 @@ export const updateNameAndAgeUserThunk = createAsyncThunk(
     }
   },
 );
+
+export const updateModelsListThunk = createAsyncThunk(
+  "user/updateModelsListUser",
+  async (payload: { newModelData: SmallModelModel }, { dispatch }) => {
+    console.log("Update ModelsList... ");
+
+    try {
+      return await get(
+        ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
+      ).then(async (response) => {
+        if (response.exists()) {
+          // Just in case
+          if (
+            response.val().modelsList[0].id === "IGNORE" ||
+            response.val().modelsList.length < 1
+          ) {
+            await helper.errorModal({
+              errorMessage: StringsRepo.error.default,
+              dispatch,
+            });
+            return undefined;
+          }
+
+          //Create a copy of the modelsList
+          const updatedModelsList: SmallModelModel[] = [
+            ...response.val().modelsList,
+          ];
+
+          //Remove the model we want to update
+          const indexModelToRemove: number = updatedModelsList.findIndex(
+            (model) => model.id === payload.newModelData.id,
+          );
+          updatedModelsList.splice(indexModelToRemove, 1);
+
+          //if the model doesn't exist
+          if (indexModelToRemove === -1) {
+            await helper.errorModal({
+              errorMessage: StringsRepo.error.idDontExist,
+              dispatch,
+            });
+            return undefined;
+          }
+
+          //Add the updated model
+          updatedModelsList.push(payload.newModelData);
+
+          return await update(
+            ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
+            {
+              modelsList: updatedModelsList,
+            },
+          )
+            .then(() => {
+              return updatedModelsList;
+            })
+            .catch(async (e) => {
+              await helper.errorModal({
+                errorMessage: `${StringsRepo.error.updateModelsListFail}: ${e}`,
+                dispatch,
+              });
+              return undefined;
+            });
+        } else {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.updateModelsListFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        }
+      });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.updateModelsListFail}: ${e}`,
+        dispatch,
+      });
+      return undefined;
+    }
+  },
+);

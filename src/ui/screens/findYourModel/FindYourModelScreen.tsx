@@ -100,14 +100,13 @@ const FindYourModelScreen = () => {
               (await modelHelper
                 .createNewModel(newModelName)
                 .then(async (newModelData) => {
-                  // console.log("NEW MODEL DATA: ", newModelData);
                   //Add the new model to the user's list and db
                   await dispatch(
                     modelActions.createModel({
                       id: "Unknown",
                       name: newModelName,
                       description: newModelData.description ?? "Unknown",
-                      image: 0, // TODO: This should be generated in the future
+                      image: newModelData.image ?? "",
                       currentActivity:
                         newModelData.currentActivity ?? "Unknown",
                       strike: 0, // Initial value: 0
