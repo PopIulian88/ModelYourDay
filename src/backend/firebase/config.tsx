@@ -9,6 +9,7 @@ import {
   firebaseAppId,
   firebaseMessagingSenderId,
 } from "../../resources";
+import "firebase/compat/storage";
 
 const firebaseConfig = {
   apiKey: firebaseApiKey,
@@ -22,6 +23,7 @@ const firebaseConfig = {
 
 // Verify that the Firebase app is not already initialized
 const FIREBASE_APP = initializeApp(firebaseConfig);
+const FIREBASE_STORAGE_PHOTOS_MODEL_PATH = "photos/model/";
 
 // If we want to use Firebase Auth, we need to initialize it
 // const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
@@ -34,4 +36,6 @@ export {
   FIREBASE_APP,
   // FIREBASE_AUTH,
   FIREBASE_REALTIME_DB,
+  //path
+  FIREBASE_STORAGE_PHOTOS_MODEL_PATH,
 };

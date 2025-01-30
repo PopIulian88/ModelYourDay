@@ -39,6 +39,32 @@ export const pageStyle = StyleSheet.create({
     left: -20,
     transform: [{ rotate: "-10deg" }],
   },
+  changeImageContainer: {
+    height: 40,
+    width: 40,
+    borderRadius: 50,
+    padding: 5,
+    backgroundColor: "white",
+    position: "absolute",
+    zIndex: 2,
+    top: 5,
+    right: 5,
+
+    shadowColor: style.color.sunshade,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
+  },
+  changeImage: {
+    height: "100%",
+    width: "100%",
+    resizeMode: "cover",
+  },
   horizontalContainer: {
     height: 175,
     width: "100%",

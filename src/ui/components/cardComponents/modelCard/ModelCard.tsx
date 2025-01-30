@@ -1,24 +1,40 @@
 import {
+  Image,
   ImageBackground,
   TouchableOpacity,
   useWindowDimensions,
   View,
 } from "react-native";
-import { ModelCardModel, ModelCardType, TextType } from "../../../../models";
+import {
+  ModelCardModel,
+  ModelCardType,
+  ModelModel,
+  TextType,
+} from "../../../../models";
 import { pageStyle } from "./pageStyle";
 import { Text } from "../../updatedComponents";
-import { Images, StringsRepo } from "../../../../resources";
+import { Images, Lottie, StringsRepo } from "../../../../resources";
 import { LinearGradient } from "expo-linear-gradient";
 import { style } from "../../../../styles";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Chip } from "../../chip";
-import { IStore } from "../../../../redux";
+import {
+  IStore,
+  modelActions,
+  rootActions,
+  useAppDispatch,
+} from "../../../../redux";
 import { useSelector } from "react-redux";
+import { modelHelper } from "../../../../helper/";
 
 const ModelCard = (props: ModelCardModel) => {
   const { height } = useWindowDimensions();
 
+  const dispatch = useAppDispatch();
+
   const { model } = useSelector((state: IStore) => state.modelReducer);
+
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   const containerStyleByType = () => {
     return props.type === ModelCardType.vertical
@@ -37,6 +53,26 @@ const ModelCard = (props: ModelCardModel) => {
     }
   };
 
+  const changeModelImage = (model: ModelModel | undefined, dispatch: any) => {
+    dispatch(
+      rootActions.showModal({
+        title: StringsRepo.changeModelImage,
+        lottie: Lottie.pizza,
+        buttonTitle: StringsRepo.fromGallery,
+        buttonAction: () => {
+          modelHelper
+            .getImageFromGallery()
+            .then(async (blob: Blob | undefined) => {
+              if (blob) {
+                await dispatch(modelActions.updateModelPhoto(model, blob));
+                dispatch(rootActions.hideModal());
+              }
+            });
+        },
+      }),
+    );
+  };
+
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -48,17 +84,18 @@ const ModelCard = (props: ModelCardModel) => {
       ]}
     >
       <ImageBackground
+        onLoadEnd={() => setIsImageLoading(false)}
         style={pageStyle.imageContainer}
         imageStyle={[
           pageStyle.imageStyle,
           !props.image && pageStyle.noImageStyle,
         ]}
         source={
-          props.image
-            ? typeof props.image === "string"
-              ? { uri: props.image }
-              : props.image
-            : Images.imageGallery
+          isImageLoading
+            ? Images.imageGallery
+            : model?.image
+              ? { uri: model?.image }
+              : Images.imageGallery
         }
       >
         {props.type !== ModelCardType.vertical && (
@@ -73,6 +110,18 @@ const ModelCard = (props: ModelCardModel) => {
                   styles={pageStyle.chipChallenge}
                 />
               )}
+            {props.type === ModelCardType.horizontal && (
+              <TouchableOpacity
+                style={pageStyle.changeImageContainer}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                onPress={() => changeModelImage(model, dispatch)}
+              >
+                <Image
+                  style={pageStyle.changeImage}
+                  source={Images.imageGallery}
+                />
+              </TouchableOpacity>
+            )}
             <View style={pageStyle.imageTextContainer}>
               <Text
                 type={TextType.headingMD}

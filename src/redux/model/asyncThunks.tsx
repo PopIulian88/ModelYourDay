@@ -1,11 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { challengeType, ModelModel, RegenDataModel } from "../../models";
 import { get, ref, set, update } from "firebase/database";
-import { AI, FIREBASE_REALTIME_DB } from "../../backend";
+import {
+  AI,
+  FIREBASE_APP,
+  FIREBASE_REALTIME_DB,
+  FIREBASE_STORAGE_PHOTOS_MODEL_PATH,
+} from "../../backend";
 import { helper } from "../../helper";
 import { userActions } from "../user";
 import { StringsRepo } from "../../resources";
 import auth from "@react-native-firebase/auth";
+import firebase from "firebase/compat";
 
 export const createModelThunk = createAsyncThunk(
   "model/createModel",
@@ -126,12 +132,30 @@ export const getModelThunk = createAsyncThunk(
       }
       await get(ref(FIREBASE_REALTIME_DB, "models/" + id))
         .then(async (snapshot) => {
+          let image = snapshot.val().image;
+
           if (snapshot.exists()) {
+            // Get the image from Firebase Storage
+            const fsr: firebase.storage.Reference = FIREBASE_APP.storage(
+              "gs://modelyourday.firebasestorage.app",
+            ).ref(
+              `${FIREBASE_STORAGE_PHOTOS_MODEL_PATH}${snapshot.val().id}.jpg`,
+            );
+
+            await fsr
+              .getDownloadURL()
+              .then((url) => {
+                image = url;
+              })
+              .catch((e) => {
+                console.error(e);
+              });
+
             model = {
               id: snapshot.val().id,
               name: snapshot.val().name,
               description: snapshot.val().description,
-              image: snapshot.val().image,
+              image: image,
               currentActivity: snapshot.val().currentActivity,
               strike: snapshot.val().strike,
               motivation: snapshot.val().motivation,
@@ -429,6 +453,73 @@ export const regenerateDataModelThunk = createAsyncThunk(
     } catch (e: any) {
       await helper.errorModal({
         errorMessage: `${StringsRepo.error.regenerateDataFail}: ${e}`,
+        dispatch,
+      });
+      return undefined;
+    }
+  },
+);
+
+export const updateModelPhotoThunk = createAsyncThunk(
+  "model/updateModelPhoto",
+
+  async (
+    payload: {
+      currentModel: ModelModel | undefined;
+      blob: Blob;
+    },
+    { dispatch },
+  ) => {
+    let image;
+
+    if (!payload.currentModel) {
+      await helper.errorModal({
+        errorMessage: StringsRepo.error.modelNotFound,
+        dispatch,
+      });
+      return undefined;
+    }
+    console.log(`Update model photo..`);
+
+    try {
+      //upload the image to Firebase Storage
+
+      const storageRef = FIREBASE_APP.storage(
+        "gs://modelyourday.firebasestorage.app",
+      )
+        .ref()
+        .child(`photos/model/${payload.currentModel.id}.jpg`);
+
+      image = await storageRef.put(payload.blob).snapshot.ref.getDownloadURL();
+    } catch (error) {
+      console.error(error);
+      image = payload.currentModel.image;
+    }
+
+    // Update the model image
+    try {
+      const newModel: ModelModel = {
+        ...payload.currentModel,
+        image: image,
+      };
+
+      return await update(
+        ref(FIREBASE_REALTIME_DB, "models/" + newModel.id),
+        newModel,
+      )
+        .then(() => {
+          return newModel;
+        })
+        .catch(async (e) => {
+          await helper.errorModal({
+            errorMessage: `${StringsRepo.error.updateModelPhotoFail}: ${e}`,
+            dispatch,
+          });
+          return undefined;
+        });
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: `${StringsRepo.error.updateModelPhotoFail}: ${e}`,
         dispatch,
       });
       return undefined;

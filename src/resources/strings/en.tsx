@@ -15,6 +15,7 @@ export default {
     dailyChecksFail: "Daily checks FAIL",
     regenerateDataFail: "Regenerate data FAIL",
     updateNameAndAgeFail: "Update name and age FAIL",
+    updateModelPhotoFail: "Update model photo FAIL",
   },
   close: "Close",
   register: "Register",
@@ -111,4 +112,6 @@ export default {
   challengeCompletedCongrats: "Challenge completed, congrats!",
   modelDeleted: "Model deleted successfully!",
   dataRegenerated: "Data regenerated successfully!",
+  changeModelImage: "Select a new image for your model!",
+  fromGallery: "From gallery",
 };

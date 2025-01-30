@@ -9,6 +9,7 @@ import {
   dailyChecks,
   getModel,
   regenDataModel,
+  updateModelPhoto,
 } from "./actions";
 
 export { ModelReducer, IModelState };
@@ -23,4 +24,5 @@ export const modelActions = {
   completeChallengeModel,
   dailyChecks,
   regenDataModel,
+  updateModelPhoto,
 };

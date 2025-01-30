@@ -6,6 +6,7 @@ import {
   dailyChecksModelThunk,
   getModelThunk,
   regenerateDataModelThunk,
+  updateModelPhotoThunk,
 } from "./asyncThunks";
 
 export interface IModelState {
@@ -113,6 +114,23 @@ const ModelSlice = createSlice({
       state.isModelLoading = false;
     });
     builder.addCase(regenerateDataModelThunk.pending, (state) => {
+      state.isModelLoading = true;
+    });
+
+    //Update Model photo
+    builder.addCase(
+      updateModelPhotoThunk.fulfilled,
+      (state, action: PayloadAction<ModelModel | undefined>) => {
+        if (action.payload !== undefined) {
+          state.model = action.payload;
+        }
+        state.isModelLoading = false;
+      },
+    );
+    builder.addCase(updateModelPhotoThunk.rejected, (state) => {
+      state.isModelLoading = false;
+    });
+    builder.addCase(updateModelPhotoThunk.pending, (state) => {
       state.isModelLoading = true;
     });
   },
