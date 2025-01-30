@@ -64,8 +64,8 @@ const ModelCard = (props: ModelCardModel) => {
             .getImageFromGallery()
             .then(async (blob: Blob | undefined) => {
               if (blob) {
-                await dispatch(modelActions.updateModelPhoto(model, blob));
                 dispatch(rootActions.hideModal());
+                await dispatch(modelActions.updateModelPhoto(model, blob));
               }
             });
         },
@@ -91,11 +91,16 @@ const ModelCard = (props: ModelCardModel) => {
           !props.image && pageStyle.noImageStyle,
         ]}
         source={
-          isImageLoading
-            ? Images.imageGallery
-            : model?.image
-              ? { uri: model?.image }
-              : Images.imageGallery
+          // If the onboarding is not completed, the image is a number
+          props.type === ModelCardType.vertical &&
+          typeof props.image === "number"
+            ? props.image
+            : // If the onboarding is completed, the image is a string
+              isImageLoading
+              ? Images.imageGallery
+              : model?.image
+                ? { uri: model?.image }
+                : Images.imageGallery
         }
       >
         {props.type !== ModelCardType.vertical && (

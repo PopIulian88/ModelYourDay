@@ -7,7 +7,7 @@ import {
   FIREBASE_REALTIME_DB,
   FIREBASE_STORAGE_PHOTOS_MODEL_PATH,
 } from "../../backend";
-import { helper } from "../../helper";
+import { helper, modelHelper } from "../../helper";
 import { userActions } from "../user";
 import { StringsRepo } from "../../resources";
 import auth from "@react-native-firebase/auth";
@@ -26,11 +26,31 @@ export const createModelThunk = createAsyncThunk(
     const newModelId = currentUserId + Date.now();
     const lastUpdatedDate = new Date().toISOString().slice(0, 10);
 
+    let image: string | number = model.image;
+
+    // Upload the image to Firebase Storage
+    const storageRef = FIREBASE_APP.storage(
+      "gs://modelyourday.firebasestorage.app",
+    )
+      .ref()
+      .child(`${FIREBASE_STORAGE_PHOTOS_MODEL_PATH}${newModelId}.jpg`);
+
+    // Image from the app
+    if (typeof model.image === "number") {
+      const blob: Blob = await modelHelper.getImageFromApp(model.image);
+
+      await storageRef.put(blob).then(async (snapshot) => {
+        image = await snapshot.ref.getDownloadURL();
+      });
+    }
+
+    // TODO: Generated image
+
     const newModel: ModelModel = {
       id: newModelId,
       name: model.name,
       description: model.description,
-      image: model.image,
+      image: image,
       currentActivity: model.currentActivity,
       strike: 0,
       motivation: model.motivation,
@@ -470,7 +490,7 @@ export const updateModelPhotoThunk = createAsyncThunk(
     },
     { dispatch },
   ) => {
-    let image;
+    let image: string | number = "";
 
     if (!payload.currentModel) {
       await helper.errorModal({
@@ -488,9 +508,19 @@ export const updateModelPhotoThunk = createAsyncThunk(
         "gs://modelyourday.firebasestorage.app",
       )
         .ref()
-        .child(`photos/model/${payload.currentModel.id}.jpg`);
+        .child(
+          `${FIREBASE_STORAGE_PHOTOS_MODEL_PATH}${payload.currentModel.id}.jpg`,
+        );
 
-      image = await storageRef.put(payload.blob).snapshot.ref.getDownloadURL();
+      await storageRef
+        .put(payload.blob)
+        .then(async (snapshot) => {
+          image = await snapshot.ref.getDownloadURL();
+        })
+        .catch((e) => {
+          console.error(e);
+          image = payload?.currentModel?.image ?? "";
+        });
     } catch (error) {
       console.error(error);
       image = payload.currentModel.image;

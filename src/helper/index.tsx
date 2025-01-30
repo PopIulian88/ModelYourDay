@@ -7,6 +7,7 @@ import { getTrainingsByDay } from "./model/GetTrainings";
 import { getMealsByDay } from "./model/GetMeals";
 import { createNewModel } from "./model/CreateNewModel";
 import { getImageFromGallery } from "./model/GetImageFromGallery";
+import { getImageFromApp } from "./model/GetImageFromApp";
 
 export const helper = {
   sendVerificationMail,
@@ -19,4 +20,5 @@ export const modelHelper = {
   getMealsByDay,
   createNewModel,
   getImageFromGallery,
+  getImageFromApp,
 };

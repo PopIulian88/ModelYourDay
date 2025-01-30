@@ -107,7 +107,7 @@ const FindYourModelScreen = () => {
                       id: "Unknown",
                       name: newModelName,
                       description: newModelData.description ?? "Unknown",
-                      image: 0, // This should be generated in the future
+                      image: 0, // TODO: This should be generated in the future
                       currentActivity:
                         newModelData.currentActivity ?? "Unknown",
                       strike: 0, // Initial value: 0
