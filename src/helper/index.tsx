@@ -8,12 +8,14 @@ import { getMealsByDay } from "./model/GetMeals";
 import { createNewModel } from "./model/CreateNewModel";
 import { getImageFromGallery } from "./model/GetImageFromGallery";
 import { getImageFromApp } from "./model/GetImageFromApp";
+import { imageUriToBlob } from "./ImageUriToBlob";
 
 export const helper = {
   sendVerificationMail,
   generateCode,
   getCurrentDay,
   errorModal,
+  imageUriToBlob,
 };
 export const modelHelper = {
   getTrainingsByDay,

@@ -569,3 +569,51 @@ export const updateModelPhotoThunk = createAsyncThunk(
     }
   },
 );
+
+export const generateModelPhotoThunk = createAsyncThunk(
+  "model/generateModelPhoto",
+  async (
+    payload: {
+      currentModel: ModelModel | undefined;
+    },
+    { dispatch },
+  ) => {
+    console.log("Generate image for: ", payload.currentModel?.name);
+    try {
+      if (!payload.currentModel?.name || payload.currentModel?.name === "") {
+        await helper.errorModal({
+          errorMessage: StringsRepo.error.generateModelPhotoFail,
+          message: StringsRepo.error.generateModelPhotoFail,
+          dispatch,
+        });
+        return undefined;
+      }
+
+      await AI.generateModelImage(payload.currentModel?.name).then(
+        async (imageUri) => {
+          if (!!imageUri) {
+            console.log("Image generated", imageUri);
+            await helper
+              .imageUriToBlob(imageUri)
+              .then(async (blob: Blob | undefined) => {
+                if (blob) {
+                  await dispatch(
+                    updateModelPhotoThunk({
+                      currentModel: payload.currentModel,
+                      blob,
+                    }),
+                  );
+                }
+              });
+          }
+        },
+      );
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: e,
+        message: StringsRepo.error.generateModelPhotoFail,
+        dispatch,
+      });
+    }
+  },
+);

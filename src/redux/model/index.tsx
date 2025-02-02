@@ -7,6 +7,7 @@ import {
   completeChallengeModel,
   createModel,
   dailyChecks,
+  generateModelPhoto,
   getModel,
   regenDataModel,
   updateModelPhoto,
@@ -25,4 +26,5 @@ export const modelActions = {
   dailyChecks,
   regenDataModel,
   updateModelPhoto,
+  generateModelPhoto,
 };

@@ -2,6 +2,7 @@ import {
   completeChallengeModelThunk,
   createModelThunk,
   dailyChecksModelThunk,
+  generateModelPhotoThunk,
   getModelThunk,
   regenerateDataModelThunk,
   updateModelPhotoThunk,
@@ -66,5 +67,11 @@ export const updateModelPhoto = (
 ) => {
   return async (dispatch: any) => {
     return await dispatch(updateModelPhotoThunk({ currentModel, blob }));
+  };
+};
+
+export const generateModelPhoto = (currentModel: ModelModel | undefined) => {
+  return async (dispatch: any) => {
+    return await dispatch(generateModelPhotoThunk({ currentModel }));
   };
 };

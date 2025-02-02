@@ -5,6 +5,7 @@ import {
   generateModelCurrentActivity,
   generateModelDescription,
   generateModelFreeTime,
+  generateModelImage,
   generateModelMeals,
   generateModelMotivation,
   generateModelTrainings,
@@ -20,4 +21,5 @@ export const AI = {
   generateModelFreeTime,
   chatRequest,
   verifyNameCorrectness,
+  generateModelImage,
 };
