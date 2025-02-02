@@ -11,6 +11,7 @@ import { style } from "../../../../styles";
 import { pageStyle } from "./pageStyle";
 import { IStore } from "../../../../redux";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export const CurrentModelComplex = (props: CurrentModelComplexModel) => {
   const { model } = useSelector((state: IStore) => state.modelReducer);
@@ -20,7 +21,7 @@ export const CurrentModelComplex = (props: CurrentModelComplexModel) => {
         type={ModelCardType.horizontal}
         title={model?.name ?? "Unknown"}
         description={model?.description ?? "Unknown"}
-        image={model?.image ?? 0}
+        image={model?.image ?? ""}
         onPress={props.onPress}
       />
       <View style={pageStyle.textContainer}>

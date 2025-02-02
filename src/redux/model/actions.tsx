@@ -4,6 +4,7 @@ import {
   dailyChecksModelThunk,
   getModelThunk,
   regenerateDataModelThunk,
+  updateModelPhotoThunk,
 } from "./asyncThunks";
 import { challengeType, ModelModel, RegenDataModel } from "../../models";
 import { rootActions } from "../root";
@@ -56,5 +57,14 @@ export const regenDataModel = (
         }),
       );
     });
+  };
+};
+
+export const updateModelPhoto = (
+  currentModel: ModelModel | undefined,
+  blob: Blob,
+) => {
+  return async (dispatch: any) => {
+    return await dispatch(updateModelPhotoThunk({ currentModel, blob }));
   };
 };

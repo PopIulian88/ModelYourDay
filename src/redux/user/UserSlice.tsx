@@ -8,6 +8,7 @@ import {
   removeModelFromListThunk,
   setSelectedModelThunk,
   signInGoogleThunk,
+  updateModelsListThunk,
   updateNameAndAgeUserThunk,
 } from "./asyncThunks";
 import { SmallModelModel, UserType } from "../../models";
@@ -200,6 +201,23 @@ const UserSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(removeModelFromListThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    //Update modelList model
+    builder.addCase(
+      updateModelsListThunk.fulfilled,
+      (state, action: PayloadAction<SmallModelModel[] | undefined>) => {
+        if (action.payload !== undefined) {
+          state.modelsList = action.payload;
+        }
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(updateModelsListThunk.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(updateModelsListThunk.pending, (state) => {
       state.isLoading = true;
     });
   },

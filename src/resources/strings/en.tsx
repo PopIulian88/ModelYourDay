@@ -2,6 +2,7 @@ export default {
   yes: "Yes",
   error: {
     default: "Error",
+    idDontExist: "ID don't exist",
     settingInitialData: "Error setting initial data",
     createModelNoData: "Create model FAIL: No data",
     createModelFail: "Create model FAIL",
@@ -15,6 +16,8 @@ export default {
     dailyChecksFail: "Daily checks FAIL",
     regenerateDataFail: "Regenerate data FAIL",
     updateNameAndAgeFail: "Update name and age FAIL",
+    updateModelPhotoFail: "Update model photo FAIL",
+    updateModelsListFail: "Update models list FAIL",
   },
   close: "Close",
   register: "Register",
@@ -111,4 +114,6 @@ export default {
   challengeCompletedCongrats: "Challenge completed, congrats!",
   modelDeleted: "Model deleted successfully!",
   dataRegenerated: "Data regenerated successfully!",
+  changeModelImage: "Select a new image for your model!",
+  fromGallery: "From gallery",
 };

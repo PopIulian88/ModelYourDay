@@ -6,7 +6,7 @@ export const createNewModel = async (modelName: string) => {
     id: "Unknown",
     name: "Unknown",
     description: "Unknown",
-    image: 0, // This should be generated in the future
+    image: "", // TODO: This should be generated in the future
     currentActivity: "Unknown",
     strike: 0, // Initial value: 0
     motivation: [],
