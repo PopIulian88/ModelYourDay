@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "372526517273-dj33v6mt32ofcvl4kq6j6148augr56et.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iulianpop.ModelYourDay",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "372526517273-pkkuipn1urmo490mugpims37uhudcog3.apps.googleusercontent.com",
           "client_type": 3
         }
