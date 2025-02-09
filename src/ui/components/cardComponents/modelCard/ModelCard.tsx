@@ -16,7 +16,7 @@ import { Text } from "../../updatedComponents";
 import { Images, Lottie, StringsRepo } from "../../../../resources";
 import { LinearGradient } from "expo-linear-gradient";
 import { style } from "../../../../styles";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Chip } from "../../chip";
 import {
   IStore,
@@ -56,6 +56,11 @@ const ModelCard = (props: ModelCardModel) => {
       rootActions.showModal({
         title: StringsRepo.changeModelImage,
         lottie: Lottie.pizza,
+        secondaryButtonTitle: StringsRepo.generatePhoto,
+        secondaryButtonAction: async () => {
+          dispatch(rootActions.hideModal());
+          await dispatch(modelActions.generateModelPhoto(model));
+        },
         buttonTitle: StringsRepo.fromGallery,
         buttonAction: () => {
           modelHelper

@@ -18,6 +18,7 @@ export default {
     updateNameAndAgeFail: "Update name and age FAIL",
     updateModelPhotoFail: "Update model photo FAIL",
     updateModelsListFail: "Update models list FAIL",
+    generateModelPhotoFail: "Generate model photo FAIL",
   },
   close: "Close",
   register: "Register",
@@ -116,4 +117,5 @@ export default {
   dataRegenerated: "Data regenerated successfully!",
   changeModelImage: "Select a new image for your model!",
   fromGallery: "From gallery",
+  generatePhoto: "Generate photo",
 };

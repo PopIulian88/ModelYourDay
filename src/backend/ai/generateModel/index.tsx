@@ -5,6 +5,7 @@ import { generateModelMeals } from "./generateModelMeals";
 import { generateModelTrainings } from "./generateModelTrainings";
 import { generateModelChallenges } from "./generateModelChallenges";
 import { generateModelFreeTime } from "./generateModelFreeTime";
+import { generateModelImage } from "./generateModelImage";
 
 export {
   generateModelDescription,
@@ -14,4 +15,5 @@ export {
   generateModelTrainings,
   generateModelChallenges,
   generateModelFreeTime,
+  generateModelImage,
 };

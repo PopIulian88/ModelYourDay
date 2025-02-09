@@ -45,8 +45,24 @@ export const createModelThunk = createAsyncThunk(
         image = await snapshot.ref.getDownloadURL();
       });
     }
-
-    // TODO: Generated image
+    // TODO: COMMENT THIS TO NOT GENERATE THE IMAGE
+    // Generated image
+    // if (typeof model.image === "string") {
+    //   await AI.generateModelImage(model.name).then(async (imageUri) => {
+    //     if (!!imageUri) {
+    //       console.log("Image generated", imageUri);
+    //       await helper
+    //         .imageUriToBlob(imageUri)
+    //         .then(async (blob: Blob | undefined) => {
+    //           if (blob) {
+    //             await storageRef.put(blob).then(async (snapshot) => {
+    //               image = await snapshot.ref.getDownloadURL();
+    //             });
+    //           }
+    //         });
+    //     }
+    //   });
+    // }
 
     const newModel: ModelModel = {
       id: newModelId,
@@ -566,6 +582,54 @@ export const updateModelPhotoThunk = createAsyncThunk(
         dispatch,
       });
       return undefined;
+    }
+  },
+);
+
+export const generateModelPhotoThunk = createAsyncThunk(
+  "model/generateModelPhoto",
+  async (
+    payload: {
+      currentModel: ModelModel | undefined;
+    },
+    { dispatch },
+  ) => {
+    console.log("Generate image for: ", payload.currentModel?.name);
+    try {
+      if (!payload.currentModel?.name || payload.currentModel?.name === "") {
+        await helper.errorModal({
+          errorMessage: StringsRepo.error.generateModelPhotoFail,
+          message: StringsRepo.error.generateModelPhotoFail,
+          dispatch,
+        });
+        return undefined;
+      }
+
+      await AI.generateModelImage(payload.currentModel?.name).then(
+        async (imageUri) => {
+          if (!!imageUri) {
+            console.log("Image generated", imageUri);
+            await helper
+              .imageUriToBlob(imageUri)
+              .then(async (blob: Blob | undefined) => {
+                if (blob) {
+                  await dispatch(
+                    updateModelPhotoThunk({
+                      currentModel: payload.currentModel,
+                      blob,
+                    }),
+                  );
+                }
+              });
+          }
+        },
+      );
+    } catch (e: any) {
+      await helper.errorModal({
+        errorMessage: e,
+        message: StringsRepo.error.generateModelPhotoFail,
+        dispatch,
+      });
     }
   },
 );

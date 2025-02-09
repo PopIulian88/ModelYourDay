@@ -4,6 +4,7 @@ import {
   completeChallengeModelThunk,
   createModelThunk,
   dailyChecksModelThunk,
+  generateModelPhotoThunk,
   getModelThunk,
   regenerateDataModelThunk,
   updateModelPhotoThunk,
@@ -131,6 +132,17 @@ const ModelSlice = createSlice({
       state.isModelLoading = false;
     });
     builder.addCase(updateModelPhotoThunk.pending, (state) => {
+      state.isModelLoading = true;
+    });
+
+    //Generate Model photo
+    builder.addCase(generateModelPhotoThunk.fulfilled, (state) => {
+      state.isModelLoading = false;
+    });
+    builder.addCase(generateModelPhotoThunk.rejected, (state) => {
+      state.isModelLoading = false;
+    });
+    builder.addCase(generateModelPhotoThunk.pending, (state) => {
       state.isModelLoading = true;
     });
   },
