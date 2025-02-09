@@ -13,7 +13,7 @@ Send 10$ to get it :)
    
   4.2 Run `npx expo prebuild `
   
-  4.3 Run `npx expo run ios `
+  4.3 Run `npx expo run ios ` or `npx expo run:ios --device`(to select device)
   
   4.4 May need to run `pod install` or `npx pod-install` in the ios folder
   
