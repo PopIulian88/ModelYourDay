@@ -6,9 +6,9 @@ export const createNewModel = async (modelName: string) => {
     id: "Unknown",
     name: "Unknown",
     description: "Unknown",
-    image: "", // TODO: This should be generated in the future
+    image: "", // This is generated when the model is created
     currentActivity: "Unknown",
-    strike: 0, // Initial value: 0
+    strike: 0,
     motivation: [],
     meals: {
       monday: {},

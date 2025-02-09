@@ -45,8 +45,24 @@ export const createModelThunk = createAsyncThunk(
         image = await snapshot.ref.getDownloadURL();
       });
     }
-
-    // TODO: Generated image
+    // TODO: COMMENT THIS TO NOT GENERATE THE IMAGE
+    // Generated image
+    // if (typeof model.image === "string") {
+    //   await AI.generateModelImage(model.name).then(async (imageUri) => {
+    //     if (!!imageUri) {
+    //       console.log("Image generated", imageUri);
+    //       await helper
+    //         .imageUriToBlob(imageUri)
+    //         .then(async (blob: Blob | undefined) => {
+    //           if (blob) {
+    //             await storageRef.put(blob).then(async (snapshot) => {
+    //               image = await snapshot.ref.getDownloadURL();
+    //             });
+    //           }
+    //         });
+    //     }
+    //   });
+    // }
 
     const newModel: ModelModel = {
       id: newModelId,

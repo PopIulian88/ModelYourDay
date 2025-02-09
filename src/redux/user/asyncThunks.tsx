@@ -470,10 +470,6 @@ export const updateModelsListThunk = createAsyncThunk(
               return undefined;
             });
         } else {
-          await helper.errorModal({
-            errorMessage: `${StringsRepo.error.updateModelsListFail}: ${e}`,
-            dispatch,
-          });
           return undefined;
         }
       });
