@@ -118,4 +118,7 @@ export default {
   changeModelImage: "Select a new image for your model!",
   fromGallery: "From gallery",
   generatePhoto: "Generate photo",
+  newChallengeAvailable: "New challenge available!",
+  completeChallengesForNotLoseProgress:
+    "Complete the daily challenges to become closer to your model!",
 };

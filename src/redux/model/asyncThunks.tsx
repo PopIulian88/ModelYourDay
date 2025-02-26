@@ -12,6 +12,8 @@ import { userActions } from "../user";
 import { StringsRepo } from "../../resources";
 import auth from "@react-native-firebase/auth";
 import firebase from "firebase/compat";
+import { schedulePushNotification } from "../../helper/schedulePushNotification";
+import moment from "moment/moment";
 
 export const createModelThunk = createAsyncThunk(
   "model/createModel",
@@ -340,8 +342,23 @@ export const dailyChecksModelThunk = createAsyncThunk(
         payload.currentModel.challengesCompleted.lastUpdated ===
         new Date().toISOString().slice(0, 10)
       ) {
+        // TODO: Uncomment this to test the notification
+        // schedulePushNotification({
+        //   title: StringsRepo.newChallengeAvailable,
+        //   body: StringsRepo.completeChallengesForNotLoseProgress,
+        //   data: {},
+        //   date: moment(new Date()).add(5, "second").toDate(),
+        // });
+
         console.log("Already checked for today");
         return undefined;
+      } else {
+        schedulePushNotification({
+          title: StringsRepo.newChallengeAvailable,
+          body: StringsRepo.completeChallengesForNotLoseProgress,
+          data: {},
+          date: moment(new Date()).add(1, "day").toDate(),
+        });
       }
 
       const lastChallengeDate = new Date(

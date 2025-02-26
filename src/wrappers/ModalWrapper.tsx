@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import { IStore, rootActions, useAppDispatch } from "../redux";
-import { Button, ChatBotModal, Text } from "../ui";
+import { Button, ChatBotModal, Text } from "../ui/components";
 import { style } from "../styles";
 import LottieView from "lottie-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
