@@ -21,7 +21,7 @@ export const sendVerificationMail = async ({
     service_id: emailServiceId,
     template_id: emailTemplateId,
     user_id: emailPublicKey,
-    template_params: emailJs,
+    template_params: templateParams,
   };
 
   await fetch(emailJs ?? "", {

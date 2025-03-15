@@ -47,6 +47,8 @@ const AuthVerification = () => {
       await dispatch(
         userActions.register(
           {
+            id: "",
+            isConnectedWithGoogle: false,
             email: route.params.email,
             username: route.params.username,
             age: route.params.age,

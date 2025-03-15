@@ -60,6 +60,7 @@ const UserSlice = createSlice({
     //Register
     builder.addCase(registerThunk.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.username = action.payload ?? "Jon";
     });
     builder.addCase(registerThunk.rejected, (state) => {
       state.isLoading = false;
