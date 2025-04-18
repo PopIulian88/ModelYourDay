@@ -34,7 +34,7 @@ export const generateModelTrainings: (
                   properties: {
                     monday: {
                       type: "string",
-                      description: `What does ${modelName} train on Monday? Provide training sessions separated by semicolons, and exercises within sessions separated by commas.`,
+                      description: `What does ${modelName} train on Monday? Provide training sessions separated by semicolons, and exercises within sessions separated by commas. Return examples: "chest,triceps" or "chest,triceps;cardio" if it has multiple workouts a day or "yoga;pilates" if the user doesn't go to the gym. If the model is not training return "rest"`,
                     },
                     tuesday: {
                       type: "string",

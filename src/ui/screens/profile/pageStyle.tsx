@@ -18,6 +18,22 @@ export const pageStyle = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
   },
+  chartContainer: {
+    backgroundColor: "white",
+    alignItems: "center",
+    borderRadius: 10,
+    padding: 5,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
   userContainer: {
     alignItems: "center",
     justifyContent: "center",

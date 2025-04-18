@@ -11,16 +11,21 @@ import {
   useAppDispatch,
 } from "../../../redux";
 import { useSelector } from "react-redux";
+import { style as appStyle } from "../../../styles";
 
 export const HeaderComponents = ({
   text,
   dataToReload,
   showReload,
+  showAllButton,
+  onPressShowAll,
   style,
 }: {
   text: string;
   dataToReload: RegenDataModel;
   showReload: boolean;
+  showAllButton?: boolean;
+  onPressShowAll?: () => void;
   style?: StyleProp<ViewStyle>;
 }) => {
   const dispatch = useAppDispatch();
@@ -47,7 +52,19 @@ export const HeaderComponents = ({
 
   return (
     <View style={[pageStyle.container, style]}>
-      <Text type={TextType.headingMD}>{text}</Text>
+      <View style={pageStyle.leftContainer}>
+        <Text type={TextType.headingMD}>{text}</Text>
+        {showAllButton && (
+          <TouchableOpacity style={{ top: 5 }} onPress={onPressShowAll}>
+            <Text
+              type={TextType.body2SM}
+              style={{ color: appStyle.color.sunshade }}
+            >
+              Show all
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
       {showReload && (
         <TouchableOpacity
           hitSlop={10}

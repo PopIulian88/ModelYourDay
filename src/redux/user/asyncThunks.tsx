@@ -39,7 +39,7 @@ export const registerThunk = createAsyncThunk(
         .createUserWithEmailAndPassword(payload.user.email, payload.password)
         .then(async () => {
           console.log("User created SUCCESSFULLY: ", auth().currentUser?.uid);
-          await set(
+          return await set(
             ref(FIREBASE_REALTIME_DB, "users/" + auth().currentUser?.uid),
             {
               id: auth().currentUser?.uid,
@@ -60,6 +60,7 @@ export const registerThunk = createAsyncThunk(
           )
             .then((r) => {
               console.log("User set SUCCESSFULLY");
+              return payload.user.username;
             })
             .catch(async (e) => await registerSettingDataFails(e, dispatch));
         });

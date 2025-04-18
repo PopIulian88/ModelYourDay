@@ -12,11 +12,15 @@ export const GymModelComplex = ({
   trainings,
   day,
   showReload,
+  showAllButton,
+  onPressShowAll,
 }: {
   styles?: StyleProp<ViewStyle>;
   trainings: string[][] | undefined;
   day?: string;
   showReload?: boolean;
+  showAllButton?: boolean;
+  onPressShowAll?: () => void;
 }) => {
   return (
     <View style={[pageStyle.container, styles]}>
@@ -24,6 +28,8 @@ export const GymModelComplex = ({
         text={day ?? StringsRepo.gym}
         dataToReload={RegenDataModel.GYM}
         showReload={showReload ?? true}
+        showAllButton={showAllButton}
+        onPressShowAll={onPressShowAll}
       />
       {trainings ? (
         <FlatList

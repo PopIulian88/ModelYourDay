@@ -22,7 +22,10 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "./google-services.json",
-      "package": "com.iulianpop.ModelYourDay"
+      "package": "com.iulianpop.ModelYourDay",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -53,6 +56,11 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7a06f343-4006-4ada-b130-2963f841c14a"
+      }
+    }
   }
 }

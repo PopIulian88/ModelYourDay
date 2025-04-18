@@ -88,10 +88,24 @@ const HomeScreen = () => {
         <View style={pageStyle.relaxSectionContainer}>
           <FoodModelComplex
             meals={modelHelper.getMealsByDay(helper.getCurrentDay())?.meals}
+            showAllButton={true}
+            onPressShowAll={() => {
+              navigate(
+                // @ts-ignore
+                Routes.modelFood,
+              );
+            }}
           />
           <GymModelComplex
             trainings={
               modelHelper.getTrainingsByDay(helper.getCurrentDay())?.trainings
+            }
+            showAllButton={true}
+            onPressShowAll={() =>
+              navigate(
+                // @ts-ignore
+                Routes.modelGym,
+              )
             }
           />
           <FreetimeListModelComplex />

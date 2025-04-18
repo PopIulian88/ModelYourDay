@@ -29,7 +29,7 @@ export const generateModelCurrentActivity: (
               properties: {
                 param_current_activity: {
                   type: "string",
-                  description: `What is ${modelName} doing now? In 2 words maximum `,
+                  description: `What is ${modelName} doing now? In 2 words maximum. Don't use the name of the model. If the model is dead return "among the stars"`,
                 },
               },
             },

@@ -66,11 +66,13 @@ const ProfileScreen = () => {
             navigate(Routes.chart, { scroll: false });
           }}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          style={pageStyle.chartContainer}
         >
           <Icon
             name={IconAssets.pieChart}
-            size={30}
+            size={25}
             color={style.color.sunshade}
+            style={{ paddingLeft: 2 }}
           />
         </TouchableOpacity>
       </View>
