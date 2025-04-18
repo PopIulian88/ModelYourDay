@@ -88,11 +88,13 @@ const HomeScreen = () => {
         <View style={pageStyle.relaxSectionContainer}>
           <FoodModelComplex
             meals={modelHelper.getMealsByDay(helper.getCurrentDay())?.meals}
+            showAllButton={true}
           />
           <GymModelComplex
             trainings={
               modelHelper.getTrainingsByDay(helper.getCurrentDay())?.trainings
             }
+            showAllButton={true}
           />
           <FreetimeListModelComplex />
         </View>
