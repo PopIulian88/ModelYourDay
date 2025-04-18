@@ -33,7 +33,7 @@ export const generateModelMeals: (
                   properties: {
                     monday: {
                       type: "string",
-                      description: `What does ${modelName} eat on Monday? Provide meals separated by semicolons, and dishes within meals separated by commas.`,
+                      description: `What does ${modelName} eat on Monday? Provide meals separated by semicolons, and dishes within meals separated by commas. Return example: "Scrambled eggs,Apple;Vegetable soup,Chicken with rice,Protein shake;Forehead salad".`,
                     },
                     tuesday: {
                       type: "string",

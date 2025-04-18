@@ -18,7 +18,7 @@ export const generateModelFreeTime: (
         messages: [
           {
             role: "user",
-            content: `Generate multiple lists of activities that ${modelName} would do. Separate lists with ; and sublists with , . Do not add additional headers`,
+            content: `Generate multiple lists of activities that ${modelName} would do. Separate lists with ; and sublists with , . Return example: "reading,cooking;watching movies,playing games"`,
           },
         ],
       }),
@@ -29,7 +29,7 @@ export const generateModelFreeTime: (
     const rawFreeTime =
       jsonResponse.choices?.[0]?.message?.content?.split(";") ?? [];
     const freeTimeList: string[][] =
-      rawFreeTime.map((row: string) => row.split(",")) ?? [];
+      rawFreeTime.map((row: string) => row.trimStart().split(",")) ?? [];
 
     return freeTimeList ?? [];
   } catch (error) {
