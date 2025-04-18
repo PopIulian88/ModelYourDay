@@ -19,12 +19,14 @@ export const FoodModelComplex = ({
   day,
   showReload,
   showAllButton,
+  onPressShowAll,
 }: {
   styles?: StyleProp<ViewStyle>;
   meals?: string[][] | undefined;
   day?: string;
   showReload?: boolean;
   showAllButton?: boolean;
+  onPressShowAll?: () => void;
 }) => {
   return (
     <View style={[pageStyle.container, styles]}>
@@ -33,6 +35,7 @@ export const FoodModelComplex = ({
         dataToReload={RegenDataModel.FOOD}
         showReload={showReload ?? true}
         showAllButton={showAllButton}
+        onPressShowAll={onPressShowAll}
       />
       {meals ? (
         <Fragment>
